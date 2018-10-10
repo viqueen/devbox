@@ -19,6 +19,11 @@
 ### binaries
 
 ```bash
+npm install .
+npm link
+```
+
+```bash
 dev -h
 ```
 
