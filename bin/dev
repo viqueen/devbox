@@ -11,6 +11,11 @@ source selfedit.sh
 # HOUSEKEEPING
 ##############
 
+# @COMMAND addkey                           adds ssh key
+addkey() {
+    ssh-add -K ~/.ssh/id_rsa
+}
+
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
 audit() {
     max=$(_default '500000')
