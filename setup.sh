@@ -10,12 +10,18 @@ function init_mac() {
     brew install cowsay
     brew install fortune
     echo "fortune | cowsay" >> ~/.bash_profile
+    echo "export LSCOLORS=GxFxCxDxBxegedabagacad" >> ~/.bash_profile
+    echo "alias ll='ls -laG'" >> ~/.bash_profile
+    echo "export PS1='\u@\h\w'" >> ~/.bash_profile
+
 }
 
 
 function init_tools() {
     # require jdk being installed first
     brew install jenv
+    echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+    echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 
     brew install mvnvm
     mvn --version
@@ -30,6 +36,7 @@ function init_tools() {
     brew install ant
     brew install gradle
 
+    curl -sLf https://spacevim.org/install.sh | bash
 }
 
 function init_sdks() {
@@ -39,8 +46,9 @@ function init_sdks() {
     echo "export ATLAS_MVN=$(which mvn)" >> ~/.profile
 
     # mobile
-    brew install android-sdk
-    brew install android-ndk
+    brew tap homebrew/cask
+    brew cask install android-sdk
+    brew cask install android-ndk
 }
 
 function config_box() {
@@ -60,7 +68,9 @@ function config_box() {
 
 function config_vim() {
     # install vundle
-    git clone https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
+    if [ ! -d .vim/bundle/Vundle.vim ]; then
+        git clone https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
+    fi
 
     # setup vim
     ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vimrc ~/.vimrc
