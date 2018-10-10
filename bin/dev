@@ -7,7 +7,11 @@
 
 source selfedit.sh
 
-# @COMMAND audit                            checks for folders larger than 500MB in the current directory
+##############
+# HOUSEKEEPING
+##############
+
+# @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
 audit() {
     max=$(_default '500000')
     sudo du -k * | awk "\$1 > $max" | sort -nr
@@ -17,6 +21,38 @@ audit() {
 portid() {
     lsof -i :$1
 }
+
+#####
+# GIT
+#####
+
+# @COMMAND gl                               pretty git log
+gl() {
+    git log --graph --full-history --color --date=iso --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
+}
+
+# @COMMAND master [count?]                  top commiters to the repo
+masters() {
+    count=$(_default $1 40)
+    git log --format=format:%an | sort | uniq -c | sort -r | head -n +${count}
+}
+
+# @COMMAND pull                             git pull from upstream
+pull() {
+    upstream=$(git branch | sed -n '/\* /s///p')
+    git pull origin ${upstream}
+}
+
+# @COMMAND push                             git push to upstream
+push() {
+    upstream=$(git branch | sed -n '/\* /s///p')
+    git push origin ${upstream}
+}
+
+recent() {
+    git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
+}
+
 
 eval $@
 
