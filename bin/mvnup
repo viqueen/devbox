@@ -1,0 +1,40 @@
+#! /usr/bin/env bash
+
+source selfedit.sh
+
+_extract_version() {
+    MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+
+    if [[ ${MVN_VERSION} =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-SNAPSHOT$ ]];
+    then
+        major_version=${BASH_REMATCH[1]}
+        minor_version=${BASH_REMATCH[2]}
+        patch_version=${BASH_REMATCH[3]}
+    else
+        echo invalid snapshot version
+        exit 1
+    fi
+}
+
+_upgrade() {
+    target_version=${1}
+    mvn versions:set -DnewVersion=${target_version} -DgenerateBackupPoms=false
+}
+
+# @COMMAND major        upgrades major version
+function major() {
+    _extract_version
+   _upgrade "$((major_version + 1)).0.0-SNAPSHOT"
+}
+
+# @COMMAND minor        upgrade minor version
+function minor() {
+    _extract_version
+    _upgrade "${major_version}.$((minor_version + 1)).0-SNAPSHOT"
+}
+
+eval $@
+
+if [ -z $1 ]; then
+    $0 -h
+fi
