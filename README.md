@@ -5,7 +5,7 @@
 # installs home_brew and sets some lovely env vars
 ./setup.sh init_mac
 # installs some dev, build tools, along with SpaceVim
-./setup.sh init_tools
+./setup.sh init_dev_tools
 # installs some sdks
 ./setup.sh init_sdks
 ```
@@ -24,6 +24,7 @@ npm link
 ```
 
 ```bash
-dev -h
-mvnup -h
+dev -h          # mainframe
+mvnup -h        # maven version upgrade
+jsonf           # json pretty format
 ```
