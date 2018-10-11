@@ -54,10 +54,26 @@ push() {
     git push origin ${upstream}
 }
 
+# @COMMAND recent                           recent git branches
 recent() {
     git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
 }
 
+#######
+# MAVEN
+#######
+
+build() {
+    mvn -e -T 0.75C clean install -DskipTests=true
+}
+
+setver() {
+    mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false
+}
+
+release() {
+    mvn -N -B release:clean release:prepare release:perform
+}
 
 eval $@
 
