@@ -13,12 +13,15 @@ function init_mac() {
     echo "export LSCOLORS=GxFxCxDxBxegedabagacad" >> ~/.bash_profile
     echo "alias ll='ls -laG'" >> ~/.bash_profile
     echo "export PS1='\u@\h\w'" >> ~/.bash_profile
-
 }
 
+function init_langs() {
+    brew cask install java
+    brew install scala
+    brew install kotlin
+}
 
-function init_tools() {
-    # require jdk being installed first
+function init_dev_tools() {
     brew install jenv
     echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
     echo 'eval "$(jenv init -)"' >> ~/.bash_profile
@@ -35,9 +38,20 @@ function init_tools() {
 
     brew install ant
     brew install gradle
+    brew install sbt
 
-    curl -sLf https://spacevim.org/install.sh | bash
+    brew install neovim
+    curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
+    echo "alias vim='nvim'" >> ~/.bash_profile
+     git config --global core.editor nvim
+
+    curl -s "https://get.sdkman.io" | bash
 }
+
+function init_web_tools() {
+    brew install tomcat
+}
+
 
 function init_sdks() {
     # atlassian
@@ -64,20 +78,6 @@ function config_box() {
 
     # setup pretty git log
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-}
-
-function config_vim() {
-    # install vundle
-    if [ ! -d .vim/bundle/Vundle.vim ]; then
-        git clone https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
-    fi
-
-    # setup vim
-    ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vimrc ~/.vimrc
-    ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vim  ~/.vim
-
-    git config --global core.editor vim
-    vim +PluginInstall +qall
 }
 
 function config_prompt() {
