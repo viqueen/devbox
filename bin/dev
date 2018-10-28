@@ -33,7 +33,12 @@ portid() {
 
 # @COMMAND gl                               pretty git log
 gl() {
-    git log --graph --full-history --color --date=iso --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
+    git log \
+        --graph \
+        --full-history \
+        --color \
+        --date=iso \
+        --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
 }
 
 # @COMMAND master [count?]                  top commiters to the repo
