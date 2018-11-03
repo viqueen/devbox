@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# @LICENSE  Apache-2.0
+# @AUTHOR   Hasnae R.
+# @VERSION  1.0.0
+# 
+source selfedit.sh
+
+ATLAS_SOURCES=~/sources/atlas
+
+########
+# MAVEN
+########
+
+# @COMMAND build          runs atlas-mvn build
+build() {
+  atlas-mvn -e -T 0.75C clean install -DskipTests=true
+}
+
+eval $@
+
+if [ -z ${1} ];
+then
+  cd ${ATLAS_SOURCES}
+fi
