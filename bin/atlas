@@ -6,7 +6,15 @@
 # 
 source selfedit.sh
 
-ATLAS_SOURCES=~/sources/atlas
+ATLAS_SOURCES=~/sources/ATLAS
+
+#########
+# SOURCES
+#########
+
+conf() {
+  cd ${ATLAS_SOURCES}/confluence-server
+}
 
 ########
 # MAVEN
@@ -17,9 +25,15 @@ build() {
   atlas-mvn -e -T 0.75C clean install -DskipTests=true
 }
 
+pi() {
+  product=$(_default $1 confluence)
+  port=$(_default $2 8080)
+  mvn -e ${product}:install -Dhttp.port=${port}
+}
+
 eval $@
 
-if [ -z ${1} ];
+if [[ -z ${1} ]];
 then
   cd ${ATLAS_SOURCES}
 fi
