@@ -2,22 +2,18 @@
 
 source atlassian-product.sh
 
-function start() {
+function product_definition() {
     version=$(_default $1 6.7.0)
-    start_product --product bamboo \
-        --version ${version} \
-        --http-port 6990 \
-        --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version} \
-        --server 127.0.0.1
+    echo "--product bamboo --version ${version} --http-port 6990 --server 127.0.01
+            --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
+}
+
+function start() {
+    start_product $(product_definition $@)
 }
 
 function debug() {
-    version=$(_default $1 6.7.0)
-    debug_product  --product bamboo \
-        --version ${version} \
-        --http-port 6990 \
-        --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version} \
-        --server 127.0.0.1
+    debug_product $(product_definition $@)
 }
 
 eval $@
