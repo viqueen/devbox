@@ -66,7 +66,7 @@ function init_sdks() {
 }
 
 function config_box() {
-    if [ -f ~/.bash_profile ]; then
+    if [[ -f ~/.bash_profile ]]; then
         ln -sfnv ~/.bash_profile ~/.profile
     fi
 
