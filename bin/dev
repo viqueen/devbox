@@ -85,7 +85,14 @@ setver() {
 
 # @COMMAND release                          runs a maven release
 release() {
-    mvn -N -B release:clean release:prepare release:perform
+    mvn -N -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
+}
+
+# @COMMAND setpro                           sets a property value
+setprop() {
+  property_name=${1}
+  property_value=${2}
+  mvn versions:set-property -Dproperty=${property_name} -DnewVersion=${property_value} -DgenerateBackupPoms=false
 }
 
 eval $@
