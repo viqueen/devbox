@@ -1,0 +1,39 @@
+#! /usr/bin/env bash
+#
+# saymyname
+#
+# @LICENSE  Apache-2.0
+# @AUTHOR   Hasnae R. <hrehioui@atlassian.com>
+# @VERSION  1.0.0
+#
+
+source selfedit.sh
+
+eval $@
+
+find_the_longest_java_name() {
+    maxLength=0
+    maxName=""
+    maxPath=""
+
+    while read path
+    do
+        filepath=$(basename ${path})
+        filename="${filepath%.*}"
+        if [ "${#filename}" -gt "$maxLength" ];
+        then
+            maxLength=${#filename}
+            maxName=${filename}
+            maxPath=${path}
+        fi
+    done
+
+    echo "[length : ${#maxName}]: ${maxName}"
+    echo ${maxPath}
+}
+
+if [ -z $1 ];
+then
+  target=$(_default $1 '.')
+  find ${target} -name "*.java" | find_the_longest_java_name
+fi
