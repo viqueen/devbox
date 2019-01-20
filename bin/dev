@@ -27,6 +27,11 @@ portid() {
     lsof -i :$1
 }
 
+# @COMMAND src                              changes directory to viqueen sources dir
+src() {
+  cd ${VIQUEEN_DEVBOX_HOME}/..
+}
+
 #####
 # GIT
 #####
