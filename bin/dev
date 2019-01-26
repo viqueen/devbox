@@ -52,6 +52,16 @@ masters() {
     git log --format=format:%an | sort | uniq -c | sort -r | head -n +${count}
 }
 
+commit() {
+  message=${@}
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+  prefix="noissue"
+  if [[ ${branch_name} =~ ^(.*)/([A-Z]+-[0-9]+)-(.*)$ ]]; then
+    prefix=${BASH_REMATCH[2]}
+  fi
+  git commit -m "${prefix}: ${message}"
+}
+
 # @COMMAND pull                             git pull from upstream
 pull() {
     upstream=$(git branch | sed -n '/\* /s///p')
