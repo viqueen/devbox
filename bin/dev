@@ -84,6 +84,11 @@ merged() {
   git branch --merged | egrep -v "(^\*|master|release)"
 }
 
+# @COMMAND branch                           displays current branch name
+branch() {
+  git rev-parse --abbrev-ref HEAD
+}
+
 #######
 # MAVEN
 #######
