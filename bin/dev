@@ -103,6 +103,11 @@ setver() {
     mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false
 }
 
+# @COMMAND upver                            updates parent pom version to more recent value
+upver() {
+  mvn versions:update-parent -DgenerateBackupPoms=false
+}
+
 # @COMMAND release                          runs a maven release
 release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
