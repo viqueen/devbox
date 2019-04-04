@@ -31,6 +31,25 @@ pi() {
   mvn -e ${product}:install -Dhttp.port=${port}
 }
 
+style() {
+  mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 -Dcheckstyle.failOnViolation=true -DskipITs=true
+}
+
+__capture_at_since() {
+  while read line;
+  do
+    if [[ ${line} =~ ^(.*)(Must contain)(.*)$ ]]; then
+      if [[ ${line} =~ ^(.*/)([a-zA-Z]+.java)(.*)RegexpSinglelineJava(.*)$ ]]; then
+        echo "<suppress id=\"atsince\" files=\"${BASH_REMATCH[2]}\"/>"
+      fi
+    fi
+  done
+}
+
+suppress_atsince() {
+  mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
+}
+
 eval $@
 
 if [[ -z ${1} ]];
