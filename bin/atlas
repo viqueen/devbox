@@ -22,15 +22,17 @@ conf() {
 
 # @COMMAND build          runs atlas-mvn build
 build() {
-  atlas-mvn -e -T 0.75C clean install -DskipTests=true
+  atlas-mvn -e -T 0.75C clean install -DskipTests=true $@
 }
 
+# @COMMAND pi             install atlassian plugin
 pi() {
   product=$(_default $1 confluence)
   port=$(_default $2 8080)
   mvn -e ${product}:install -Dhttp.port=${port}
 }
 
+# @COMMAND style          runs maven checkstyle using confluence codestyle rules
 style() {
   mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 -Dcheckstyle.failOnViolation=true -DskipITs=true
 }
@@ -46,6 +48,7 @@ __capture_at_since() {
   done
 }
 
+# @COMMAND suppress_atsince   because I am lazy and I choose the suppress atSince checkstyle violations
 suppress_atsince() {
   mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
 }
