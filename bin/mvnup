@@ -35,6 +35,6 @@ function minor() {
 
 eval $@
 
-if [ -z $1 ]; then
+if [[ -z $1 ]]; then
     $0 -h
 fi
