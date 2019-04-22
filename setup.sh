@@ -43,7 +43,7 @@ function init_dev_tools() {
     brew install neovim
     curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
     echo "alias vim='nvim'" >> ~/.bash_profile
-     git config --global core.editor nvim
+    git config --global core.editor nvim
 
     curl -s "https://get.sdkman.io" | bash
 }
@@ -51,7 +51,6 @@ function init_dev_tools() {
 function init_web_tools() {
     brew install tomcat
 }
-
 
 function init_sdks() {
     # atlassian
@@ -72,7 +71,7 @@ function config_box() {
 
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.profile
     echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/bin" >> ~/.profile
-
+    echo "export PATH=${PATH}:~/bin" >> ~/.profile
     # setup maven
     echo 'export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"' >> ~/.profile
 
