@@ -49,7 +49,7 @@ _join() {
 _with_arguments() {
     count=${1}
     shift
-    if [ "$#" -lt ${count} ]; then
+    if [[ "$#" -lt ${count} ]]; then
         echo "missing arguments, expected at least ${count} but received $#"
         exit 1
     fi
