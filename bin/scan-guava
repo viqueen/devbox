@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+source selfedit.sh
+
 if [[ -z ${1} ]];
 then
     echo missing packages pattern to scan

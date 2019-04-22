@@ -20,7 +20,7 @@ find_the_longest_java_name() {
     do
         filepath=$(basename ${path})
         filename="${filepath%.*}"
-        if [ "${#filename}" -gt "$maxLength" ];
+        if [[ "${#filename}" -gt "$maxLength" ]];
         then
             maxLength=${#filename}
             maxName=${filename}
@@ -32,7 +32,7 @@ find_the_longest_java_name() {
     echo ${maxPath}
 }
 
-if [ -z $1 ];
+if [[ -z $1 ]];
 then
   target=$(_default $1 '.')
   find ${target} -name "*.java" | find_the_longest_java_name
