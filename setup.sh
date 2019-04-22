@@ -70,8 +70,7 @@ function config_box() {
     fi
 
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.profile
-    echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/bin" >> ~/.profile
-    echo "export PATH=${PATH}:~/bin" >> ~/.profile
+    echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/bin:~/bin" >> ~/.profile
     # setup maven
     echo 'export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"' >> ~/.profile
 
