@@ -120,11 +120,18 @@ release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
 }
 
-# @COMMAND setpro                           sets a property value
+# @COMMAND setpro                           sets a maven property value
 setprop() {
   property_name=${1}
   property_value=${2}
   mvn versions:set-property -Dproperty=${property_name} -DnewVersion=${property_value} -DgenerateBackupPoms=false
+}
+
+# @COMMAND getprop                          gets a maven property value
+getprop() {
+  property_name=${1}
+  execArgs=$(printf '${%s}' ${property_name})
+  mvn -q -Dexec.executable=echo -Dexec.args="'${execArgs}'" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
 }
 
 eval $@
