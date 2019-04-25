@@ -2,8 +2,12 @@
 
 source selfedit.sh
 
+ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/atlassian-products
+
 function run_with_jvm_args() {
     jvm_args="${1}"; shift
+    mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
+    cd ${ATLASSIAN_PRODUCTS_HOME}
     atlas-run-standalone --jvmargs "${jvm_args}" $@
 }
 
