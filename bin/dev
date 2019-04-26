@@ -66,7 +66,7 @@ commit() {
   if [[ ${branch_name} =~ ^(.*)/([A-Z]+-[0-9]+)-(.*)$ ]]; then
     prefix=${BASH_REMATCH[2]}
   fi
-  git commit -m "${prefix}: ${message}"
+  git commit -m "[${prefix}] - ${message}"
 }
 
 # @COMMAND pull                             git pull from upstream
@@ -136,7 +136,7 @@ getprop() {
 
 eval $@
 
-if [ -z $1 ];
+if [[ -z $1 ]];
 then
     cd ${VIQUEEN_DEVBOX_HOME}
 fi
