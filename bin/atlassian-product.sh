@@ -18,3 +18,11 @@ function start_product() {
 function debug_product() {
     run_with_jvm_args "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n" $@
 }
+
+function tail_product_logs() {
+    _with_arguments 2 $@
+    product=${1}
+    version=${2}
+    tail -f ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
+}
+

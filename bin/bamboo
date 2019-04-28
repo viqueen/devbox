@@ -2,8 +2,10 @@
 
 source atlassian-product.sh
 
+DEFAULT_VERSION=6.7.0
+
 function product_definition() {
-    version=$(_default $1 6.7.0)
+    version=$(_default $1 ${DEFAULT_VERSION})
     echo "--product bamboo --version ${version} --http-port 6990 --server 127.0.01
             --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
@@ -14,6 +16,11 @@ function start() {
 
 function debug() {
     debug_product $(product_definition $@)
+}
+
+function logs() {
+  version=$(_default $1 ${DEFAULT_VERSION})
+  tail_product_logs bamboo ${version}
 }
 
 eval $@
