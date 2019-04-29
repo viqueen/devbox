@@ -22,4 +22,9 @@ function logs() {
   tail_product_logs confluence ${version}
 }
 
+function view() {
+  version=$(_default $1 ${DEFAULT_VERSION})
+  view_product_logs confluence ${version}
+}
+
 eval $@

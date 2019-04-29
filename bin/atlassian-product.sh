@@ -26,3 +26,9 @@ function tail_product_logs() {
     tail -f ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }
 
+function view_product_logs() {
+    _with_arguments 2 $@
+    product=${1}
+    version=${2}
+    vim ${ATLASSIAN_PRODUCT_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
+}
