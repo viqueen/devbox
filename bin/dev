@@ -107,31 +107,36 @@ build() {
 
 # @COMMAND setver                           interactively updates the maven version of a project
 setver() {
-    mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false
+    mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
 }
 
 # @COMMAND upver                            updates parent pom version to more recent value
 upver() {
-  mvn versions:update-parent -DgenerateBackupPoms=false
+  mvn versions:update-parent -DgenerateBackupPoms=false $@
 }
 
 # @COMMAND release                          runs a maven release
 release() {
-    mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
+    mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform $@
 }
 
 # @COMMAND setpro                           sets a maven property value
 setprop() {
+  _with_arguments 2 $@
   property_name=${1}
-  property_value=${2}
-  mvn versions:set-property -Dproperty=${property_name} -DnewVersion=${property_value} -DgenerateBackupPoms=false
+  shift
+  property_value=${1}
+  shift
+  mvn versions:set-property -Dproperty=${property_name} -DnewVersion=${property_value} -DgenerateBackupPoms=false $@
 }
 
 # @COMMAND getprop                          gets a maven property value
 getprop() {
+  _with_arguments 1 $@
   property_name=${1}
+  shift
   execArgs=$(printf '${%s}' ${property_name})
-  mvn -q -Dexec.executable=echo -Dexec.args="'${execArgs}'" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec
+  mvn -q -Dexec.executable=echo -Dexec.args="'${execArgs}'" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec $@
 }
 
 eval $@
