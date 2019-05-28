@@ -4,7 +4,7 @@
        xmlns:atlassian-scanner="http://www.atlassian.com/schema/atlassian-scanner"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-        http://www.atlassian.com/schema/atlassian-scanner
-        http://www.atlassian.com/schema/atlassian-scanner/atlassian-scanner.xsd">
+        http://www.atlassian.com/schema/atlassian-scanner/2
+        http://www.atlassian.com/schema/atlassian-scanner/2/atlassian-scanner.xsd">
     <atlassian-scanner:scan-indexes/>
 </beans>
