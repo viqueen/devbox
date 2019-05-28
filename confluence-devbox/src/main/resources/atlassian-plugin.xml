@@ -18,5 +18,12 @@
 
         <context>confluence-devbox</context>
     </web-resource>
-    
+
+    <rest key="confluence-devbox-rest-resources"
+          name="Confluence Devbox Rest Resources"
+          path="/devbox"
+          version="1.0">
+        <package>org.viqueen.devbox.rest</package>
+    </rest>
+
 </atlassian-plugin>
