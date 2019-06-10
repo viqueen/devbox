@@ -23,4 +23,8 @@ function logs() {
   tail_product_logs bamboo ${version}
 }
 
+function versions() {
+  list_versions bamboo
+}
+
 eval $@

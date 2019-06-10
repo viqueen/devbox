@@ -32,3 +32,9 @@ function view_product_logs() {
     version=${2}
     vim ${ATLASSIAN_PRODUCT_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }
+
+function list_versions() {
+    _with_arguments 1 $@
+    product=${1}
+    ls ${ATLASSIAN_PRODUCTS_HOME} | grep ${product}
+}

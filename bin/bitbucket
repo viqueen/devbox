@@ -22,4 +22,8 @@ function logs() {
   tail_product_logs bitbucket ${version}
 }
 
+function versions() {
+  list_versions bitbucket
+}
+
 eval $@

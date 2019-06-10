@@ -22,4 +22,8 @@ function logs() {
   tail_product_logs jira ${version}
 }
 
+function versions() {
+  list_versions jira
+}
+
 eval $@

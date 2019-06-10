@@ -27,4 +27,8 @@ function view() {
   view_product_logs confluence ${version}
 }
 
+function versions() {
+  list_versions confluence
+}
+
 eval $@
