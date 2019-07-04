@@ -2,7 +2,7 @@
 
 source atlassian-product.sh
 
-DEFAULT_VERSION=6.15.2
+DEFAULT_VERSION=6.15.6
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
