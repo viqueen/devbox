@@ -6,7 +6,13 @@ DEFAULT_VERSION=7.4.0
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
-    echo "--product jira --version ${version} --http-port 2990 --server 127.0.01"
+    echo "--product jira
+         --version ${version}
+         --http-port 2990
+         --plugins com.atlassian.jira:jira-func-test-plugin:${version},com.atlassian.jira.tests:jira-testkit-plugin:7.1.9
+         --server 127.0.01
+         -Datlassian.darkfeature.notification.plugin.api.enabled=true
+         -Datlassian.mail.senddisabled=false"
 }
 
 function start() {
