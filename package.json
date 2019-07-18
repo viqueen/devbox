@@ -19,6 +19,7 @@
   "devDependencies": {
     "commander": "^2.20.0",
     "concat-stream": "^1.6.2",
+    "labset-config-js": "^1.0.0",
     "prettyjson": "^1.2.1",
     "query-string": "^6.5.0",
     "request": "^2.88.0",

@@ -1,0 +1,21 @@
+#! /usr/bin/env node
+
+'use strict';
+
+const concat = require('concat-stream');
+const minimist = require('minimist');
+const Configuration = require('labset-config-js').default;
+
+const ops = minimist(process.argv.slice(2));
+
+process.stdin
+    .pipe(
+        concat(
+            function (buffer) {
+                if (buffer.length > 0) {
+                    const json = new Configuration(JSON.parse(buffer.toString()));
+                    console.log(json[ops._[0]]);
+                }
+            }
+        )
+    );

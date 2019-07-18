@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+source curl-base.sh
+
+_pull_request_options() {
+    local OPTIND
+    while getopts ":-:" option; do
+        case ${option} in
+            -)
+                option_name="${OPTARG%=*}"
+                option_value="${OPTARG#*=}"
+                case ${option_name} in
+                    project ) pr_project="${option_value}"      ;;
+                    repo    ) pr_repo="${option_value}"         ;;
+                    title   ) pr_title="${option_value}"        ;;
+                    src     ) pr_src="${option_value}"          ;;
+                    dest    ) pr_dest="${option_value}"         ;;
+                esac
+            ;;
+        esac
+    done
+    return "$((OPTIND - 1))"
+}
+
+# @COMMAND merged_prs
+function merged_prs() {
+    _requires_all pr_project pr_repo
+
+    curl -v -X GET -u "$(_auth)" \
+        "$(_base_url)/rest/api/latest/projects/${pr_project}/repos/${pr_repo}/pull-requests" \
+         $(_render_request_query)
+}
+
+_url_options $@
+shift $?
+
+_with_arguments 1 $@
+action=${1}
+shift
+
+_match_any ${action} 'merged_prs'
+_pull_request_options "$@"
+_query_options "$@"
+
+shift $?
+${action} "$@"
