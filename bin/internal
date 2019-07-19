@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source selfdoc.sh
+
+# @COMMAND edit [script]                    opens current or new bin-script
+edit() {
+    script=~/bin/${1}
+    if [[ -z ${1} ]];
+    then
+        script=${0}
+    fi
+    nvim ${script}
+    chmod +x ${script}
+}
+
+eval $@

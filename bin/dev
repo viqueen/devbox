@@ -102,7 +102,7 @@ branch() {
 
 # @COMMAND build                            runs threaded maven build with skipping tests
 build() {
-    mvn -e -T 0.75C clean install -DskipTests=true $@
+    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
 }
 
 # @COMMAND setver                           interactively updates the maven version of a project

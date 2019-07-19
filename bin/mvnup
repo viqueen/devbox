@@ -3,7 +3,7 @@
 source selfedit.sh
 
 _extract_version() {
-    MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+    MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
 
     if [[ ${MVN_VERSION} =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-SNAPSHOT$ ]];
     then
