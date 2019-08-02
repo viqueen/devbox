@@ -22,6 +22,24 @@ _pull_request_options() {
     return "$((OPTIND - 1))"
 }
 
+_build_options() {
+    local OPTIND
+    while getopts ":-:" option; do
+        case ${option} in
+            -)
+                option_name="${OPTARG%=*}"
+                option_value="${OPTARG#*=}"
+                case ${option_name} in
+                    key     )    build_key="${option_value}"     ;;
+                    state   )    build_state="${option_value}"   ;;
+                    url     )    build_url="${option_value}"     ;;
+                esac
+            ;;
+        esac
+    done
+    return "$((OPTIND - 1))"
+}
+
 # @COMMAND prs
 function prs() {
     _requires_all pr_project pr_repo
@@ -31,6 +49,26 @@ function prs() {
          $(_render_request_query)
 }
 
+# @COMMAND happy build
+function happy_build() {
+    _with_arguments 1 $@
+    commit=${1}
+    shift
+
+    _build_options "$@"
+
+    _requires_all build_state build_key build_url
+
+    curl -v -X POST -u "$(_auth)" \
+        "$(_base_url)/rest/build-status/latest/commits/${commit}" \
+        -H 'Content-Type: application/json' \
+        -d "{\
+\"state\" : \"${build_state}\",    \
+\"key\"   : \"${build_key}\",       \
+\"url\"   : \"${build_url}\"        \
+}"
+}
+
 _url_options $@
 shift $?
 
@@ -38,7 +76,7 @@ _with_arguments 1 $@
 action=${1}
 shift
 
-_match_any ${action} 'prs'
+_match_any ${action} 'prs' 'happy_build'
 _pull_request_options "$@"
 _query_options "$@"
 
