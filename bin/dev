@@ -32,6 +32,16 @@ src() {
   cd ${VIQUEEN_DEVBOX_HOME}/..
 }
 
+# @COMMAND vimr                              vim refresh
+vimr () {
+  vim +PluginInstall +qall
+}
+
+# @COMMAND vimrc                              vim config
+vimrc() {
+  vim ${VIQUEEN_DEVBOX_HOME}/.vimrc
+}
+
 #####
 # GIT
 #####

@@ -40,12 +40,7 @@ function init_dev_tools() {
     brew install gradle
     brew install sbt
 
-    brew install neovim
-    curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
-    echo "alias vim='nvim'" >> ~/.bash_profile
-    git config --global core.editor nvim
-
-    curl -s "https://get.sdkman.io" | bash
+    git config --global core.editor vim
 }
 
 function init_web_tools() {
@@ -76,6 +71,12 @@ function config_box() {
 
     # setup pretty git log
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+}
+
+function config_vim() {
+  # setup vim
+  ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vimrc ~/.vimrc
+  ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vim  ~/.vim
 }
 
 function config_prompt() {
