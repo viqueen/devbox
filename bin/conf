@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+source curl-base.sh
+
+_space_options() {
+    local OPTIND
+    while getopts ":-:" option; do
+        case ${option} in
+            -)
+                option_name="${OPTARG%=*}"
+                option_value="${OPTARG#*=}"
+                case ${option_name} in
+                    key         )   space_key="${option_value}"         ;;
+                    name        )   space_name="${option_value}"        ;;
+                    description )   space_description="${option_value}" ;;
+                esac
+            ;;
+        esac
+    done
+    return "$((OPTIND - 1))"
+}
+
+function create_space() {
+    _requires_all space_key space_name
+
+    curl -v -X POST -u "$(_auth)" "$(_base_url)/rest/api/space" \
+        -H 'Content-Type: application/json' \
+        -d "{\
+\"key\": \"${space_key}\",  \
+\"name\": \"${space_name}\" \
+}"
+}
+
+_url_options "$@"
+shift $?
+
+_with_arguments
+action=${1}
+shift
+
+_match_any ${action} 'create_space'
+_space_options "$@"
+_query_options "$@"
+
+shift $?
+${action} "$@"

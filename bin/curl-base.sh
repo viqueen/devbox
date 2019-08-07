@@ -2,7 +2,6 @@
 
 source selfedit.sh
 
-
 _auth() {
     echo $(_default ${auth} 'admin:admin')
 }
@@ -61,9 +60,9 @@ _match_any() {
 
 _url_options() {
     local OPTIND
-    while getopts ":h:p:c:u:-:" option; do
+    while getopts ":n:p:c:u:-:" option; do
         case ${option} in
-            h) _set_once hostname ${OPTARG}   ;;
+            n) _set_once hostname ${OPTARG}   ;;
             p) _set_once port     ${OPTARG}   ;;
             c) _set_once context  ${OPTARG}   ;;
             u) _set_once auth     ${OPTARG}   ;;
