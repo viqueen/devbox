@@ -66,3 +66,4 @@ typings/
 
 .atlassian-products/
 .vim/
+.DS_Store
