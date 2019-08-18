@@ -130,6 +130,11 @@ release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform $@
 }
 
+# @COMMAND deps                             display dependency updates
+updeps() {
+    mvn versions:display-dependency-updates
+}
+
 # @COMMAND setpro                           sets a maven property value
 setprop() {
   _with_arguments 2 $@
