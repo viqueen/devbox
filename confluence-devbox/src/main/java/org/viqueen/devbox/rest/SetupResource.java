@@ -74,7 +74,7 @@ public class SetupResource {
     @Produces(MediaType.APPLICATION_JSON)
     @XsrfProtectionExcluded
     public Response createUsers(@DefaultValue("1") @QueryParam("start") final int start,
-                                @DefaultValue("20") @QueryParam("count") final int count) {
+                                @DefaultValue("80") @QueryParam("count") final int count) {
 
         final Map<String, Map<String, String>> users = new HashMap<>();
 
