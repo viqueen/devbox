@@ -3,18 +3,19 @@
 source atlassian-product.sh
 
 DEFAULT_VERSION=6.15.6
+SYNCHRONY_PORT=9091
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
-    echo "--product confluence --version ${version} --http-port 8080 --server 127.0.0.1"
+    echo "--product confluence --version ${version} --server 127.0.0.1 --ajp-port 9009"
 }
 
 function start() {
-    start_product $(product_definition $@)
+    run_with_jvm_args "-Xmx2048m -Dsynchrony.port=${SYNCHRONY_PORT}" $(product_definition $@)
 }
 
 function debug() {
-    debug_product $(product_definition $@)
+    run_with_jvm_args "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n -Dsynchrony.port=${SYNCHRONY_PORT}" $(product_definition $@)
 }
 
 function logs() {
