@@ -15,6 +15,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'elzr/vim-json'
 Plugin 'gkapfham/vim-vitamin-onec'
 Plugin 'kien/ctrlp.vim'
+Plugin 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

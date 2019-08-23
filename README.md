@@ -9,6 +9,10 @@ npm link
 
 # optional, to setup the prompt line
 ./setup.sh config_prompt
+
+# optional, to setup vim
+./setup.sh config_vim
+
 ```
 
 ### macOs dev setup
