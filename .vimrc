@@ -16,6 +16,7 @@ Plugin 'elzr/vim-json'
 Plugin 'mushanyoung/vim-windflower'
 Plugin 'kien/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'sainnhe/edge'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -28,8 +29,11 @@ au BufNewFile,BufRead .babelrc set filetype=json
 
 autocmd BufWritePre * :%s/\s\+$//e
 
+set termguicolors
+
 " Display the colorscheme
-colorscheme windflower
+set background=dark
+colorscheme edge
 
 """ ui
 syntax on

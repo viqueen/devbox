@@ -4,3 +4,6 @@
 [submodule ".vim/bundle/vim-windflower"]
 	path = .vim/bundle/vim-windflower
 	url = https://github.com/mushanyoung/vim-windflower.git
+[submodule ".vim/bundle/edge"]
+	path = .vim/bundle/edge
+	url = https://github.com/sainnhe/edge.git
