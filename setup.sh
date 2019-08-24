@@ -67,6 +67,10 @@ function config_box() {
     echo "alias ll='ls -la'" >> ~/.profile
     echo "alias please=sudo" >> ~/.profile
 
+    echo "export PS1='\u@\h\w'" >> ~/.profile
+    echo "export CLICOLOR=1" >> ~/.profile
+    echo "export LSCOLORS=GxFxCxDxBxegedabagaced" >> ~/.profile
+
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.profile
     echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/bin:~/bin" >> ~/.profile
     # setup maven
