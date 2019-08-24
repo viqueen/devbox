@@ -64,6 +64,7 @@ function config_box() {
         ln -sfnv ~/.bash_profile ~/.profile
     fi
 
+    echo "alias ll='ls -la'" >> ~/.profile
     echo "alias please=sudo" >> ~/.profile
 
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.profile

@@ -67,3 +67,5 @@ typings/
 .atlassian-products/
 .vim/
 .DS_Store
+
+docker-images/teknologi/Dockerfile
