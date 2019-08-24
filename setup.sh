@@ -10,9 +10,6 @@ function init_mac() {
     brew install cowsay
     brew install fortune
     echo "fortune | cowsay" >> ~/.bash_profile
-    echo "export LSCOLORS=GxFxCxDxBxegedabagacad" >> ~/.bash_profile
-    echo "alias ll='ls -laG'" >> ~/.bash_profile
-    echo "export PS1='\u@\h\w'" >> ~/.bash_profile
 }
 
 function init_langs() {
@@ -84,6 +81,8 @@ function config_vim() {
   # setup vim
   ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vimrc ~/.vimrc
   ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.vim  ~/.vim
+  git config --global core.editor "vim"
+  vim +PluginInstall +qall
 }
 
 function config_prompt() {
