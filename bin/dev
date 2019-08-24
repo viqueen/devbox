@@ -130,7 +130,7 @@ release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform $@
 }
 
-# @COMMAND deps                             display dependency updates
+# @COMMAND updeps                             display dependency updates
 updeps() {
     mvn versions:display-dependency-updates
 }
