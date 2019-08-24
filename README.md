@@ -1,5 +1,14 @@
 # devbox
 
+### Playground - try it before you buy it
+
+```bash
+# comes with openjdk 8
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-alpine
+# comes with openjdk 14
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:14-alpine
+```
+
 ### Setup and Configure
 ```bash
 # required
