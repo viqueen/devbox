@@ -1,6 +1,6 @@
 # devbox
 
-### config
+### Setup and Configure
 ```bash
 # required
 ./setup.sh config_box
@@ -12,10 +12,11 @@ npm link
 
 # optional, to setup vim
 ./setup.sh config_vim
-
 ```
 
-### macOs dev setup
+### Optional - macOs dev setup
+
+These are more cheat sheets than anything else, and only used on brand new computers
 ```bash
 # installs home_brew and sets some lovely env vars
 ./setup.sh init_mac
@@ -25,7 +26,7 @@ npm link
 ./setup.sh init_sdks
 ```
 
-### binaries
+### Scripts and Binaries
 
 #### generic stuff
 

@@ -12,6 +12,17 @@ RUN mkdir -p /usr/local/bin \
     && mvn --version \
     && rm mvnvm.properties
 
+# atlassian sdk
+RUN mkdir -p /tmp/downloads \
+    && cd /tmp/downloads \
+    && wget -O atlassian-plugin-sdk.tar.gz https://marketplace.atlassian.com/download/plugins/atlassian-plugin-sdk-tgz \
+    && mkdir -p /opt/atlassian-plugin-sdk \
+    && cd /opt/atlassian-plugin-sdk \
+    && tar -xvf /tmp/downloads/atlassian-plugin-sdk.tar.gz --strip 1 \
+    && rm -rf /tmp/downloads
+
+ENV PATH=${PATH}:/opt/atlassian-plugin-sdk/bin
+
 # devbox
 RUN mkdir -p ~/sources \
     && git clone --recursive https://github.com/viqueen/devbox.git ~/sources/devbox \
@@ -20,3 +31,4 @@ RUN mkdir -p ~/sources \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
     && ln -sfnv ~/.profile ~/.bashrc
+
