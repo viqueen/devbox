@@ -1,4 +1,7 @@
 #! /usr/bin/env bash
+# @VERSION 1.0.0
+# @AUTHOR Hasnae R.
+# @LICENSE Apache-2.0
 
 source selfedit.sh
 
@@ -11,6 +14,7 @@ _image() {
     echo "viqueen/${1}:${version}"
 }
 
+# @COMMAND build [name] [tag]       builds a docker image in viqueen namespace
 function build() {
     image=$(_image $@)
     target=${DOCKER_IMAGES_HOME}/${1}/
@@ -22,6 +26,7 @@ function build() {
     docker build -t ${image} ${target}/ $@
 }
 
+# @COMMAND push [name] [tag]        pushes a docker image to viqueen namespace on docker hub
 function push() {
     image=$(_image $@)
     shift
@@ -29,6 +34,7 @@ function push() {
     docker push ${image} $@
 }
 
+# @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
 function run() {
     image=$(_image $@)
     docker run -it --entrypoint=/bin/bash ${image}
