@@ -14,6 +14,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'elzr/vim-json'
 Plugin 'gkapfham/vim-vitamin-onec'
+Plugin 'mushanyoung/vim-windflower'
 Plugin 'kien/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 
@@ -28,11 +29,8 @@ au BufNewFile,BufRead .babelrc set filetype=json
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Use full color in the terminal
-set termguicolors
-
 " Display the colorscheme
-colorscheme vitaminonec
+colorscheme windflower
 
 """ ui
 syntax on
@@ -44,6 +42,7 @@ set number
 set cursorline
 
 hi CursorLine cterm=bold
+hi Normal guibg=NONE ctermbg=NONE
 
 """ search
 set ignorecase
