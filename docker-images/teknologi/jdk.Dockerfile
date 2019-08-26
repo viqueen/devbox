@@ -19,7 +19,8 @@ RUN mkdir -p /tmp/downloads \
     && mkdir -p /opt/atlassian-plugin-sdk \
     && cd /opt/atlassian-plugin-sdk \
     && tar -xvf /tmp/downloads/atlassian-plugin-sdk.tar.gz --strip 1 \
-    && rm -rf /tmp/downloads
+    && rm -rf /tmp/downloads \
+    && mkdir -p ~/sources/ATLAS
 
 ENV PATH=${PATH}:/opt/atlassian-plugin-sdk/bin
 
