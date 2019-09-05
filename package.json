@@ -19,10 +19,12 @@
   "devDependencies": {
     "commander": "^2.20.0",
     "concat-stream": "^1.6.2",
+    "express": "^4.17.1",
     "labset-config-js": "^1.0.0",
     "prettyjson": "^1.2.1",
     "query-string": "^6.5.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "serve-index": "^1.9.1"
   }
 }

@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+
+'use strict';
+
+const express = require('express');
+const serveIndex = require('serve-index');
+const path = require('path');
+const app = express();
+const port = 3000;
+
+const resources = path.join(__dirname, '../.static-resources');
+app.use('/', express.static(resources), serveIndex(resources, { icons: true }));
+app.listen(port, () => console.log(`Serving static resources on port ${port}`));
