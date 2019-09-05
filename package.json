@@ -2,6 +2,9 @@
   "name": "devbox",
   "version": "1.0.0",
   "description": "viqueen devbox",
+  "scripts": {
+    "static": "static | ./node_modules/.bin/bunyan -j"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/viqueen/devbox.git"
@@ -17,12 +20,16 @@
   },
   "homepage": "https://github.com/viqueen/devbox#readme",
   "devDependencies": {
+    "bunyan": "^1.8.12",
     "commander": "^2.20.0",
     "concat-stream": "^1.6.2",
+    "express": "^4.17.1",
+    "express-bunyan-logger": "^1.3.3",
     "labset-config-js": "^1.0.0",
     "prettyjson": "^1.2.1",
     "query-string": "^6.5.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "serve-index": "^1.9.1"
   }
 }
