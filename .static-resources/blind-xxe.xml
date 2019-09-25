@@ -1,6 +1,0 @@
-<?xml version="1.0" ?>
-<!DOCTYPE r [
-<!ELEMENT r ANY >
-<!ENTITY sp SYSTEM "http://localhost:3000/ohno.txt">
-]>
-<r>&sp;</r>

