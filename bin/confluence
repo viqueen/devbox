@@ -7,7 +7,11 @@ SYNCHRONY_PORT=9091
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
-    echo "--product confluence --version ${version} --server 127.0.0.1 --ajp-port 9009"
+    echo "--product confluence
+          --version ${version}
+          --http-port 8080
+          --server 127.0.0.1
+          --ajp-port 8009"
 }
 
 function start() {
