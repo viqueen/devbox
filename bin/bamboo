@@ -6,8 +6,12 @@ DEFAULT_VERSION=6.7.0
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
-    echo "--product bamboo --version ${version} --http-port 6990 --server 127.0.01
-            --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
+    echo "--product bamboo
+          --version ${version}
+          --http-port 6990
+          --ajp-port 6009
+          --server 127.0.0.1
+          --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
 function start() {

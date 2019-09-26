@@ -6,7 +6,11 @@ DEFAULT_VERSION=5.16.0
 
 function product_definition() {
     version=$(_default $1 ${DEFAULT_VERSION})
-    echo "--product bitbucket --version ${version} --http-port 7990 --server 127.0.01"
+    echo "--product bitbucket
+          --version ${version}
+          --http-port 7990
+          --ajp-port 7009
+          --server 127.0.0.1"
 }
 
 function start() {
