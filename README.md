@@ -49,6 +49,8 @@ saymyname       # finds the longest java class name in a directory , I was bored
 
 #### atlassian stuff
 
+It comes with the following product scripts that behave exactly the same
+
 ```bash
 atlas -h        # mainframe
 # running and debugging atlassian server instances
@@ -57,6 +59,32 @@ jira -h
 bitbucket -h
 bamboo -h
 ```
+
+Each of them comes the following functions
+`start [version]`
+`debug [version]`
+`logs [version]`
+`versions`
+
+so in the case of confluence, I usually investigate bugs by launching the version they were reported on
+
+* start the instance
+`confluence start 6.15.4`
+* monitor the logs
+`confluence logs 6.15.4`
+* list the version I have already installed
+`confluence versions`
+
+but where are all those instances stored ?
+
+fun fact, you can use the following command to navigate to where devbox is installed
+
+`. dev`
+
+and then you will find your standalone instances available under
+
+`devbox/.atlassian-products/`
+
 
 #### confluence devbox
 
@@ -80,3 +108,4 @@ confdev post setup smtp-server
 # create multiple users
 confdev post setup users
 ```
+
