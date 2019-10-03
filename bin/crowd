@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+source atlassian-product.sh
+
+DEFAULT_VERSION=3.6.0
+
+function product_definition() {
+  version=$(_default $1 ${DEFAULT_VERSION})
+  echo "--product crowd
+        --version ${version}
+        --server 127.0.0.1"
+}
+
+function start() {
+  start_product $(product_definition $@)
+}
+
+function debug() {
+  debug_product $(product_definition $@)
+}
+
+function logs() {
+  version=$(_default $1 ${DEFAULT_VERSION})
+  tail_product_logs crowd ${version}
+}
+
+function versions() {
+  list_versions crowd
+}
+
+eval $@
