@@ -34,6 +34,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "serve-index": "^1.9.1",
-    "simple-ftpd": "0.0.4"
+    "simple-ftpd": "0.0.4",
+    "xml-formatter": "^1.1.0"
   }
 }
