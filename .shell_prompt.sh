@@ -7,7 +7,14 @@ function __promptline_host {
   local only_if_ssh="0"
 
   if [ $only_if_ssh -eq 0 -o -n "${SSH_CLIENT}" ]; then
-    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+    if [[ -n ${ZSH_VERSION-} ]]; then
+      print %m;
+    elif [[ -n ${FISH_VERSION-} ]]; then
+      hostname -s;
+    else
+      computer_name=$(scutil --get LocalHostName)
+      printf "%s" "${computer_name}";
+    fi
   fi
 }
 
