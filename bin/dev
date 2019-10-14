@@ -91,6 +91,12 @@ push() {
     git push origin ${upstream}
 }
 
+# @COMMAND fetch                            git fetch and git pull from origin
+fetch() {
+    upstream=$(git branch | sed -n '/\* /s///p')
+    git fetch && git pull origin ${upstream}
+}
+
 # @COMMAND recent                           recent git branches
 recent() {
     git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
