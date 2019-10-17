@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-'use strict'
+'use strict';
 
 const prettyXml = require('xml-formatter');
 const concatStream = require('concat-stream');
@@ -12,7 +12,7 @@ process
       function (buffer) {
         if (buffer.length > 0) {
           const xml = buffer.toString();
-          console.log(prettyXml(xml));
+          console.log(prettyXml(xml, {}));
         }
       }
     )
