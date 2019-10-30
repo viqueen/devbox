@@ -14,24 +14,34 @@ function product_definition() {
           --ajp-port 8009"
 }
 
+# @COMMAND start [version]    starts confluence on port 8080
 function start() {
     run_with_jvm_args "-Xmx2048m -Dsynchrony.port=${SYNCHRONY_PORT}" $(product_definition $@)
 }
 
+# @COMMAND debug [version]    start confluence on port 8080 and open debug port 5005
 function debug() {
     run_with_jvm_args "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n -Dsynchrony.port=${SYNCHRONY_PORT}" $(product_definition $@)
 }
 
+# @COMMAND clean [version]    cleans confluence install directory
+function clean() {
+  clean_product confluence $@
+}
+
+# @COMMAND logs [version]     tails confluence logs
 function logs() {
   version=$(_default $1 ${DEFAULT_VERSION})
   tail_product_logs confluence ${version}
 }
 
+# @COMMAND view [version]     view confluence logs
 function view() {
   version=$(_default $1 ${DEFAULT_VERSION})
   view_product_logs confluence ${version}
 }
 
+# @COMMAND versions           lists installed confluence versions
 function versions() {
   list_versions confluence
 }

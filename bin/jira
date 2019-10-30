@@ -29,6 +29,10 @@ function logs() {
   tail_product_logs jira ${version}
 }
 
+function clean() {
+  clean_product jira $@
+}
+
 function versions() {
   list_versions jira
 }

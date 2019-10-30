@@ -24,6 +24,10 @@ function logs() {
   tail_product_logs crowd ${version}
 }
 
+function clean() {
+  clean_product crowd $@
+}
+
 function versions() {
   list_versions crowd
 }
