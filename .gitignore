@@ -69,4 +69,4 @@ typings/
 .vim/
 .DS_Store
 
-docker-images/teknologi/Dockerfile
+docker-images/**/Dockerfile

@@ -8,36 +8,43 @@ source selfedit.sh
 DOCKER_IMAGES_HOME=${VIQUEEN_DEVBOX_HOME}/docker-images
 
 _image() {
+    # shellcheck disable=SC2068
     _with_arguments 2 $@
     name=${1}
     version=${2}
-    echo "viqueen/${1}:${version}"
+    echo "viqueen/${name}:${version}"
 }
 
 # @COMMAND build [name] [tag]       builds a docker image in viqueen namespace
 function build() {
+    # shellcheck disable=SC2068
     image=$(_image $@)
     target=${DOCKER_IMAGES_HOME}/${1}/
-    sed "s/\${JDK_VERSION}/${2}/g" ${target}/jdk.Dockerfile > ${target}/Dockerfile
+    sed "s/\${JDK_VERSION}/${2}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
 
     shift
     shift
 
-    docker build -t ${image} ${target}/ $@
+    # shellcheck disable=SC2068
+    docker build -t "${image}" "${target}"/ $@
 }
 
 # @COMMAND push [name] [tag]        pushes a docker image to viqueen namespace on docker hub
 function push() {
+    # shellcheck disable=SC2068
     image=$(_image $@)
     shift
     shift
-    docker push ${image} $@
+    # shellcheck disable=SC2068
+    docker push "${image}" $@
 }
 
 # @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
 function run() {
+    # shellcheck disable=SC2068
     image=$(_image $@)
-    docker run -it --entrypoint=/bin/bash ${image}
+    docker run -it --entrypoint=/bin/bash "${image}"
 }
 
+# shellcheck disable=SC2068
 eval $@
