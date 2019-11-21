@@ -3,10 +3,11 @@
 # @LICENSE  Apache-2.0
 # @AUTHOR   Hasnae R.
 # @VERSION  1.0.0
-# 
+#
 source selfedit.sh
 
 ATLAS_SOURCES=~/sources/ATLAS
+ATLAS_GO_SOURCES=~/sources/ATLAS_GO
 
 #########
 # SOURCES
@@ -14,6 +15,29 @@ ATLAS_SOURCES=~/sources/ATLAS
 
 conf() {
   cd ${ATLAS_SOURCES}/confluence-server
+}
+
+goo() {
+  cd ${ATLAS_GO_SOURCES}/src
+}
+
+gclone() {
+  set -ex
+  _with_arguments 1 $@
+  git_url=${1}
+
+  if [[ ${git_url} =~ ^git@([a-zA-Z\.]+):([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)\.git$ ]];
+  then
+    host=${BASH_REMATCH[1]}
+    owner=${BASH_REMATCH[2]}
+    module=${BASH_REMATCH[3]}
+
+    mkdir -p "${ATLAS_GO_SOURCES}/src/${host}/${owner}"
+    git clone ${git_url} "${ATLAS_GO_SOURCES}/src/${host}/${owner}/${module}"
+  else
+    echo invalid git_url
+    exit 1
+  fi
 }
 
 ########
