@@ -11,9 +11,11 @@ function __promptline_host {
       print %m;
     elif [[ -n ${FISH_VERSION-} ]]; then
       hostname -s;
-    else
+    elif [ -x "$(command -v scutil)" ]; then
       computer_name=$(scutil --get LocalHostName)
       printf "%s" "${computer_name}";
+    else
+      printf "%s" \\h;
     fi
   fi
 }
