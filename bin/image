@@ -19,8 +19,10 @@ _image() {
 function build() {
     # shellcheck disable=SC2068
     image=$(_image $@)
-    target=${DOCKER_IMAGES_HOME}/${1}/
-    sed "s/\${JDK_VERSION}/${2}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
+    name=${1}
+    jdkVersion=${2}
+    target=${DOCKER_IMAGES_HOME}/${name}/
+    sed "s/\${JDK_VERSION}/${jdkVersion}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
 
     shift
     shift

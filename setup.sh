@@ -2,60 +2,6 @@
 
 VIQUEEN_DEVBOX_HOME=$(cd "$(dirname "$0")" && pwd -P)
 
-function init_mac() {
-    # home_brew
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-    # terminal wisdom
-    brew install cowsay
-    brew install fortune
-    echo "fortune | cowsay" >> ~/.bash_profile
-}
-
-function init_langs() {
-    brew cask install java
-    brew install scala
-    brew install kotlin
-}
-
-function init_dev_tools() {
-    brew install jenv
-    echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
-    echo 'eval "$(jenv init -)"' >> ~/.bash_profile
-
-    brew install mvnvm
-    mvn --version
-
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-    nvm install node
-
-    brew tap bazelbuild/tap
-    brew tap-pin bazelbuild/tap
-    brew install bazel
-
-    brew install ant
-    brew install gradle
-    brew install sbt
-
-    git config --global core.editor vim
-}
-
-function init_web_tools() {
-    brew install tomcat
-}
-
-function init_sdks() {
-    # atlassian
-    brew tap atlassian/tap
-    brew install atlassian/tap/atlassian-plugin-sdk
-    echo "export ATLAS_MVN=$(which mvn)" >> ~/.profile
-
-    # mobile
-    brew tap homebrew/cask
-    brew cask install android-sdk
-    brew cask install android-ndk
-}
-
 function config_box() {
     if [[ -f ~/.bash_profile ]]; then
         ln -sfnv ~/.bash_profile ~/.profile

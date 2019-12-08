@@ -4,7 +4,6 @@ ARG MAVEN_VERSION=3.6.2
 
 RUN apt-get update \
     && apt-get install -y curl unzip wget
-# git vim ruby
 
 # maven
 RUN mkdir -p /usr/local/bin \

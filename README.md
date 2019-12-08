@@ -2,6 +2,7 @@
 
 ### Playground - try it before you buy it
 
+* alpine
 ```bash
 # comes with openjdk 8
 docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-alpine
@@ -9,8 +10,17 @@ docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-alpine
 docker run -it --entrypoint=/bin/bash viqueen/teknologi:14-alpine
 ```
 
-### Setup and Configure
+* ubuntu
 ```bash
+# comes with openjdk 11
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:11-slim
+```
+
+### Setup and Configure
+
+```bash
+git clone --recursive https://github.com/viqueen/devbox.git
+
 # required
 ./setup.sh config_box
 npm install .
@@ -21,19 +31,90 @@ npm link
 
 # optional, to setup vim
 ./setup.sh config_vim
+git config --global core.editor vim
 ```
 
 ### Optional - macOs dev setup
 
-These are more cheat sheets than anything else, and only used on brand new computers
+<details>
+<summary>init_mac</summary>
+<p>
+
 ```bash
-# installs home_brew and sets some lovely env vars
-./setup.sh init_mac
-# installs some dev, build tools, along with SpaceVim
-./setup.sh init_dev_tools
-# installs some sdks
-./setup.sh init_sdks
+# home_brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# terminal wisdom
+brew install cowsay
+brew install fortune
+echo "fortune | cowsay" >> ~/.bash_profile
 ```
+
+</p>
+</details>
+
+<details>
+<summary>init_dev_tools</summary>
+<p>
+
+##### Requirements
+
+* [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
+
+```bash
+# java
+brew install jenv
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+
+# maven
+brew install mvnvm
+mvn --version
+
+# node (TODO: provide through brew)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+nvm install node
+
+# ruby
+brew install rbenv
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+
+# other build tools
+brew install ant
+brew install gradle
+brew install sbt
+
+brew tap bazelbuild/tap
+brew tap-pin bazelbuild/tap
+brew install bazel
+
+
+# aws
+brew install awscli
+```
+
+</p>
+</details>
+
+<details>
+<summary>init_languages and init_sdks</summary>
+<p>
+
+```bash
+# atlassian
+brew tap atlassian/tap
+brew install atlassian/tap/atlassian-plugin-sdk
+echo "export ATLAS_MVN=$(which mvn)" >> ~/.profile
+```
+
+```bash
+brew install scala
+brew install kotlin
+```
+
+</p>
+</details>
+
 
 ### Scripts and Binaries
 
