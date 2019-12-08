@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+source elastic-product.sh
+
+# @COMMAND get [version]        cd to logstash product version
+function get() {
+  _with_arguments 1 $@
+  version=${1}
+  mkdir -p ${ELASTIC_PRODUCTS_HOME}
+  _maybe_download_product logstash logstash ${version}
+  cd ${ELASTIC_PRODUCTS_HOME}/logstash-${version}
+}
+
+eval $@

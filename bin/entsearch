@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+source elastic-product.sh
+
+ELASTIC_ARTIFACTS_URL="https://download.elastic.co/downloads"
+
+# @COMMAND get [version]        cd to enterprise search product version
+function get() {
+  _with_arguments 1 $@
+  version=${1}
+  mkdir -p ${ELASTIC_PRODUCTS_HOME}
+  _maybe_download_product enterprisesearch enterprise-search ${version}
+  cd ${ELASTIC_PRODUCTS_HOME}/enterprise-search-${version}
+}
+
+eval $@

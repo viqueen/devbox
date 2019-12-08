@@ -65,6 +65,7 @@ typings/
 *.iml
 
 .atlassian-products/
+.elastic-products/
 .static-resources/
 .vim/
 .DS_Store
