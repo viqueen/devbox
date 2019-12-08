@@ -13,19 +13,29 @@ function product_definition() {
           --server 127.0.0.1"
 }
 
+# @COMMAND start [version]      starts bitbucket on port 7990
 function start() {
     start_product $(product_definition $@)
 }
 
+# @COMMAND debug [version]      starts bitbucket on port 7990 and opens debug port 5005
 function debug() {
     debug_product $(product_definition $@)
 }
 
+# @COMMAND clean [version]      cleans bitbucket install directory for given version
+function clean() {
+  _with_argument 1 $@
+  clean_product bitbucket $@
+}
+
+# @COMMAND logs [version]       tails bitbucket logs
 function logs() {
   version=$(_default $1 ${DEFAULT_VERSION})
   tail_product_logs bitbucket ${version}
 }
 
+# @COMMAND versions             lists installed bitbucket versions
 function versions() {
   list_versions bitbucket
 }
