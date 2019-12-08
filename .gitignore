@@ -70,4 +70,5 @@ typings/
 .vim/
 .DS_Store
 
+*.swp
 docker-images/**/Dockerfile

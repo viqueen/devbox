@@ -54,7 +54,7 @@ build() {
 pi() {
   product=$(_default $1 confluence)
   port=$(_default $2 8080)
-  mvn -e ${product}:install -Dhttp.port=${port}
+  atlas-mvn -e ${product}:install -Dhttp.port=${port}
 }
 
 # @COMMAND style          runs maven checkstyle using confluence codestyle rules

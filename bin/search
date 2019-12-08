@@ -11,4 +11,14 @@ function get() {
     cd ${ELASTIC_PRODUCTS_HOME}/elasticsearch-${version}
 }
 
+function clean() {
+    _with_arguments 1 $@
+    version=${1}
+    _clean_product elasticsearch ${version}
+}
+
+function versions() {
+    _list_versions elasticsearch
+}
+
 eval $@
