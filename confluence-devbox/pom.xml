@@ -15,7 +15,7 @@
     <name>confluence-devbox</name>
 
     <properties>
-        <amps.version>8.0.2</amps.version>
+        <amps.version>6.3.21</amps.version>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <atlassian.spring.scanner.version>2.1.10</atlassian.spring.scanner.version>
 
@@ -39,6 +39,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.atlassian.confluence</groupId>
@@ -69,7 +70,7 @@
         <plugins>
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>confluence-maven-plugin</artifactId>
+                <artifactId>maven-confluence-plugin</artifactId>
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>

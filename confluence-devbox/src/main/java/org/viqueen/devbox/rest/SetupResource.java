@@ -74,7 +74,7 @@ public class SetupResource {
     @Produces(MediaType.APPLICATION_JSON)
     @XsrfProtectionExcluded
     public Response createUsers(@DefaultValue("1") @QueryParam("start") final int start,
-                                @DefaultValue("80") @QueryParam("count") final int count) {
+                                @DefaultValue("20") @QueryParam("count") final int count) {
 
         final Map<String, Map<String, String>> users = new HashMap<>();
 
@@ -83,7 +83,7 @@ public class SetupResource {
                     final Faker faker = LOCALES[index % 23];
                     final String firstName = faker.name().firstName();
                     final String lastName = faker.name().lastName();
-                    final String email = format("%s.%s@confluence-devbox.org", firstName, lastName);
+                    final String email = faker.internet().emailAddress();
                     final String userName = format("user-%d", index);
 
                     final DefaultUser defaultUser = new DefaultUser();
