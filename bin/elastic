@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+source elastic-product.sh
+
+list() {
+    ls -lrt ${ELASTIC_PRODUCTS_HOME}
+}
+
+clean() {
+    rm -rf ${ELASTIC_PRODUCTS_HOME}/*
+}
+
+eval $@
