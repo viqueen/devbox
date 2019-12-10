@@ -36,7 +36,7 @@ _clean_product() {
     product=${1}
     version=${2}
     distro=${3}
-    rm -rf ${ELASTIC_PRODUCTS_HOME}${product}-${version}${distro}
+    rm -rf ${ELASTIC_PRODUCTS_HOME}/${product}-${version}${distro}
 }
 
 _list_versions() {
