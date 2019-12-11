@@ -2,7 +2,7 @@
 
 source atlassian-product.sh
 
-DEFAULT_VERSION=6.15.6
+DEFAULT_VERSION=7.1.1
 SYNCHRONY_PORT=9091
 
 function product_definition() {
@@ -31,14 +31,12 @@ function clean() {
 
 # @COMMAND logs [version]     tails confluence logs
 function logs() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  tail_product_logs confluence ${version}
+  tail_product_logs confluence @
 }
 
 # @COMMAND view [version]     view confluence logs
 function view() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  view_product_logs confluence ${version}
+  view_product_logs confluence $@
 }
 
 # @COMMAND versions           lists installed confluence versions

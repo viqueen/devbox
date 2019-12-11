@@ -14,19 +14,32 @@ function product_definition() {
           --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
+# @COMMAND start [version]    starts bamboo on port 6990
 function start() {
     start_product $(product_definition $@)
 }
 
+# @COMMAND debug [version]    start bamboo on port 6990 and open debug port 5005
 function debug() {
     debug_product $(product_definition $@)
 }
 
+# @COMMAND logs [version]     tails bamboo logs
 function logs() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  tail_product_logs bamboo ${version}
+  tail_product_logs bamboo $@
 }
 
+# @COMMAND clean [version]    cleans bamboo install directory
+function clean() {
+  clean_product confluence $@
+}
+
+# @COMMAND view [version]     view bamboo logs
+function view() {
+  view_product_logs bamboo $@
+}
+
+# @COMMAND versions           lists installed bamboo versions
 function versions() {
   list_versions bamboo
 }

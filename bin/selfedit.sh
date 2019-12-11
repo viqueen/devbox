@@ -9,13 +9,13 @@ source selfdoc.sh
 
 VIQUEEN_DEVBOX_BIN=${VIQUEEN_DEVBOX_HOME}/bin
 
-# @COMMAND docs [name]                      prints the function definition
+# @COMMAND docs [name]                          prints the function definition
 docs() {
     _with_arguments 1 $@
     type ${1}
 }
 
-# @COMMAND edit [script]                    opens current or new bin-script
+# @COMMAND edit [script]                        opens current or new bin-script
 edit() {
     script=${VIQUEEN_DEVBOX_BIN}/${1}
     if [ -z ${1} ];
@@ -26,17 +26,17 @@ edit() {
     chmod +x ${script}
 }
 
-# @COMMAND _default                         returns first defined argument
+# @COMMAND _default                             returns first defined argument
 _default() {
     echo $1
 }
 
-# @COMMAND _replace [str] [char] [repl]     replace occurrence in string
+# @COMMAND _replace [str] [char] [repl]         replace occurrence in string
 _replace() {
     echo ${1//$2/$3}
 }
 
-# @COMMAND _join [delim] [elements]          joins elements with delimiter
+# @COMMAND _join [delim] [elements]             joins elements with delimiter
 _join() {
     _with_arguments 1 $@
     delim=$1
@@ -45,7 +45,7 @@ _join() {
     echo ${output:1}
 }
 
-# @COMMAND _with_arguments [count] [...]     ensures the arguments count is at least as expected
+# @COMMAND _with_arguments [count] [...]        ensures the arguments count is at least as expected
 _with_arguments() {
     count=${1}
     shift
