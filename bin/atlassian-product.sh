@@ -37,11 +37,18 @@ function view_product_logs() {
     _with_arguments 2 $@
     product=${1}
     version=${2}
-    vim ${ATLASSIAN_PRODUCT_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
+    vim ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }
 
 function list_versions() {
     _with_arguments 1 $@
     product=${1}
     ls ${ATLASSIAN_PRODUCTS_HOME} | grep ${product}
+}
+
+function get_product() {
+    _with_arguments 2 $@
+    product=${1}
+    version=${2}
+    cd ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target
 }

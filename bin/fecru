@@ -3,41 +3,46 @@
 source atlassian-product.sh
 
 function product_definition() {
-  version=$(_default ${1} ${DEFAUL_VERSION})
-  echo "--product fecru
-        --version ${version}
-        --http-port 3990
-        --server 127.0.0.1"
+    version=$(_default ${1} ${DEFAUL_VERSION})
+    echo "--product fecru
+          --version ${version}
+          --http-port 3990
+          --server 127.0.0.1"
 }
 
-# @COMMAND start [version]    starts fecru on port 3990
+# @COMMAND start [version]      starts fecru on port 3990
 function start() {
-  start_product $(product_definition $@)
+    start_product $(product_definition $@)
 }
 
-# @COMMAND debug [version]    start fecru on port 3990 and open debug port 5005
+# @COMMAND debug [version]      start fecru on port 3990 and open debug port 5005
 function debug() {
-  debug_product $(product_definition $@)
+    debug_product $(product_definition $@)
 }
 
-# @COMMAND logs [version]     tails fecru logs
+# @COMMAND logs [version]       tails fecru logs
 function logs() {
-  tail_product_logs fecru $@
+    tail_product_logs fecru $@
 }
 
-# @COMMAND view [version]     view fecru logs
+# @COMMAND view [version]       view fecru logs
 function view() {
-  view_product_logs fecru $@
+    view_product_logs fecru $@
 }
 
-# @COMMAND clean [version]    cleans fecru install directory
+# @COMMAND clean [version]      cleans fecru install directory
 function clean() {
-  clean_product fecru $@
+    clean_product fecru $@
 }
 
-# @COMMAND versions           lists installed fecru versions
+# @COMMAND versions             lists installed fecru versions
 function versions() {
-  list_versions fecru
+    list_versions fecru
+}
+
+# @COMMAND get [version]        cd to fecru installed version
+function get() {
+    get_product fecru $@
 }
 
 eval $@

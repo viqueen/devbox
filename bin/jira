@@ -28,22 +28,27 @@ function debug() {
 
 # @COMMAND logs [version]       tails jira logs
 function logs() {
-  tail_product_logs jira $@
+    tail_product_logs jira $@
 }
 
 # @COMMAND clean [version]      cleans jira install directory
 function clean() {
-  clean_product jira $@
+    clean_product jira $@
 }
 
 # @COMMAND view [version]       view jira logs
 function view() {
-  view_product_logs jira $@
+    view_product_logs jira $@
 }
 
 # @COMMAND versions             lists installed jira versions
 function versions() {
-  list_versions jira
+    list_versions jira
+}
+
+# @COMMAND get [version]        cd to jira installed version
+function get() {
+    get_product jira $@
 }
 
 eval $@
