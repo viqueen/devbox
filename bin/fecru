@@ -3,10 +3,12 @@
 source atlassian-product.sh
 
 function product_definition() {
-    version=$(_default ${1} ${DEFAUL_VERSION})
+    _with_arguments 1 $@
+    context=$(_default ${2} "/fecru")
     echo "--product fecru
           --version ${version}
           --http-port 3990
+          --context-path ${context}
           --server 127.0.0.1"
 }
 

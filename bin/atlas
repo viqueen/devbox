@@ -52,9 +52,11 @@ build() {
 
 # @COMMAND pi             install atlassian plugin
 pi() {
-  product=$(_default $1 confluence)
-  port=$(_default $2 8080)
-  atlas-mvn -e ${product}:install -Dhttp.port=${port}
+  _with_arguments 2 $@
+  product=${1}
+  port=${2}
+  context=$(_default $3 "")
+  atlas-mvn -e ${product}:install -Dhttp.port=${port} -Dcontext.path=${context}
 }
 
 # @COMMAND style          runs maven checkstyle using confluence codestyle rules

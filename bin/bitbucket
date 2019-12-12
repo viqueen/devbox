@@ -2,13 +2,14 @@
 
 source atlassian-product.sh
 
-DEFAULT_VERSION=5.16.0
-
 function product_definition() {
-    version=$(_default $1 ${DEFAULT_VERSION})
+    _with_arguments 1 $@
+    version=${1}
+    context=$(_default ${2} "/bitbucket")
     echo "--product bitbucket
           --version ${version}
           --http-port 7990
+          --context ${context}
           --ajp-port 7009
           --server 127.0.0.1"
 }

@@ -2,13 +2,14 @@
 
 source atlassian-product.sh
 
-DEFAULT_VERSION=7.4.0
-
 function product_definition() {
-    version=$(_default $1 ${DEFAULT_VERSION})
+    _with_arguments 1 $@
+    version=${1}
+    context=$(_default $2 "/jira")
     echo "--product jira
          --version ${version}
          --http-port 2990
+         --context-path ${context}
          --ajp-port 9009
          --plugins com.atlassian.jira:jira-func-test-plugin:${version},com.atlassian.jira.tests:jira-testkit-plugin:7.1.9
          --server 127.0.0.1
