@@ -8,26 +8,36 @@ function product_definition() {
   version=$(_default $1 ${DEFAULT_VERSION})
   echo "--product crowd
         --version ${version}
+        --http-port 4990
         --server 127.0.0.1"
 }
 
+# @COMMAND start [version]    starts crowd on port 4990
 function start() {
   start_product $(product_definition $@)
 }
 
+# @COMMAND debug [version]    start crowd on port 4990 and open debug port 5005
 function debug() {
   debug_product $(product_definition $@)
 }
 
+# @COMMAND logs [version]     tails crowd logs
 function logs() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  tail_product_logs crowd ${version}
+  tail_product_logs crowd $@
 }
 
+# @COMMAND clean [version]    cleans crowd install directory
 function clean() {
   clean_product crowd $@
 }
 
+# @COMMAND view [version]     view crowd logs
+function view() {
+  view_product_logs crowd $@
+}
+
+# @COMMAND versions           lists installed crowd versions
 function versions() {
   list_versions crowd
 }

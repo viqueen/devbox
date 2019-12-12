@@ -25,19 +25,27 @@ function debug() {
 
 # @COMMAND clean [version]      cleans bitbucket install directory for given version
 function clean() {
-  _with_argument 1 $@
-  clean_product bitbucket $@
+    clean_product bitbucket $@
 }
 
 # @COMMAND logs [version]       tails bitbucket logs
 function logs() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  tail_product_logs bitbucket ${version}
+    tail_product_logs bitbucket $@
+}
+
+# @COMMAND view [version]       view bitbucket logs
+function view() {
+    view_product_logs bitbucket $@
 }
 
 # @COMMAND versions             lists installed bitbucket versions
 function versions() {
-  list_versions bitbucket
+    list_versions bitbucket
+}
+
+# @COMMAND get [version]        cd to bitbucket installed version
+function get() {
+    get_product bitbucket $@
 }
 
 eval $@
