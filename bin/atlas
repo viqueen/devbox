@@ -61,7 +61,7 @@ pi() {
 
 # @COMMAND style          runs maven checkstyle using confluence codestyle rules
 style() {
-  mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.1.0 -Dcheckstyle.failOnViolation=true -DskipITs=true
+  atlas-mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.1.0 -Dcheckstyle.failOnViolation=true -DskipITs=true
 }
 
 __capture_at_since() {
@@ -89,7 +89,7 @@ commit() {
 
 # @COMMAND suppress_atsince   because I am lazy and I choose the suppress atSince checkstyle violations
 suppress_atsince() {
-  mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
+  atlas-mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
 }
 
 eval $@

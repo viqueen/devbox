@@ -32,12 +32,12 @@ src() {
   cd ${VIQUEEN_DEVBOX_HOME}/..
 }
 
-# @COMMAND vimr                              vim refresh
+# @COMMAND vimr                             vim refresh
 vimr () {
   vim +PluginInstall +qall
 }
 
-# @COMMAND vimrc                              vim config
+# @COMMAND vimrc                            vim config
 vimrc() {
   vim ${VIQUEEN_DEVBOX_HOME}/.vimrc
 }
@@ -136,12 +136,12 @@ release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform $@
 }
 
-# @COMMAND updeps                             display dependency updates
+# @COMMAND updeps                           display dependency updates
 updeps() {
     mvn versions:display-dependency-updates
 }
 
-# @COMMAND setpro                           sets a maven property value
+# @COMMAND setprop                          sets a maven property value
 setprop() {
   _with_arguments 2 $@
   property_name=${1}
