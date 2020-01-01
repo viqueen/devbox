@@ -32,7 +32,7 @@ function logs() {
 
 # @COMMAND clean [version]      cleans bamboo install directory
 function clean() {
-  clean_product confluence $@
+  clean_product bamboo $@
 }
 
 # @COMMAND view [version]       view bamboo logs
