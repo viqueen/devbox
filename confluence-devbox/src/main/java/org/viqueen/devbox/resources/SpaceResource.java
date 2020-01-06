@@ -1,4 +1,4 @@
-package org.viqueen.devbox.rest;
+package org.viqueen.devbox.resources;
 
 import com.atlassian.annotations.security.XsrfProtectionExcluded;
 import com.atlassian.confluence.api.model.longtasks.LongTaskSubmission;
@@ -12,9 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Path("/spaces")
 public class SpaceResource {
@@ -36,7 +36,7 @@ public class SpaceResource {
                 .getResults()
                 .stream()
                 .map(spaceService::delete)
-                .collect(Collectors.toList());
+                .collect(toList());
         return Response.status(Response.Status.ACCEPTED).entity(tasks).build();
     }
 }

@@ -1,4 +1,4 @@
-package org.viqueen.devbox.rest;
+package org.viqueen.devbox.resources;
 
 import com.atlassian.annotations.security.XsrfProtectionExcluded;
 import com.atlassian.confluence.jmx.JmxSMTPMailServer;

@@ -23,7 +23,7 @@
           name="Confluence Devbox Rest Resources"
           path="/devbox"
           version="1.0">
-        <package>org.viqueen.devbox.rest</package>
+        <package>org.viqueen.devbox.resources</package>
     </rest>
 
 </atlassian-plugin>

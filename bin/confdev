@@ -12,7 +12,7 @@ const restful = new Restful({
         user: 'admin',
         pass: 'admin'
     },
-  context: '/'
+    context: '/confluence'
 });
 
 const program = restful.program();
