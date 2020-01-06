@@ -12,7 +12,12 @@
     <artifactId>confluence-devbox</artifactId>
     <packaging>atlassian-plugin</packaging>
 
-    <name>confluence-devbox</name>
+    <name>Confluence Devbox</name>
+    <description>Confluence Devbox</description>
+
+    <organization>
+        <name>viqueen</name>
+    </organization>
 
     <properties>
         <amps.version>6.3.21</amps.version>
@@ -51,14 +56,6 @@
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
@@ -86,7 +83,19 @@
                         <Import-Package>
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
-                            *
+
+                            com.atlassian.confluence.api.model.content.*,
+                            com.atlassian.confluence.api.model.link.*,
+                            com.atlassian.confluence.api.model.pagination.*,
+                            com.atlassian.confluence.api.service.content.*,
+                            com.atlassian.confluence.setup.settings.*,
+                            com.atlassian.confluence.user.*,
+                            com.atlassian.mail.*,
+                            com.atlassian.mail.server.*,
+                            com.atlassian.user.*,
+
+                            javax.ws.rs.*,
+                            javax.ws.rs.core.*
                         </Import-Package>
 
                         <!-- Ensure plugin is spring powered -->

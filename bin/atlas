@@ -52,10 +52,9 @@ build() {
 
 # @COMMAND pi             install atlassian plugin
 pi() {
-  _with_arguments 2 $@
-  product=${1}
-  port=${2}
-  context=$(_default $3 "")
+  product=$(_default ${1} "confluence")
+  port=$(_default ${2} "8080")
+  context=$(_default ${3} "/confluence")
   atlas-mvn -e ${product}:install -Dhttp.port=${port} -Dcontext.path=${context}
 }
 

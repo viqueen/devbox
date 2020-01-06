@@ -8,12 +8,15 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
+import static java.util.Collections.singletonMap;
 import static java.util.stream.Collectors.toList;
 
 @Path("/spaces")
@@ -23,6 +26,17 @@ public class SpaceResource {
 
     public SpaceResource(final @ComponentImport SpaceService spaceService) {
         this.spaceService = spaceService;
+    }
+
+    @GET
+    @Path("/ping")
+    public Response ping() {
+        return Response.ok(
+                singletonMap(
+                        "components",
+                        singletonList(spaceService.toString())
+                )
+        ).build();
     }
 
     @DELETE

@@ -14,6 +14,7 @@ import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
 
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,6 +27,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonMap;
 
 @Path("/setup")
 public class SetupResource {
@@ -41,6 +44,21 @@ public class SetupResource {
         this.mailServerManager = mailServerManager;
         this.userAccessor = userAccessor;
         this.settingsManager = settingsManager;
+    }
+
+    @GET
+    @Path("/ping")
+    public Response ping() {
+        return Response.ok(
+                singletonMap(
+                        "components",
+                        asList(
+                                mailServerManager.toString(),
+                                userAccessor.toString(),
+                                settingsManager.toString()
+                        )
+                )
+        ).build();
     }
 
     @POST
@@ -78,7 +96,7 @@ public class SetupResource {
 
         final Map<String, Map<String, String>> users = new HashMap<>();
 
-        IntStream.rangeClosed(start, count)
+        IntStream.rangeClosed(start, start + count)
                 .forEach(index -> {
                     final Faker faker = LOCALES[index % 23];
                     final String firstName = faker.name().firstName();
