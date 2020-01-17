@@ -88,10 +88,12 @@
                             com.atlassian.confluence.api.model.link.*,
                             com.atlassian.confluence.api.model.pagination.*,
                             com.atlassian.confluence.api.service.content.*,
+                            com.atlassian.confluence.jmx.*,
                             com.atlassian.confluence.setup.settings.*,
                             com.atlassian.confluence.user.*,
                             com.atlassian.mail.*,
                             com.atlassian.mail.server.*,
+                            com.atlassian.sal.api.user.*,
                             com.atlassian.user.*,
 
                             javax.ws.rs.*,
