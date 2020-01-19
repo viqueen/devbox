@@ -9,7 +9,7 @@
     <resource type="i18n" name="i18n" location="confluence-devbox"/>
     
     <!-- add our web resources -->
-    <web-resource key="confluence-devbox-resources" name="confluence-devbox Web Resources">
+    <web-resource key="confluence-devbox-resources" name="Confluence Devbox Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         
         <resource type="download" name="confluence-devbox.css" location="/css/confluence-devbox.css"/>

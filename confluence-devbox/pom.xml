@@ -20,11 +20,11 @@
     </organization>
 
     <properties>
-        <amps.version>6.3.21</amps.version>
+        <amps.version>8.0.2</amps.version>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
-        <atlassian.spring.scanner.version>2.1.10</atlassian.spring.scanner.version>
+        <atlassian.spring.scanner.version>2.2.0</atlassian.spring.scanner.version>
 
-        <confluence.version>6.13.9</confluence.version>
+        <confluence.version>7.0.5</confluence.version>
         <confluence.data.version>${confluence.version}</confluence.data.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -67,7 +67,7 @@
         <plugins>
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>maven-confluence-plugin</artifactId>
+                <artifactId>confluence-maven-plugin</artifactId>
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
@@ -81,6 +81,7 @@
 
                         <!-- Add package import here -->
                         <Import-Package>
+                            org.springframework.jdbc.datasource.*;resolution:="optional",
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
 
@@ -96,6 +97,7 @@
                             com.atlassian.sal.api.user.*,
                             com.atlassian.user.*,
 
+                            javax.sql.*,
                             javax.ws.rs.*,
                             javax.ws.rs.core.*
                         </Import-Package>
