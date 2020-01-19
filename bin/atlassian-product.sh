@@ -6,8 +6,6 @@ ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 
 function run_with_jvm_args() {
     jvm_args="${1}"; shift
-    mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
-    cd ${ATLASSIAN_PRODUCTS_HOME}
     echo "atlas-run-standalone --jvmargs \"${jvm_args}\" $@"
 }
 
@@ -17,6 +15,8 @@ function start_product() {
 
 # @COMMAND start [version]      starts product
 function start() {
+    mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
+    cd ${ATLASSIAN_PRODUCTS_HOME}
     eval $(start_cmd $@)
 }
 
@@ -26,6 +26,8 @@ function debug_product() {
 
 # @COMMAND debug [version]      starts product and opens debug port 5005
 function debug() {
+    mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
+    cd ${ATLASSIAN_PRODUCTS_HOME}
     eval $(debug_cmd $@)
 }
 
