@@ -17,14 +17,12 @@ function product_definition() {
          -Datlassian.mail.senddisabled=false"
 }
 
-# @COMMAND start [version]      starts jira on port 2990
-function start() {
+function start_cmd() {
     start_product $(product_definition $@)
 }
 
-# @COMMAND debug [version]      start jira on port 2990 and open debug port 5005
-function debug() {
-    debug_product $(product_definition $@)
+function debug_cmd() {
+     debug_product $(product_definition $@)
 }
 
 # @COMMAND logs [version]       tails jira logs

@@ -8,15 +8,40 @@ function run_with_jvm_args() {
     jvm_args="${1}"; shift
     mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
     cd ${ATLASSIAN_PRODUCTS_HOME}
-    atlas-run-standalone --jvmargs "${jvm_args}" $@
+    echo "atlas-run-standalone --jvmargs \"${jvm_args}\" $@"
 }
 
 function start_product() {
     run_with_jvm_args "-Xmx2048m" $@
 }
 
+# @COMMAND start [version]      starts product
+function start() {
+    eval $(start_cmd $@)
+}
+
 function debug_product() {
     run_with_jvm_args "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n" $@
+}
+
+# @COMMAND debug [version]      starts product and opens debug port 5005
+function debug() {
+    eval $(debug_cmd $@)
+}
+
+function cmd() {
+    _with_arguments 2 $@
+    action=${1}
+    version=${2}
+
+    case ${action} in
+        "start")
+            start_cmd ${version}
+            ;;
+        "debug")
+            debug_cmd ${version}
+            ;;
+    esac
 }
 
 function clean_product() {

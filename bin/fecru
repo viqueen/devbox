@@ -12,13 +12,11 @@ function product_definition() {
           --server 127.0.0.1"
 }
 
-# @COMMAND start [version]      starts fecru on port 3990
-function start() {
+function start_cmd() {
     start_product $(product_definition $@)
 }
 
-# @COMMAND debug [version]      start fecru on port 3990 and open debug port 5005
-function debug() {
+function debug_cmd() {
     debug_product $(product_definition $@)
 }
 

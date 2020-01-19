@@ -12,13 +12,11 @@ function product_definition() {
         --server 127.0.0.1"
 }
 
-# @COMMAND start [version]    starts crowd on port 4990
-function start() {
+function start_cmd() {
   start_product $(product_definition $@)
 }
 
-# @COMMAND debug [version]    start crowd on port 4990 and open debug port 5005
-function debug() {
+function debug_cmd() {
   debug_product $(product_definition $@)
 }
 

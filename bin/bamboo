@@ -15,13 +15,11 @@ function product_definition() {
           --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
-# @COMMAND start [version]      starts bamboo on port 6990
-function start() {
+function start_cmd() {
     start_product $(product_definition $@)
 }
 
-# @COMMAND debug [version]      start bamboo on port 6990 and open debug port 5005
-function debug() {
+function debug_cmd() {
     debug_product $(product_definition $@)
 }
 
