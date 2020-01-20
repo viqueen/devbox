@@ -1,0 +1,22 @@
+#! /usr/bin/env node
+
+// https://docs.atlassian.com/ConfluenceServer/rest/7.2.1/
+
+'use strict';
+
+const Restful = require('../lib/restful');
+
+const restful = new Restful({
+    name: 'Confluence API',
+    apiUrl: '/rest/api',
+    json: true,
+    auth: {
+        user: 'admin',
+        pass: 'admin'
+    },
+    context: '/confluence'
+});
+
+const program = restful.program();
+program.version('1.0.0');
+program.parse(process.argv);
