@@ -11,8 +11,13 @@
 
     <name>devbox</name>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>confluence-devbox</module>
+        <module>confluence-oldschool-devbox</module>
         <module>java-devbox</module>
     </modules>
 </project>

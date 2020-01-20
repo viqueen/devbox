@@ -1,0 +1,17 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <rest key="confluence-devbox-rest-resources"
+          name="Confluence Devbox Rest Resources"
+          path="/devbox"
+          version="1.0">
+        <package>org.viqueen.devbox.resources</package>
+    </rest>
+
+    <component-import key="transactionalExecutorFactory" interface="com.atlassian.sal.api.rdbms.TransactionalExecutorFactory"/>
+
+</atlassian-plugin>
