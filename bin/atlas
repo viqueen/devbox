@@ -6,6 +6,7 @@
 #
 source selfedit.sh
 
+ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 ATLAS_SOURCES=~/sources/ATLAS
 ATLAS_GO_SOURCES=~/sources/ATLAS_GO
 
@@ -90,6 +91,12 @@ commit() {
 suppress_atsince() {
   atlas-mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
 }
+
+# @COMMAND products           list installed atlassian products
+products() {
+  ls -lrt ${ATLASSIAN_PRODUCTS_HOME}
+}
+
 
 eval $@
 
