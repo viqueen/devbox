@@ -50,3 +50,7 @@ function run() {
 
 # shellcheck disable=SC2068
 eval $@
+
+if [[ -z $1 ]]; then
+    $0 -h
+fi

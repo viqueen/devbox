@@ -24,3 +24,7 @@ function versions() {
 }
 
 eval $@
+
+if [[ -z $1 ]]; then
+    $0 -h
+fi
