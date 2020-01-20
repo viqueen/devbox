@@ -43,6 +43,9 @@ function cmd() {
         "debug")
             debug_cmd ${version}
             ;;
+        *)
+            echo "unknown command : [ start , debug ] allowed"
+            ;;
     esac
 }
 
