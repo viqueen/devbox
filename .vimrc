@@ -17,6 +17,7 @@ Plugin 'mushanyoung/vim-windflower'
 Plugin 'kien/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'sainnhe/edge'
+Plugin 'edkolev/promptline.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
