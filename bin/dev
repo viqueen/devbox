@@ -138,6 +138,11 @@ upver() {
   mvn versions:update-parent -DgenerateBackupPoms=false $@
 }
 
+# @COMMAND ver                              display maven project version
+ver() {
+  getprop 'project.version'
+}
+
 # @COMMAND release                          runs a maven release
 release() {
     mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform $@
