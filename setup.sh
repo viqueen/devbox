@@ -3,10 +3,6 @@
 VIQUEEN_DEVBOX_HOME=$(cd "$(dirname "$0")" && pwd -P)
 
 function config_box() {
-    if [[ -f ~/.bash_profile ]]; then
-        ln -sfnv ~/.bash_profile ~/.profile
-    fi
-
     echo "alias ll='ls -la'" >> ~/.profile
     echo "alias please=sudo" >> ~/.profile
 
@@ -16,6 +12,7 @@ function config_box() {
 
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.profile
     echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/bin:~/bin" >> ~/.profile
+
     # setup maven
     echo 'export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"' >> ~/.profile
 
