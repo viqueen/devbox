@@ -18,6 +18,8 @@ public class SampleContentService {
         this.contentService = contentService;
     }
 
+    // https://community.developer.atlassian.com/t/get-content-link-to-content-by-id-programmatically/34427
+    @SuppressWarnings("unused")
     public Optional<Link> getWebUILink(long id) {
         return contentService.find()
                 .withId(ContentId.of(id))
