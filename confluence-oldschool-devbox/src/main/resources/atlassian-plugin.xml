@@ -13,5 +13,7 @@
     </rest>
 
     <component-import key="transactionalExecutorFactory" interface="com.atlassian.sal.api.rdbms.TransactionalExecutorFactory"/>
+    <component-import key="apiContentService" interface="com.atlassian.confluence.api.service.content.ContentService" />
 
+    <component key="sampleContentService" class="org.viqueen.devbox.services.SampleContentService" />
 </atlassian-plugin>
