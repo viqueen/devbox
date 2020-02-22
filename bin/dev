@@ -128,6 +128,11 @@ build() {
     mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
 }
 
+# @COMMAND compile                          runs threaded maven compile
+compile() {
+  mvn -e -T 0.75C compile $@
+}
+
 # @COMMAND setver                           interactively updates the maven version of a project
 setver() {
     mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
