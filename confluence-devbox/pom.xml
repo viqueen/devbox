@@ -109,6 +109,7 @@
 
                         <!-- Add package import here -->
                         <Import-Package>
+                            org.apache.commons.lang3.*,
                             org.springframework.jdbc.datasource.*;resolution:="optional",
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
