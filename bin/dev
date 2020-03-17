@@ -121,9 +121,14 @@ contains() {
 
 # @COMMAND show [prop] [version]            greps maven property for given version
 show() {
+  _with_arguments 1 $@
   property=${1}
-  version=$(_replace ${2} "." "\.")
-  tag=$(git tag | grep "${version}$")
+  if [[ -z ${2} ]]; then
+    tag=HEAD
+  else
+    version=$(_replace ${2} "." "\.")
+    tag=$(git tag | grep "${version}$")
+  fi
   git grep "${property}" ${tag} pom.xml
 }
 
