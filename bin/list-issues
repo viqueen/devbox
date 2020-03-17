@@ -11,14 +11,19 @@ _match_issue() {
   done
 }
 
-_with_arguments 2 $@
-version_a=${1}
-version_b=${2}
+# @COMMAND diff         get jira tickets included between two versions
+function diff() {
+  _with_arguments 2 $@
+  version_a=$(_replace ${1} "." "\.")
+  version_b=$(_repalce ${2} "." "\.")
 
-tag_a=$(git tag | grep "${version_a}$")
-tag_b=$(git tag | grep "${version_b}$")
+  tag_a=$(git tag | grep "${version_a}$")
+  tag_b=$(git tag | grep "${version_b}$")
 
-git log "${tag_a}".."${tag_b}" --oneline \
-  | awk '{print $2}' \
-  | _match_issue \
-  | sort -u
+  git log "${tag_a}".."${tag_b}" --oneline \
+    | awk '{print $2}' \
+    | _match_issue \
+    | sort -u
+}
+
+eval $@

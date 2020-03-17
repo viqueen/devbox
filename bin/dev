@@ -119,6 +119,14 @@ contains() {
   git branch -r --contains ${hash} --list 'origin/release/*'
 }
 
+# @COMMAND show [prop] [version]            greps maven property for given version
+show() {
+  property=${1}
+  version=$(_replace ${2} "." "\.")
+  tag=$(git tag | grep "${version}$")
+  git grep "${property}" ${tag} pom.xml
+}
+
 #######
 # MAVEN
 #######
