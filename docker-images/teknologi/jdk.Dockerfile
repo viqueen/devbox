@@ -28,11 +28,14 @@ RUN mkdir -p /tmp/downloads \
 ENV PATH=${PATH}:/opt/atlassian-plugin-sdk/bin
 ENV ATLAS_MVN=/usr/local/bin/mvn
 
-# devbox
+# devbox download
 RUN mkdir -p ~/sources \
-    && git clone --recursive https://github.com/viqueen/devbox.git ~/sources/devbox \
-    && cd ~/sources/devbox \
+    && git clone --recursive https://github.com/viqueen/devbox.git ~/sources/devbox
+
+# devbox configuration
+RUN cd ~/sources/devbox \
+    && mkdir -p .atlassian-products \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
-    && atlas build
+    && atlas-mvn -e -T 0.75C package -DskipTests=true
