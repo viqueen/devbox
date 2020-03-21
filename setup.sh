@@ -30,7 +30,7 @@ function config_vim() {
 
 function config_prompt() {
     ln -sfnv ${VIQUEEN_DEVBOX_HOME}/.shell_prompt.sh ~/.shell_prompt.sh
-    echo "source ~/.shell_prompt.sh" >> ~/.profile
+    echo ". ~/.shell_prompt.sh" >> ~/.profile
 }
 
 eval $@

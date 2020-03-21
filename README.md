@@ -2,18 +2,10 @@
 
 ### Playground - try it before you buy it
 
-* alpine
-```bash
-# comes with openjdk 8
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-alpine
-# comes with openjdk 14
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:14-alpine
-```
-
 * ubuntu
 ```bash
 # comes with openjdk 11
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:11-slim
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:11.0.6-slim
 ```
 
 ### Setup and Configure
