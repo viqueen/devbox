@@ -33,4 +33,4 @@ RUN mkdir -p ~/sources \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
-    && . ~/.profile
+    && ln -sfnv ~/.profile ~/.bashrc
