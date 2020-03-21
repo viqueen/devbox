@@ -2,6 +2,8 @@ FROM openjdk:${JDK_VERSION}
 
 ARG MAVEN_VERSION=3.6.3
 
+SHELL ["/bin/bash", "-c"]
+
 RUN apt-get update \
     && apt-get install -y curl unzip wget git vim
 
@@ -32,5 +34,4 @@ RUN mkdir -p ~/sources \
     && cd ~/sources/devbox \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
-    && ./setup.sh config_vim \
-    && ln -sfnv ~/.profile ~/.bashrc
+    && ./setup.sh config_vim
