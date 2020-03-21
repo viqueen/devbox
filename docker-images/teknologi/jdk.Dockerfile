@@ -34,4 +34,5 @@ RUN mkdir -p ~/sources \
     && cd ~/sources/devbox \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
-    && ./setup.sh config_vim
+    && ./setup.sh config_vim \
+    && atlas build
