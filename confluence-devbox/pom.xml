@@ -109,26 +109,7 @@
 
                         <!-- Add package import here -->
                         <Import-Package>
-                            org.apache.commons.lang3.*,
-                            org.springframework.jdbc.datasource.*;resolution:="optional",
-                            org.springframework.osgi.*;resolution:="optional",
-                            org.eclipse.gemini.blueprint.*;resolution:="optional",
-
-                            com.atlassian.confluence.api.model.content.*,
-                            com.atlassian.confluence.api.model.link.*,
-                            com.atlassian.confluence.api.model.pagination.*,
-                            com.atlassian.confluence.api.service.content.*,
-                            com.atlassian.confluence.jmx.*,
-                            com.atlassian.confluence.setup.settings.*,
-                            com.atlassian.confluence.user.*,
-                            com.atlassian.mail.*,
-                            com.atlassian.mail.server.*,
-                            com.atlassian.sal.api.user.*,
-                            com.atlassian.user.*,
-
-                            javax.sql.*,
-                            javax.ws.rs.*,
-                            javax.ws.rs.core.*
+                            *
                         </Import-Package>
 
                         <!-- Ensure plugin is spring powered -->

@@ -7,17 +7,6 @@
 
     <!-- add our i18n resource -->
     <resource type="i18n" name="i18n" location="confluence-devbox"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="confluence-devbox-resources" name="Confluence Devbox Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
-        <resource type="download" name="confluence-devbox.css" location="/css/confluence-devbox.css"/>
-        <resource type="download" name="confluence-devbox.js" location="/js/confluence-devbox.js"/>
-        <resource type="download" name="images/" location="/images"/>
-
-        <context>confluence-devbox</context>
-    </web-resource>
 
     <rest key="confluence-devbox-rest-resources"
           name="Confluence Devbox Rest Resources"
@@ -25,5 +14,15 @@
           version="1.0">
         <package>org.viqueen.devbox.resources</package>
     </rest>
+
+    <xhtml-macro name="devbox" class="org.viqueen.devbox.macros.SampleMacro" key="devbox-macro">
+        <description key="devbox.macro.desc"/>
+        <parameters/>
+    </xhtml-macro>
+
+    <web-resource key="soy-templates">
+        <!-- Available to the server-side only -->
+        <resource type="soy" name="links" location="/macros/sample/devbox-macro.soy"/>
+    </web-resource>
 
 </atlassian-plugin>
