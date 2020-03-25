@@ -3,8 +3,17 @@
 /**
  * @param content
  */
-{template .macro}
+{template .viewMacro}
     <div>
+        <h1>{$content}</h1>
+    </div>
+{/template}
+
+/**
+ * @param content
+ */
+{template .editMacro}
+    <div contenteditable="false">
         <h1>{$content}</h1>
     </div>
 {/template}
