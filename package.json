@@ -30,6 +30,7 @@
     "labset-config-js": "^1.0.0",
     "maildev": "^1.1.0",
     "minimist": "^1.2.5",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
     "prettyjson": "^1.2.1",
     "query-string": "^6.11.1",
