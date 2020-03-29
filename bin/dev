@@ -190,6 +190,15 @@ getprop() {
   mvn -q -Dexec.executable=echo -Dexec.args="'${execArgs}'" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec $@
 }
 
+###############
+# NODE / NPM
+##############
+
+# @COMMAND npmg                             list global npm packages
+npmg() {
+  npm list -g --depth 0
+}
+
 eval $@
 
 if [[ -z $1 ]];
