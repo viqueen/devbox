@@ -132,6 +132,25 @@ show() {
   git grep "${property}" ${tag} pom.xml
 }
 
+# @COMMAND stash [name]                     stashes with a name
+stash() {
+  _with_arguments 1 $@
+  name=${1}; shift
+  git stash save ${name}
+}
+
+# @COMMAND apply [name]                     applies a stash by name
+apply() {
+  _with_arguments 1 $@
+  name=${1}; shift
+  reference=$(
+    git stash list      \
+      | grep ${name}    \
+      | awk '{print substr($1, 1, length($1)-1)}'
+    )
+  git stash apply ${reference}
+}
+
 #######
 # MAVEN
 #######
@@ -144,6 +163,11 @@ build() {
 # @COMMAND compile                          runs threaded maven compile
 compile() {
   mvn -e -T 0.75C compile $@
+}
+
+# @COMMAND package                          runs threaded maven package
+package() {
+  mvn -e -T 0.75C package -DskipTests=true -DskipITs=true $@
 }
 
 # @COMMAND setver                           interactively updates the maven version of a project
