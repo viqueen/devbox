@@ -2,7 +2,7 @@
 
 source selfedit.sh
 
-current_user=$(git config user.email)
+#current_user=$(git config user.email)
 
 _blame_author() {
   while read data
@@ -26,7 +26,8 @@ if [[ -z $1 ]]; then
 fi
 
 _with_arguments 1 $@
-pattern="$@"
+pattern="$1"
+current_user=$(_default $2 $(git config user.email))
 
 git grep --line-number "${pattern}" HEAD \
   | awk '{print $1}' \
