@@ -27,6 +27,7 @@ set autoread
 
 au BufNewFile,BufRead .eslintrc set filetype=json
 au BufNewFile,BufRead .babelrc set filetype=json
+au BufNewFile,BufRead .solicitoriorc set filetype=json
 
 autocmd BufWritePre * :%s/\s\+$//e
 
