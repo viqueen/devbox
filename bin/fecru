@@ -14,7 +14,7 @@ _product_definition() {
           --server 127.0.0.1"
 }
 
-source _atlassian-product.sh
+source atlassian-product.sh
 
 eval $@
 

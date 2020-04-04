@@ -15,7 +15,7 @@ function _product_name() {
     echo "confluence"
 }
 
-source _atlassian-product.sh
+source atlassian-product.sh
 
 _start_cmd() {
     _run_with_jvm_args \

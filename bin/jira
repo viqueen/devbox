@@ -18,7 +18,7 @@ _product_definition() {
          -Datlassian.mail.senddisabled=false"
 }
 
-source _atlassian-product.sh
+source atlassian-product.sh
 
 eval $@
 

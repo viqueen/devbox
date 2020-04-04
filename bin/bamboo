@@ -18,7 +18,7 @@ _product_definition() {
           --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
-source _atlassian-product.sh
+source atlassian-product.sh
 
 eval $@
 
