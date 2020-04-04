@@ -18,7 +18,7 @@ docs() {
 # @COMMAND edit [script]                        opens current or new bin-script
 edit() {
     script=${VIQUEEN_DEVBOX_BIN}/${1}
-    if [ -z ${1} ];
+    if [[ -z ${1} ]];
     then
         script=${0}
     fi
@@ -51,6 +51,23 @@ _with_arguments() {
     shift
     if [[ "$#" -lt ${count} ]]; then
         echo "missing arguments, expected at least ${count} but received $#"
+        exit 1
+    fi
+}
+
+# @COMMAND _with_functions [names...]           ensures the functions are available on the parent script
+_with_functions() {
+    _with_arguments 1 $@
+    errors=()
+    for item in "$@"
+    do
+        if [[ `type -t ${item}`"" != 'function' ]]; then
+            errors+=(${item})
+        fi
+    done
+
+    if [[ ${#errors[@]} -gt 0 ]]; then
+        echo "missing impl for function(s) : ${errors}"
         exit 1
     fi
 }

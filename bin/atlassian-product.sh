@@ -1,36 +1,58 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 source selfedit.sh
 
+_with_functions "_product_definition" "_product_name"
+
 ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 
-function run_with_jvm_args() {
+_run_with_jvm_args() {
     jvm_args="${1}"; shift
     echo "atlas-run-standalone --jvmargs \"${jvm_args}\" $@"
 }
 
-function start_product() {
-    run_with_jvm_args "-Xmx2048m" $@
+_start_cmd() {
+    _run_with_jvm_args "-Xmx2048m" $(_product_definition $@)
 }
 
-# @COMMAND start [version]      starts product
-function start() {
+# @COMMAND start [version]                          starts product
+function start () {
+    _with_arguments 1 $@
     mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
     cd ${ATLASSIAN_PRODUCTS_HOME}
-    eval $(start_cmd $@)
+    eval $(_start_cmd $@)
 }
 
-function debug_product() {
-    run_with_jvm_args "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n" $@
+_debug_cmd() {
+    _run_with_jvm_args \
+        "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n" \
+        $(_product_definition $@)
 }
 
-# @COMMAND debug [version]      starts product and opens debug port 5005
+# @COMMAND debug [version]                          starts product with debug port
 function debug() {
+    _with_arguments 1 $@
     mkdir -p ${ATLASSIAN_PRODUCTS_HOME}
     cd ${ATLASSIAN_PRODUCTS_HOME}
-    eval $(debug_cmd $@)
+    eval $(_debug_cmd $@)
 }
 
+# @COMMAND clean [version-pattern]                  cleans product directory for given version pattern
+function clean() {
+    _with_arguments 1 $@
+    product=$(_product_name)
+    version=${1}
+    rm -rf ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}
+}
+
+# @COMMAND versions                                 lists installed product versions
+function versions() {
+    product=$(_product_name)
+    ls ${ATLASSIAN_PRODUCTS_HOME} \
+        | grep ${product}
+}
+
+# @COMMAND cmd [action] [version]                   displays resolved command
 function cmd() {
     _with_arguments 2 $@
     action=${1}
@@ -38,10 +60,10 @@ function cmd() {
 
     case ${action} in
         "start")
-            start_cmd ${version}
+            _start_cmd ${version}
             ;;
         "debug")
-            debug_cmd ${version}
+            _debug_cmd ${version}
             ;;
         *)
             echo "unknown command : [ start , debug ] allowed"
@@ -49,36 +71,26 @@ function cmd() {
     esac
 }
 
-function clean_product() {
-    _with_arguments 2 $@
-    product=${1}
-    version=${2}
-    rm -rf ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}
+# @COMMAND  get [version]                           cd to product's installed version
+function get() {
+    _with_arguments 1 $@
+    product=$(_product_name)
+    version=${1}
+    cd ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target
 }
 
-function tail_product_logs() {
-    _with_arguments 2 $@
-    product=${1}
-    version=${2}
+# @COMMANDS logs [version]                          tails product logs
+function logs() {
+    _with_arguments 1 $@
+    product=$(_product_name)
+    version=${1}
     tail -f ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }
 
-function view_product_logs() {
-    _with_arguments 2 $@
-    product=${1}
-    version=${2}
-    vim ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
-}
-
-function list_versions() {
+# @COMMAND view [version]                           view product logs
+function view() {
     _with_arguments 1 $@
-    product=${1}
-    ls ${ATLASSIAN_PRODUCTS_HOME} | grep ${product}
-}
-
-function get_product() {
-    _with_arguments 2 $@
-    product=${1}
-    version=${2}
-    cd ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target
+    product=$(_product_name)
+    version=${1}
+    vim ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }

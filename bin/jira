@@ -1,54 +1,24 @@
 #!/usr/bin/env bash
 
-source atlassian-product.sh
+_product_name() {
+    echo "jira"
+}
 
-function product_definition() {
+_product_definition() {
     _with_arguments 1 $@
     version=${1}
-    context=$(_default $2 "/jira")
     echo "--product jira
          --version ${version}
-         --http-port 2990
-         --context-path ${context}
-         --ajp-port 9009
+         --http-port ${HTTP_PORT:-2990}
+         --context-path ${CONTEXT_PATH:-"/jira"}
+         --ajp-port ${AJP_PORT:-9009}
          --plugins com.atlassian.jira:jira-func-test-plugin:${version},com.atlassian.jira.tests:jira-testkit-plugin:7.1.9
          --server 127.0.0.1
          -Datlassian.darkfeature.notification.plugin.api.enabled=true
          -Datlassian.mail.senddisabled=false"
 }
 
-function start_cmd() {
-    start_product $(product_definition $@)
-}
-
-function debug_cmd() {
-     debug_product $(product_definition $@)
-}
-
-# @COMMAND logs [version]       tails jira logs
-function logs() {
-    tail_product_logs jira $@
-}
-
-# @COMMAND clean [version]      cleans jira install directory
-function clean() {
-    clean_product jira $@
-}
-
-# @COMMAND view [version]       view jira logs
-function view() {
-    view_product_logs jira $@
-}
-
-# @COMMAND versions             lists installed jira versions
-function versions() {
-    list_versions jira
-}
-
-# @COMMAND get [version]        cd to jira installed version
-function get() {
-    get_product jira $@
-}
+source _atlassian-product.sh
 
 eval $@
 

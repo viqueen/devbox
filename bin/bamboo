@@ -2,51 +2,23 @@
 
 source atlassian-product.sh
 
-function product_definition() {
+_product_name() {
+    echo "bamboo"
+}
+
+_product_definition() {
     _with_arguments 1 $@
     version=${1}
-    context=$(_default ${2} "/bamboo")
     echo "--product bamboo
           --version ${version}
-          --http-port 6990
-          --context-path ${context}
-          --ajp-port 6009
+          --http-port ${HTTP_PORT:-6990}
+          --context-path ${CONTEXT_PATH:-"/bamboo"}
+          --ajp-port ${AJP_PORT:-6009}
           --server 127.0.0.1
           --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
-function start_cmd() {
-    start_product $(product_definition $@)
-}
-
-function debug_cmd() {
-    debug_product $(product_definition $@)
-}
-
-# @COMMAND logs [version]       tails bamboo logs
-function logs() {
-  tail_product_logs bamboo $@
-}
-
-# @COMMAND clean [version]      cleans bamboo install directory
-function clean() {
-  clean_product bamboo $@
-}
-
-# @COMMAND view [version]       view bamboo logs
-function view() {
-  view_product_logs bamboo $@
-}
-
-# @COMMAND versions             lists installed bamboo versions
-function versions() {
-  list_versions bamboo
-}
-
-# @COMMAND get [version]        cd to bamboo installed version
-function get() {
-    get_product bamboo $@
-}
+source _atlassian-product.sh
 
 eval $@
 

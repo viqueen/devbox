@@ -1,44 +1,20 @@
 #! /usr/bin/env bash
 
-source atlassian-product.sh
-
-DEFAULT_VERSION=3.6.0
-
-function product_definition() {
-  version=$(_default $1 ${DEFAULT_VERSION})
-  echo "--product crowd
-        --version ${version}
-        --http-port 4990
-        --server 127.0.0.1"
+_product_name() {
+    echo "crowd"
 }
 
-function start_cmd() {
-  start_product $(product_definition $@)
+_product_definition() {
+    _with_arguments 1 $@
+    version=${1}
+    echo "--product crowd
+          --version ${version}
+          --http-port ${HTTP_PORT:-4990}
+          --ajp-port ${AJP_PORT:-4009}
+          --server 127.0.0.1"
 }
 
-function debug_cmd() {
-  debug_product $(product_definition $@)
-}
-
-# @COMMAND logs [version]     tails crowd logs
-function logs() {
-  tail_product_logs crowd $@
-}
-
-# @COMMAND clean [version]    cleans crowd install directory
-function clean() {
-  clean_product crowd $@
-}
-
-# @COMMAND view [version]     view crowd logs
-function view() {
-  view_product_logs crowd $@
-}
-
-# @COMMAND versions           lists installed crowd versions
-function versions() {
-  list_versions crowd
-}
+source _atlassian-product.sh
 
 eval $@
 
