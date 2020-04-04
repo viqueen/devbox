@@ -67,7 +67,7 @@ _with_functions() {
     done
 
     if [[ ${#errors[@]} -gt 0 ]]; then
-        echo "missing impl for function(s) : ${errors}"
+        echo "missing impl for function(s) : ${errors[@]}"
         exit 1
     fi
 }
