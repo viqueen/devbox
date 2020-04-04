@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source atlassian-product.sh
-
 _product_name() {
     echo "bamboo"
 }
