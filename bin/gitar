@@ -13,7 +13,7 @@ _pick_author() {
         filename=${data}
         annotation=$(git annotate -e ${filename} HEAD)
         if [[ ${annotation} =~ ^(.*)(<${pick_author}>)(.*)$ ]]; then
-            echo ${author} : ${filename}
+            echo ${pick_author} : ${filename}
         fi
     done
 }
