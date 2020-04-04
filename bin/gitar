@@ -1,0 +1,61 @@
+#! /usr/bin/env bash
+#
+# @LICENSE  Apache-2.0
+# @AUTHOR Hasnae R.
+# @VERSION 1.0.0
+#
+
+source selfedit.sh
+
+_pick_author() {
+    while read data
+    do
+        filename=${data}
+        annotation=$(git annotate -e ${filename} HEAD)
+        if [[ ${annotation} =~ ^(.*)(<${pick_author}>)(.*)$ ]]; then
+            echo ${author} : ${filename}
+        fi
+    done
+}
+
+# @COMMAND pick [author]            picks out files with changes from author
+function pick() {
+    _with_arguments 1 $@
+    pick_author=${1}; shift
+
+    git ls-tree --name-only -r HEAD \
+        | _pick_author
+}
+
+_tune_author() {
+    while read data
+    do
+        if [[ ${data} =~ ^HEAD:(.*):(.*):$ ]]; then
+            filename=${BASH_REMATCH[1]}
+            linenumber=${BASH_REMATCH[2]}
+            all_the_blames=$(git annotate -e -L ${linenumber},${linenumber} ${filename})
+            if [[ "${all_the_blames}" =~ ^(.*)(<${tune_author}>)(.*)$ ]]; then
+                echo "***"
+                echo "${filename}"
+                echo "${all_the_blames}"
+            fi
+        fi
+    done
+}
+
+# @COMMAND tune [pattern]               finds out files with the pattern from author
+function tune() {
+    _with_arguments 1 $@
+    pattern="${1}"
+    tune_author=$(_default $2 $(git config user.email))
+
+    git grep --line-number "${pattern}" HEAD \
+        | awk '{print $1}' \
+        | _tune_author
+}
+
+eval $@
+
+if [[ -z $1 ]]; then
+    $0 -h
+fi
