@@ -54,6 +54,23 @@ function tune() {
         | _tune_author
 }
 
+_filter_releases() {
+    while read data
+    do
+      if [[ ${data} =~ ^(.*)(origin/(confluence_|confluence-project-|release/(.*)).*)$ ]]; then
+        date_and_author=${BASH_REMATCH[1]}
+        branch=${BASH_REMATCH[2]}
+        echo -e "${date_and_author} \033[32m${branch}\033[0m"
+      fi
+    done
+}
+
+# @COMMAND scale                      shows all the release branches
+function scale() {
+  git branch -va --sort=-committerdate --format='%(committerdate:short) %(authorname) %(refname:short)' \
+    | _filter_releases
+}
+
 eval $@
 
 if [[ -z $1 ]]; then
