@@ -18,7 +18,7 @@ _pick_author() {
     done
 }
 
-# @COMMAND pick [author]            picks out files with changes from author
+# @COMMAND pick [author]                  picks out files with changes from author
 function pick() {
     _with_arguments 1 $@
     pick_author=${1}; shift
@@ -43,7 +43,7 @@ _tune_author() {
     done
 }
 
-# @COMMAND tune [pattern]               finds out files with the pattern from author
+# @COMMAND tune [pattern]                 finds out files with the pattern from author
 function tune() {
     _with_arguments 1 $@
     pattern="${1}"
@@ -54,7 +54,7 @@ function tune() {
         | _tune_author
 }
 
-_filter_releases() {
+_filter_branches() {
     while read data
     do
       if [[ ${data} =~ ^(.*)(origin/(confluence_|confluence-project-|release/(.*)).*)$ ]]; then
@@ -65,10 +65,16 @@ _filter_releases() {
     done
 }
 
-# @COMMAND scale                      shows all the release branches
+# @COMMAND scale                          shows all the release/rogue/candidate branches
 function scale() {
   git branch -va --sort=-committerdate --format='%(committerdate:short) %(authorname) %(refname:short)' \
-    | _filter_releases
+    | _filter_branches
+}
+
+# @COMMAND chord <?count>                 shows most recent tags
+function chord() {
+  count=${1:-10}
+  git tag --sort=-creatordate | head -n ${count}
 }
 
 eval $@
