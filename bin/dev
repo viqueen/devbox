@@ -46,28 +46,6 @@ vimrc() {
 # GIT
 #####
 
-# @COMMAND gl                               pretty git log
-gl() {
-    git log \
-        --graph \
-        --full-history \
-        --color \
-        --date=iso \
-        --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
-}
-
-# @COMMAND master [count?]                  top commiters to the repo
-masters() {
-    count=$(_default $1 40)
-    git log --format=format:%an | sort | uniq -c | sort -r | head -n +${count}
-}
-
-# @COMMAND users [count?]                   displays authors of recent commits
-users() {
-  count=$(_default $1 20)
-  git log -${count} --pretty="%ae" | sort | uniq
-}
-
 # @COMMAND commit                           triggers a commit with jira issue prefix extracted from branch name
 commit() {
   message=${@}
@@ -117,19 +95,6 @@ contains() {
   _with_arguments 1 $@
   hash=${1}; shift
   git branch -r --contains ${hash} --list 'origin/release/*'
-}
-
-# @COMMAND show [prop] [version]            greps maven property for given version
-show() {
-  _with_arguments 1 $@
-  property=${1}
-  if [[ -z ${2} ]]; then
-    tag=HEAD
-  else
-    version=$(_replace ${2} "." "\.")
-    tag=$(git tag | grep "${version}$")
-  fi
-  git grep "${property}" ${tag} pom.xml
 }
 
 # @COMMAND stash [name]                     stashes with a name

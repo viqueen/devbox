@@ -77,6 +77,41 @@ function chord() {
   git tag --sort=-creatordate | head -n ${count}
 }
 
+# @COMMAND masters <?count>               shows top contributors to the repo
+function masters() {
+  count=${1:-40}
+  git log --format=format:'%an - %x1b[32m(%ae)%x1b[0m' | sort | uniq -c | sort -r | head -n +${count}
+}
+
+# @COMMAND log                            pretty git log
+function log() {
+  git log \
+        --graph \
+        --full-history \
+        --color \
+        --date=iso \
+        --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
+}
+
+# @COMMAND show [prop] [version]            greps maven property for given version
+function show() {
+  _with_arguments 1 $@
+  property=${1}
+  if [[ -z ${2} ]]; then
+    tag=HEAD
+  else
+    version=$(_replace ${2} "." "\.")
+    tag=$(git tag | grep "${version}$")
+  fi
+  git grep "${property}" ${tag} pom.xml
+}
+
+# @COMMAND band [count?]                   displays authors of recent commits
+function band() {
+  count=$(_default $1 20)
+  git log -${count} --format=format:'%an - %x1b[32m(%ae)%x1b[0m' | sort | uniq
+}
+
 eval $@
 
 if [[ -z $1 ]]; then
