@@ -18,7 +18,7 @@ _pick_author() {
     done
 }
 
-# @COMMAND pick [author]                  picks out files with changes from author
+# @COMMAND pick [author]                        picks out files with changes from author
 function pick() {
     _with_arguments 1 $@
     pick_author=${1}; shift
@@ -26,6 +26,8 @@ function pick() {
     git ls-tree --name-only -r HEAD \
         | _pick_author
 }
+
+######################################################
 
 _tune_author() {
     while read data
@@ -43,7 +45,7 @@ _tune_author() {
     done
 }
 
-# @COMMAND tune [pattern]                 finds out files with the pattern from author
+# @COMMAND tune [pattern]                       finds out files with the pattern from author
 function tune() {
     _with_arguments 1 $@
     pattern="${1}"
@@ -53,6 +55,8 @@ function tune() {
         | awk '{print $1}' \
         | _tune_author
 }
+
+######################################################
 
 _filter_branches() {
     while read data
@@ -65,25 +69,27 @@ _filter_branches() {
     done
 }
 
-# @COMMAND scale                          shows all the release/rogue/candidate branches
+# @COMMAND scale                                shows all the release/rogue/candidate branches
 function scale() {
   git branch -va --sort=-committerdate --format='%(committerdate:short) %(authorname) %(refname:short)' \
     | _filter_branches
 }
 
-# @COMMAND chord <?count>                 shows most recent tags
+######################################################
+
+# @COMMAND chord <?count>                       shows most recent tags
 function chord() {
   count=${1:-10}
   git tag --sort=-creatordate | head -n ${count}
 }
 
-# @COMMAND masters <?count>               shows top contributors to the repo
+# @COMMAND masters <?count>                     shows top contributors to the repo
 function masters() {
   count=${1:-40}
   git log --format=format:'%an - %x1b[32m(%ae)%x1b[0m' | sort | uniq -c | sort -r | head -n +${count}
 }
 
-# @COMMAND log                            pretty git log
+# @COMMAND log                                  pretty git log
 function log() {
   git log \
         --graph \
@@ -93,7 +99,7 @@ function log() {
         --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
 }
 
-# @COMMAND show [prop] [version]            greps maven property for given version
+# @COMMAND show [prop] [version]                greps maven property for given version
 function show() {
   _with_arguments 1 $@
   property=${1}
@@ -106,10 +112,19 @@ function show() {
   git grep "${property}" ${tag} pom.xml
 }
 
-# @COMMAND band [count?]                   displays authors of recent commits
+# @COMMAND band [count?]                        displays authors of recent commits
 function band() {
   count=$(_default $1 20)
   git log -${count} --format=format:'%an - %x1b[32m(%ae)%x1b[0m' | sort | uniq
+}
+
+# @COMMAND stats [author]                       displays stats per author
+function stats() {
+    _with_arguments 1 $@
+    git log --shortstat --author="${1}" \
+        | grep -E "fil(e|es) changed" \
+        | awk '{files+=$1; inserted+=$4; deleted+=$6} END \
+               {print "files changed: ", files, "\nlines inserted: ", inserted, "\nlines deleted: ", deleted }'
 }
 
 eval $@
