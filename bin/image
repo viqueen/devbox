@@ -6,13 +6,14 @@
 source selfedit.sh
 
 DOCKER_IMAGES_HOME=${VIQUEEN_DEVBOX_HOME}/docker-images
+DOCKER_HUB_NAMESPACE=viqueen
 
 _image() {
     # shellcheck disable=SC2068
     _with_arguments 2 $@
     name=${1}
     version=${2}
-    echo "viqueen/${name}:${version}"
+    echo "${DOCKER_HUB_NAMESPACE}/${name}:${version}"
 }
 
 # @COMMAND build [name] [tag]       builds a docker image in viqueen namespace

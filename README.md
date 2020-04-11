@@ -1,6 +1,6 @@
 # devbox
 
-### Playground - try it before you buy it
+## Playground - try it before you buy it
 
 * ubuntu
 ```bash
@@ -12,7 +12,10 @@ docker run -it --entrypoint=/bin/bash viqueen/teknologi:11.0.6-slim
 docker run -it --entrypoint=/bin/bash viqueen/teknologi:14-slim
 ```
 
-### Setup and Configure
+## Setup and Configure
+
+> :warning: this is heavily tailored towards bash, so may not work out of the (dev)box
+> for zsh (zush) and friends
 
 ```bash
 git clone --recursive https://github.com/viqueen/devbox.git
@@ -30,7 +33,7 @@ npm link
 git config --global core.editor vim
 ```
 
-### Optional - macOs dev setup
+## Optional - macOs dev setup
 
 <details>
 <summary>init_mac</summary>
@@ -43,7 +46,7 @@ git config --global core.editor vim
 # terminal wisdom
 brew install cowsay
 brew install fortune
-echo "fortune | cowsay" >> ~/.bash_profile
+echo "fortune | cowsay" >> ~/.profile
 ```
 
 </p>
@@ -53,7 +56,7 @@ echo "fortune | cowsay" >> ~/.bash_profile
 <summary>init_dev_tools</summary>
 <p>
 
-##### Requirements
+#### Requirements
 
 * [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
 
@@ -112,38 +115,95 @@ brew install kotlin
 </details>
 
 
-### Scripts and Binaries
+## Scripts and Binaries
 
-#### generic stuff
+### tricks up this sleeve : from anywhere
+
+* navigate to where devbox is installed
+```bash
+. dev
+```
+
+* open existing scripts for edit
+```bash
+dev edit
+gitar edit
+```
+
+* create a new script in devbox
+```bash
+dev edit mynewscript
+```
+
+> :information_source: all these scripts source `selfedit.sh`
+> which allows you to quickly step into edit mode (uses vim under the hood)
+>
+> `selfedit.sh` also sources `selfdoc.sh` which allows you to add documentation hints
+> to your commands
+
+```bash
+#! /usr/bin/env
+source selfedit.sh
+
+# @COMMAND one              does this and that
+one() {
+    echo "one"
+}
+
+# @COMMAND two              does these and those
+two() {
+    echo "two"
+}
+
+eval $@
+
+if [[ -z $1 ]]; then
+    $0 -h
+fi
+```
+
+> :x: but please note that not all scripts in devbox follow this pattern
+
+### housekeeping and generic scripts
 
 ```bash
 dev -h          # mainframe
 mvnup -h        # maven version upgrade
 jsonf           # json pretty format
 image -h        # docker things
+gitar -h        # git things
 saymyname       # finds the longest java class name in a directory , I was bored once so I wrote this
 ```
 
-#### atlassian stuff
+### Atlassian scripts
 
-It comes with the following product scripts that behave exactly the same
+It comes with the following enterprise product scripts that behave exactly the same
 
 ```bash
 atlas -h        # mainframe
+
 # running and debugging atlassian server instances
 confluence -h
 jira -h
 bitbucket -h
 bamboo -h
+fecru -h
+crowd -h
 ```
 
 Each of them comes the following functions
-`start [version]`
-`debug [version]`
-`logs [version]`
-`versions`
 
-so in the case of confluence, I usually investigate bugs by launching the version they were reported on
+```
+start [version]                          starts product
+debug [version]                          starts product with debug port
+clean [version-pattern]                  cleans product directory for given version pattern
+versions                                 lists installed product versions
+cmd [action] [version]                   displays resolved command
+get [version]                            cd to product's installed version
+view [version]                           view product logs
+```
+
+So in the case of Confluence, I usually kick off my dev by launching the version I am interested in
 
 * start the instance
 `confluence start 6.15.4`
@@ -152,15 +212,7 @@ so in the case of confluence, I usually investigate bugs by launching the versio
 * list the version I have already installed
 `confluence versions`
 
-but where are all those instances stored ?
-
-fun fact, you can use the following command to navigate to where devbox is installed
-
-`. dev`
-
-and then you will find your standalone instances available under
-
-`devbox/.atlassian-products/`
+The instances are installed under `.atlassian-products` directory
 
 
 #### confluence devbox
@@ -169,8 +221,6 @@ These are the basics, but I trust you can poke around the repo to find out how t
 interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
 
 This whole repo is designed for simplicity and ease of use, so I do not want to overload it with tons of configurations
-
-For questions find me on https://gitter.im/viqueen/devbox
 
 ```bash
 # build it
@@ -186,3 +236,30 @@ confdev post setup smtp-server
 confdev post setup users
 ```
 
+### Elastic scripts
+
+It comes with the following enterprise product scripts that behave exactly the same
+
+```bash
+search -h
+entsearch -h
+kibana -h
+logstash -h
+filebeat -h
+```
+
+While I sort out a smooth easy to start elastic stack locally with one script, I navigate to the elastic products
+I want by running the following
+
+```bash
+. search get 7.5.0
+. entsearch get 7.5.0
+. kibana get 7.5.0
+. logstash get 7.5.0
+. filebeat get 7.5.0
+```
+
+The above commands also take care of downloading the artifacts 
+
+> :warning: please notice the `_distro() { echo "darwin-x86_64" }` in `elastic-product.sh`, you
+> probably want to adjust that to whatever distro you need for your platform.
