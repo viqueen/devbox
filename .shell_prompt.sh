@@ -62,7 +62,7 @@ function __promptline_ps1 {
   __promptline_wrapper "$(__promptline_last_exit_code)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
 
   # close sections
-  printf "%s" "${reset_bg}$reset$space\n${sep}${space}"
+  printf "%s" "${reset_bg}$reset$space\n\033[32m${sep}\033[0m${space}"
 }
 function __promptline_vcs_branch {
   local branch
@@ -208,7 +208,10 @@ function __promptline {
       __promptline_ps1
     fi
   else
-    PS1="$(__promptline_ps1)"
+    cmd_col="$(tput sgr0)\033[32m$(tput bold)"
+    normal_col="$(tput sgr0)"
+    trap 'echo -n "$normal_col"' DEBUG
+    PS1="$(__promptline_ps1) \[$cmd_col\]"
   fi
 }
 
