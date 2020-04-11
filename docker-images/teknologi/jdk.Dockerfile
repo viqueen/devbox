@@ -1,6 +1,7 @@
 FROM openjdk:${JDK_VERSION}
 
 ARG MAVEN_VERSION=3.6.3
+ARG NODE_VERSION=v12.16.2
 
 SHELL ["/bin/bash", "-c"]
 
@@ -28,6 +29,9 @@ RUN mkdir -p /tmp/downloads \
 ENV PATH=${PATH}:/opt/atlassian-plugin-sdk/bin
 ENV ATLAS_MVN=/usr/local/bin/mvn
 
+# NVM
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+
 # devbox
 RUN mkdir -p ~/sources \
     && git clone --recursive https://github.com/viqueen/devbox.git ~/sources/devbox \
@@ -35,4 +39,6 @@ RUN mkdir -p ~/sources \
     && mkdir -p .atlassian-products \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
-    && ./setup.sh config_vim
+    && ./setup.sh config_vim \
+    && source ~/.nvm/nvm.sh \
+    && nvm install ${NODE_VERSION}
