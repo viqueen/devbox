@@ -45,6 +45,14 @@ rc() {
   source ${VIQUEEN_DEVBOX_HOME}/.devboxrc
 }
 
+# @COMMAND path                             shows what's in the path
+path() {
+  IFS=':' read -ra DATA <<< "${PATH}"
+  for item in "${DATA[@]}"; do
+    echo ${item}
+  done
+}
+
 #######
 # VIM
 #######

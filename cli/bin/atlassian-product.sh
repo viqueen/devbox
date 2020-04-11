@@ -71,7 +71,7 @@ function cmd() {
     esac
 }
 
-# @COMMAND  get [version]                           cd to product's installed version
+# @COMMAND get [version]                           cd to product's installed version
 function get() {
     _with_arguments 1 $@
     product=$(_product_name)
