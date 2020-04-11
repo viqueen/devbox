@@ -7,7 +7,7 @@
 
 source selfdoc.sh
 
-VIQUEEN_DEVBOX_BIN=${VIQUEEN_DEVBOX_HOME}/bin
+VIQUEEN_DEVBOX_BIN=${VIQUEEN_DEVBOX_HOME}/cli/bin
 
 # @COMMAND docs [name]                          prints the function definition
 docs() {

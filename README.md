@@ -22,7 +22,6 @@ git clone --recursive https://github.com/viqueen/devbox.git
 
 # required
 ./setup.sh config_box
-npm install .
 npm link
 
 # optional, to setup the prompt line
