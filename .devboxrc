@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+alias ll='ls -la'
+alias please=sudo
+
+# overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
+export PS1='\u@\h\w'
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# maven
+export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"
+
+# git
+git config \
+    --global alias.lg \
+    "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"

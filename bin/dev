@@ -39,6 +39,12 @@ lc() {
   wc -l ${filepath} | awk '{ print $1 }'
 }
 
+# @COMMAND rc                             opens .devboxrc file for edit
+rc() {
+  vim ${VIQUEEN_DEVBOX_HOME}/.devboxrc
+  source ${VIQUEEN_DEVBOX_HOME}/.devboxrc
+}
+
 #######
 # VIM
 #######
