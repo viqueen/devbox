@@ -32,6 +32,17 @@ src() {
   cd ${VIQUEEN_DEVBOX_HOME}/..
 }
 
+# @COMMAND lc [filepath]                   line count for given file
+lc() {
+  _with_arguments 1 $@
+  filepath=${1}
+  wc -l ${filepath} | awk '{ print $1 }'
+}
+
+#######
+# VIM
+#######
+
 # @COMMAND vimr                             vim refresh
 vimr () {
   vim +PluginInstall +qall
