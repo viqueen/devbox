@@ -3,7 +3,7 @@ FROM openjdk:${JDK_VERSION}
 ARG MAVEN_VERSION=3.6.3
 ARG NODE_VERSION=v12.16.2
 
-RUN apk add curl wget bash
+RUN apk add curl wget bash nodejs nodejs-npm
 
 SHELL ["/bin/bash", "-c"]
 
@@ -14,6 +14,3 @@ RUN mkdir -p /usr/local/bin \
     && echo "mvn_version=$MAVEN_VERSION" > mvnvm.properties \
     && mvn --version \
     && rm mvnvm.properties
-
-# NVM
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
