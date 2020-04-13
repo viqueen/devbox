@@ -44,9 +44,24 @@ function push() {
 
 # @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
 function run() {
-    # shellcheck disable=SC2068
-    image=$(_image $@)
-    docker run -it --entrypoint=/bin/bash "${image}"
+    _with_arguments 2 $@
+    image=$(_image ${1} ${2})
+    if [[ -n $3 ]]; then
+      options="--name ${3}"
+    fi
+    docker run ${options} -it --entrypoint=/bin/bash "${image}"
+}
+
+# @COMMAND start [name]           starts existing docker container
+function start() {
+  _with_arguments 1 $@
+  name=${1}
+  docker start -i ${name}
+}
+
+# @COMMAND delc                   deletes all containers
+function delc() {
+  docker ps -a | tail -n +2 | awk '{ print $1 }' | xargs docker rm
 }
 
 # shellcheck disable=SC2068
