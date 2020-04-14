@@ -16,6 +16,14 @@ _product_definition() {
           --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
 }
 
+_product_group_id() {
+    echo "com.atlassian.bamboo"
+}
+
+_product_webapp_name() {
+    echo "atlassian-bamboo-web-app"
+}
+
 source atlassian-product.sh
 
 eval $@

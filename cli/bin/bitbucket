@@ -15,6 +15,14 @@ _product_definition() {
           --server 127.0.0.1"
 }
 
+_product_group_id() {
+    echo "com.atlassian.bitbucket"
+}
+
+_product_webapp_name() {
+    echo "bitbucket-webapp"
+}
+
 source atlassian-product.sh
 
 eval $@

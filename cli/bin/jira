@@ -18,6 +18,14 @@ _product_definition() {
          -Datlassian.mail.senddisabled=false"
 }
 
+_product_group_id() {
+    echo "com.atlassian.jira"
+}
+
+_product_webapp_name() {
+    echo "atlassian-jira-webapp"
+}
+
 source atlassian-product.sh
 
 eval $@

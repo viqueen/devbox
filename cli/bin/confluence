@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function _product_definition() {
+_product_definition() {
     _with_arguments 1 $@
     version=${1}
     echo "--product confluence
@@ -11,8 +11,16 @@ function _product_definition() {
           --ajp-port ${AJP_PORT:-8009}"
 }
 
-function _product_name() {
+_product_name() {
     echo "confluence"
+}
+
+_product_group_id() {
+    echo "com.atlassian.confluence"
+}
+
+_product_webapp_name() {
+    echo "confluence-webapp"
 }
 
 source atlassian-product.sh

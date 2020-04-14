@@ -2,7 +2,7 @@
 
 source selfedit.sh
 
-_with_functions "_product_definition" "_product_name"
+_with_functions "_product_definition" "_product_name" "_product_group_id" "_product_webapp_name"
 
 ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 
@@ -93,4 +93,15 @@ function view() {
     product=$(_product_name)
     version=${1}
     vim ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
+}
+
+# @COMMAND wars                                     lists available versions in local maven repo
+function wars() {
+    product=$(_product_name)
+    target_dir=$(_replace $(_product_group_id) "\." "/")
+    webapp=$(_product_webapp_name)
+    find ~/.m2/repository/${target_dir} -name "${webapp}-*.war" \
+        | awk -F "/" '{print $NF}' \
+        | sed "s/${webapp}-\(.*\).war/\1/" \
+        | sort -u
 }

@@ -190,7 +190,7 @@ fecru -h
 crowd -h
 ```
 
-Each of them comes the following functions
+Each of them comes with the following functions
 
 ```
 start [version]                          starts product
@@ -198,8 +198,9 @@ debug [version]                          starts product with debug port
 clean [version-pattern]                  cleans product directory for given version pattern
 versions                                 lists installed product versions
 cmd [action] [version]                   displays resolved command
-get [version]                            cd to product's installed version
+get [version]                           cd to product's installed version
 view [version]                           view product logs
+wars                                     lists available versions in local maven repo
 ```
 
 So in the case of Confluence, I usually kick off my dev by launching the version I am interested in
