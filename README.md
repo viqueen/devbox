@@ -176,6 +176,24 @@ saymyname       # finds the longest java class name in a directory , I was bored
 
 ### Atlassian scripts
 
+> :warning: these are wrappers around the atlassian-sdk 
+> so please make sure you have it installed 
+
+<details>
+<summary>install_atlassian_sdk</summary>
+<p>
+
+* mac OS
+```bash
+brew tap atlassian/tap
+brew install atlassian/tap/atlassian-plugin-sdk
+```
+
+* for other platforms, please take a look at https://developer.atlassian.com/server/framework/atlassian-sdk/downloads/
+
+</p>
+</details>
+
 It comes with the following enterprise product scripts that behave exactly the same
 
 ```bash
@@ -214,13 +232,9 @@ So in the case of Confluence, I usually kick off my dev by launching the version
 
 The instances are installed under `.atlassian-products` directory
 
-
 #### confluence devbox
 
-These are the basics, but I trust you can poke around the repo to find out how to tune the options so the scripts are
-interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
-
-This whole repo is designed for simplicity and ease of use, so I do not want to overload it with tons of configurations
+This is a development helper plugin I use in all my feature/bug-fix endeavours 
 
 ```bash
 # build it
@@ -229,12 +243,16 @@ atlas build
 # update the following to match your context path and port
 atlas pi confluence 8080 
 
-
 # setup an smtp server
 confdev post setup smtp-server
 # create multiple users
 confdev post setup users
 ```
+
+> :information_source: These are the basics, but I trust you can poke around the repo to find out how to tune 
+> the options so the scripts are interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
+> This whole repo is designed for simplicity and ease of use, so I do not want to overload it with tons of configurations
+
 
 ### Elastic scripts
 
