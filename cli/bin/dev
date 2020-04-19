@@ -41,8 +41,8 @@ lc() {
 
 # @COMMAND rc                             opens .devboxrc file for edit
 rc() {
-  vim ${VIQUEEN_DEVBOX_HOME}/.devboxrc
-  source ${VIQUEEN_DEVBOX_HOME}/.devboxrc
+  vim ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
+  source ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
 }
 
 # @COMMAND path                             shows what's in the path
