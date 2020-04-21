@@ -28,7 +28,7 @@ maildev
 confdev post setup users
 ```
 
-by default you get 20 users created, their usernames are `user-1`, `user-2`, `user-3` ... `user-20`
+by default you get 20 users created, their userNames are `user-1`, `user-2`, `user-3` ... `user-20`
 
 if you need more users created you can pass in a start param as follow
 
