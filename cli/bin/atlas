@@ -18,7 +18,7 @@ conf() {
   cd ${ATLAS_SOURCES}/confluence-server
 }
 
-jira() {
+jra() {
   cd ${ATLAS_SOURCES}/jira-server
 }
 
