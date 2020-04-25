@@ -24,6 +24,7 @@ import java.util.concurrent.Future;
 
 import static com.atlassian.confluence.api.model.validation.ServiceExceptionSupplier.notFound;
 
+// https://community.developer.atlassian.com/t/contentpropertyservice-is-null-in-thread/37300
 @Path("/content-property")
 public class ContentPropertyResource {
 

@@ -1,21 +1,33 @@
-### Confluence Devbox
+## Confluence Devbox Plugin
 
 
-#### build it
+### run it
 
-```
-cd confluence-devbox
-atlas build
-```
+* using Java 8
 
-#### install it
-
-```
-confluence start 7.0.5
-atlas pi
+```bash
+jenv shell 1.8
+atlas-run
+# in debug mode
+atlas-debug
 ```
 
-#### setup data
+* using Java 11
+
+```bash
+jenv shell 11.0.5
+atlas-run
+# in debug mode
+atlas-debug
+```
+
+### install it on an already existing instance
+
+```
+mvn confluence:install -Dhttp.port=8080
+```
+
+### use it to setup data
 
 * configure an smtp server
 ```

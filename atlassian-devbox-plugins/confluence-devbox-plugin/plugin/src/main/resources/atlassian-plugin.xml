@@ -15,14 +15,4 @@
         <package>org.viqueen.devbox.resources</package>
     </rest>
 
-    <xhtml-macro name="devbox" class="org.viqueen.devbox.macros.SampleMacro" key="devbox-macro">
-        <description key="devbox.macro.desc"/>
-        <parameters/>
-    </xhtml-macro>
-
-    <web-resource key="soy-templates">
-        <!-- Available to the server-side only -->
-        <resource type="soy" name="links" location="/macros/sample/devbox-macro.soy"/>
-    </web-resource>
-
 </atlassian-plugin>

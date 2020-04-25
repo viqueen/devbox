@@ -9,11 +9,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>confluence-devbox-plugin</artifactId>
-    <packaging>atlassian-plugin</packaging>
+    <artifactId>confluence-devbox-plugin-parent</artifactId>
+    <packaging>pom</packaging>
 
-    <name>Confluence Devbox Plugin</name>
-    <description>Confluence Devbox Plugin</description>
+    <name>Confluence Devbox Plugin Parent</name>
+    <description>Confluence Devbox Plugin Parent</description>
     <organization>
         <name>viqueen</name>
     </organization>
@@ -23,121 +23,23 @@
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <atlassian.spring.scanner.version>2.2.0</atlassian.spring.scanner.version>
 
-        <confluence.version>7.3.3</confluence.version>
+        <confluence.version>7.4.0</confluence.version>
         <confluence.data.version>${confluence.version}</confluence.data.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <atlassian.dev.mode>false</atlassian.dev.mode>
+        <containerId>tomcat9x</containerId>
+        <jvm.args.custom />
+        <jvm.args>-Xmx2048m ${jvm.args.custom}</jvm.args>
+        <webdriver.browser>chrome</webdriver.browser>
+        <xvfb.enable>false</xvfb.enable>
+        <xvfb.display>:0</xvfb.display>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.atlassian.confluence</groupId>
-                <artifactId>confluence-plugins-platform-pom</artifactId>
-                <version>${confluence.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>com.atlassian.confluence</groupId>
-            <artifactId>confluence</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.atlassian.plugin</groupId>
-            <artifactId>atlassian-spring-scanner-annotation</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>0.14</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.6.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>2.28.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>confluence-maven-plugin</artifactId>
-                <version>${amps.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <productVersion>${confluence.version}</productVersion>
-                    <productDataVersion>${confluence.data.version}</productDataVersion>
-                    <enableQuickReload>true</enableQuickReload>
-                    <!-- See here for an explanation of default instructions: -->
-                    <!-- https://developer.atlassian.com/docs/advanced-topics/configuration-of-instructions-in-atlassian-plugins -->
-                    <instructions>
-                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
-
-                        <!-- Add package import here -->
-                        <Import-Package>
-                            *
-                        </Import-Package>
-
-                        <!-- Ensure plugin is spring powered -->
-                        <Spring-Context>*</Spring-Context>
-                    </instructions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.atlassian.plugin</groupId>
-                <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
-                <version>${atlassian.spring.scanner.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>atlassian-spring-scanner</goal>
-                        </goals>
-                        <phase>process-classes</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <scannedDependencies>
-                        <dependency>
-                            <groupId>com.atlassian.plugin</groupId>
-                            <artifactId>atlassian-spring-scanner-external-jar</artifactId>
-                        </dependency>
-                    </scannedDependencies>
-                    <verbose>false</verbose>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+      <module>plugin</module>
+      <module>integration-tests</module>
+    </modules>
 </project>
