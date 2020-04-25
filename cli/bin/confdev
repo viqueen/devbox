@@ -17,5 +17,5 @@ const restful = new Restful({
 
 const program = restful.program();
 program.version('1.0.0');
-// noinspection JSUnresolvedVariable
+// noinspection JSUnresolvedVariable,ES6ModulesDependencies
 program.parse(process.argv);

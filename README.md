@@ -232,13 +232,15 @@ So in the case of Confluence, I usually kick off my dev by launching the version
 
 The instances are installed under `.atlassian-products` directory
 
-#### confluence devbox
+### Atlassian Devbox Plugins
 
-This is a development helper plugin I use in all my feature/bug-fix endeavours 
+These are development helper plugins I use in all my feature/bug-fix endeavours 
+
+#### confluence
 
 ```bash
 # build it
-cd confluence-devbox
+cd atlassian-devbox-plugins/confluence-devbox-plugin
 atlas build
 # update the following to match your context path and port
 atlas pi confluence 8080 
@@ -249,10 +251,11 @@ confdev post setup smtp-server
 confdev post setup users
 ```
 
-> :information_source: These are the basics, but I trust you can poke around the repo to find out how to tune 
+> :information_source: `confdev` script is available under `cli/bin` , this is just a rest client to interact with
+> confluence-devbox-plugin rest resources.
+>
+> Note that these are just the basics, but I trust you can poke around the repo to find out how to tune 
 > the options so the scripts are interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
-> This whole repo is designed for simplicity and ease of use, so I do not want to overload it with tons of configurations
-
 
 ### Elastic scripts
 
