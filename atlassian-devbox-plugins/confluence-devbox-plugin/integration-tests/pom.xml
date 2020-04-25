@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.viqueen.devbox</groupId>
+        <artifactId>confluence-devbox-plugin-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>confluence-devbox-plugin-integration-tests</artifactId>
+    <packaging>atlassian-plugin</packaging>
+
+    <name>Confluence Devbox Plugin Integration Tests</name>
+    <description>Confluence Devbox Plugin Integration Tests</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-plugins-platform-test-pom</artifactId>
+                <version>${confluence.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-stateless-test-runner</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.selenium</groupId>
+            <artifactId>atlassian-webdriver-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>confluence-maven-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>webdriver-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <containerId>${containerId}</containerId>
+                    <jvmArgs>${jvm.args}</jvmArgs>
+                    <productVersion>${confluence.version}</productVersion>
+                    <productDataVersion>${confluence.data.version}</productDataVersion>
+                    <pluginArtifacts>
+                        <pluginArtifact>
+                            <groupId>org.viqueen.devbox</groupId>
+                            <artifactId>confluence-devbox-plugin</artifactId>
+                            <version>${project.version}</version>
+                        </pluginArtifact>
+                    </pluginArtifacts>
+                    <systemPropertyVariables>
+                        <confluence.version>${confluence.version}</confluence.version>
+                        <xvfb.enable>${xvfb.enable}</xvfb.enable>
+                        <xvfb.display>${xvfb.display}</xvfb.display>
+                        <webdriver.browser>${webdriver.browser}</webdriver.browser>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
