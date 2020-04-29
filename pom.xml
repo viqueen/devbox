@@ -11,6 +11,7 @@
 
     <modules>
         <module>atlassian-devbox-plugins</module>
+        <module>atlassian-product-setup</module>
     </modules>
 
     <properties>
