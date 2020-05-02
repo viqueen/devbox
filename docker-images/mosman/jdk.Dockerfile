@@ -15,3 +15,6 @@ RUN mkdir -p /usr/local/bin \
     && echo "mvn_version=$MAVEN_VERSION" > mvnvm.properties \
     && mvn --version \
     && rm mvnvm.properties
+
+# NVM
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
