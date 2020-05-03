@@ -3,6 +3,7 @@
 const request = require('request-promise');
 const queryString = require('query-string');
 const program = require('commander');
+const prettyJson = require('prettyjson');
 
 function collect(val, memo) {
     memo.push(val);
@@ -67,7 +68,7 @@ class Restful {
                                     'Content-Type': 'application/json'
                                 }
                             })
-                                .then(data => console.log(data))
+                                .then(data => console.log(prettyJson.render(data)))
                                 .catch(error => {
                                     console.log(error.response.body)
                                 })
