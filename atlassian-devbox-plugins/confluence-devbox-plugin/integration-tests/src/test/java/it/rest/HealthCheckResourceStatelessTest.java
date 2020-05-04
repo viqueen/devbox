@@ -27,7 +27,7 @@ public class HealthCheckResourceStatelessTest {
     @Test
     public void testPing() {
         ClientResponse response = restClient.createSession(user.get())
-                .resource("/rest/devbox/latest/ping")
+                .resource("/rest/devbox/latest/health/ping")
                 .get(ClientResponse.class);
 
         assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));

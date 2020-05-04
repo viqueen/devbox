@@ -8,10 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.lang.management.ManagementFactory;
+
 import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 
-@Path("/ping")
+@Path("/health")
 public class HealthCheckResource {
 
     private final SampleContentService sampleContentService;
@@ -22,6 +24,7 @@ public class HealthCheckResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/ping")
     public Response ping() {
         return Response.ok(
                 singletonMap(
@@ -33,4 +36,13 @@ public class HealthCheckResource {
         ).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/pid")
+    public Response pid() {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        return Response.ok(singletonMap(
+                "pid", name.split("@")[0]
+        )).build();
+    }
 }
