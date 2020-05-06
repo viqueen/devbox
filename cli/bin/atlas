@@ -59,7 +59,7 @@ build() {
 pi() {
   product=$(_default ${1} "confluence")
   port=$(_default ${2} "8080")
-  context=$(_default ${3} "/confluence")
+  context=$(_default ${3} "/${product}")
   atlas-mvn -e ${product}:install -Dhttp.port=${port} -Dcontext.path=${context}
 }
 
