@@ -57,11 +57,24 @@ function run() {
     docker run ${options} -it --entrypoint=/bin/bash "${image}"
 }
 
-# @COMMAND start [name]           starts existing docker container
+# @COMMAND mount [name] [tag]
+function mount() {
+    _with_arguments 2 $@
+    directory=$(pwd)
+    volume_name=$(basename ${directory})
+    image=$(_image ${1} ${2})
+    options="--name ${volume_name} --volume ${directory}:/sources/${volume_name}"
+    docker run ${options} \
+        -it --entrypoint=/bin/bash \
+        -w=/sources/${volume_name} \
+        "${image}"
+}
+
+# @COMMAND start <container>           starts existing docker container
 function start() {
   _with_arguments 1 $@
-  name=${1}
-  docker start -i ${name}
+  container=${1}
+  docker start -i ${container}
 }
 
 # @COMMAND delc                   deletes all containers
