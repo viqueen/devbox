@@ -21,9 +21,14 @@ function build() {
     # shellcheck disable=SC2068
     image=$(_image $@)
     name=${1}
-    jdkVersion=${2}
+    baseVersion=${2}
     target=${DOCKER_IMAGES_HOME}/${name}/
-    sed "s/\${JDK_VERSION}/${jdkVersion}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
+    if [[ -f "${target}/jdk.Dockerfile" ]]; then
+        sed "s/\${JDK_VERSION}/${baseVersion}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
+    fi
+    if [[ -f "${target}/ubuntu.Dockerfile" ]]; then
+        sed "s/\${UBUNTU_VERSION}/${baseVersion}/g" "${target}"/ubuntu.Dockerfile > "${target}"/Dockerfile
+    fi
 
     shift
     shift
