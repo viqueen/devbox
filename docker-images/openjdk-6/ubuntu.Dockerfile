@@ -6,4 +6,4 @@ MAINTAINER viqueen
 RUN apt-get update \
     && apt-get install -y openjdk-6-jdk
 
-RUN apt-get install -y maven ant git
+RUN apt-get install -y maven ant
