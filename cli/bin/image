@@ -47,35 +47,66 @@ function push() {
     docker push "${image}" $@
 }
 
-# @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
-function run() {
+_run_cmd() {
     _with_arguments 2 $@
     image=$(_image ${1} ${2})
     if [[ -n $3 ]]; then
       options="--name ${3}"
     fi
-    docker run ${options} -it --entrypoint=/bin/bash "${image}"
+    echo "docker run ${options} -it --entrypoint=/bin/bash ${image}"
 }
 
-# @COMMAND mount [name] [tag]
-function mount() {
+# @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
+function run() {
+    eval $(_run_cmd $@)
+}
+
+_mount_cmd() {
     _with_arguments 2 $@
     directory=$(pwd)
     volume_name=$(basename ${directory})
     image=$(_image ${1} ${2})
     options="--name ${volume_name} --volume ${directory}:/sources/${volume_name}"
-    docker run ${options} \
-        -it --entrypoint=/bin/bash \
-        -w=/sources/${volume_name} \
-        "${image}"
+    echo "docker run ${options} -it --entrypoint=/bin/bash -w=/sources/${volume_name} ${image}"
+}
+
+# @COMMAND mount [name] [tag]
+function mount() {
+    eval $(_mount_cmd $@)
+}
+
+_start_cmd() {
+    _with_arguments 1 $@
+    container=${1}
+    echo "docker start -i ${container}"
 }
 
 # @COMMAND start <container>           starts existing docker container
 function start() {
-  _with_arguments 1 $@
-  container=${1}
-  docker start -i ${container}
+  eval $(_start_cmd $@)
 }
+
+# @COMMAND cmd [action] [version]                   displays resolved command
+function cmd() {
+    _with_arguments 1 $@
+    action=${1}; shift
+
+    case ${action} in
+        "start")
+            _start_cmd $@
+            ;;
+        "mount")
+            _mount_cmd $@
+            ;;
+        "run")
+            _run_cmd $@
+            ;;
+        *)
+            echo "unknown command : [ start , debug ] allowed"
+            ;;
+    esac
+}
+
 
 # @COMMAND delc                   deletes all containers
 function delc() {
