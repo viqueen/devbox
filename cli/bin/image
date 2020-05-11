@@ -70,9 +70,16 @@ _mount_cmd() {
     echo "docker run ${options} -it --entrypoint=/bin/bash -w=/sources/${volume_name} ${image}"
 }
 
-# @COMMAND mount [name] [tag]
+# @COMMAND mount [name] [tag]         mounts current working directory as volume onto image
 function mount() {
     eval $(_mount_cmd $@)
+}
+
+# @COMMAND dismount                   cleans up current working directory as volume
+function dismount() {
+  directory=$(pwd)
+  volume_name=$(basename ${directory})
+  docker rm ${volume_name}
 }
 
 _start_cmd() {
