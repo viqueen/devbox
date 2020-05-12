@@ -1,5 +1,7 @@
 package org.viqueen.devbox.resources;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.viqueen.devbox.services.SampleContentService;
 
 import javax.ws.rs.GET;
@@ -16,6 +18,7 @@ import static java.util.Collections.singletonMap;
 @Path("/health")
 public class HealthCheckResource {
 
+    private static final Logger log = LoggerFactory.getLogger(HealthCheckResource.class);
     private final SampleContentService sampleContentService;
 
     public HealthCheckResource(final SampleContentService sampleContentService) {
@@ -26,6 +29,7 @@ public class HealthCheckResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/ping")
     public Response ping() {
+        log.info("** health / ping");
         return Response.ok(
                 singletonMap(
                         "components",

@@ -86,6 +86,7 @@
                     <jvmArgs>${jvm.args}</jvmArgs>
                     <productVersion>${confluence.version}</productVersion>
                     <productDataVersion>${confluence.data.version}</productDataVersion>
+                    <output>${project.build.directory}/confluence/home/logs/atlassian-confluence.log</output>
                     <enableQuickReload>true</enableQuickReload>
                     <server>localhost</server>
                     <!-- See here for an explanation of default instructions: -->
