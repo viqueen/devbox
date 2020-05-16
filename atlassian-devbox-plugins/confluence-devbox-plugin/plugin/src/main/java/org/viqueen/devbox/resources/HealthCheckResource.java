@@ -2,7 +2,7 @@ package org.viqueen.devbox.resources;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.viqueen.devbox.services.SampleContentService;
+import org.viqueen.devbox.services.SampleCommunityService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,10 +19,10 @@ import static java.util.Collections.singletonMap;
 public class HealthCheckResource {
 
     private static final Logger log = LoggerFactory.getLogger(HealthCheckResource.class);
-    private final SampleContentService sampleContentService;
+    private final SampleCommunityService communityService;
 
-    public HealthCheckResource(final SampleContentService sampleContentService) {
-        this.sampleContentService = sampleContentService;
+    public HealthCheckResource(final SampleCommunityService communityService) {
+        this.communityService = communityService;
     }
 
     @GET
@@ -34,7 +34,7 @@ public class HealthCheckResource {
                 singletonMap(
                         "components",
                         singletonList(
-                                sampleContentService.toString()
+                                communityService.toString()
                         )
                 )
         ).build();
