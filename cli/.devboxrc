@@ -3,6 +3,7 @@
 alias ll='ls -la'
 alias please=sudo
 alias wl='wc -l'
+alias dcompose='docker-compose down'
 
 # overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
 export PS1='\u@\h\w'
