@@ -86,7 +86,10 @@ function chord() {
 # @COMMAND masters <?count>                     shows top contributors to the repo
 function masters() {
   count=${1:-40}
-  git log --format=format:'%an - %x1b[32m(%ae)%x1b[0m' | sort | uniq -c | sort -r | head -n +${count}
+  me=$(git config user.email)
+  git log --format=format:'%an - %x1b[32m(%ae)%x1b[0m' \
+    | sort | uniq -c | sort -r | head -n +${count} \
+    | grep --color -E "[0-9]+.*${me}.*|$"
 }
 
 # @COMMAND log                                  pretty git log
@@ -146,12 +149,14 @@ function snaps() {
 function heros() {
   _with_arguments 1 $@
   word=${1}
-  git log --format='%ae %s' \
+  me=$(git config user.email)
+  git log --format=format:'%an %x1b[32m(%ae)%x1b[0m : %s' \
     | grep -i "${word}" \
-    | awk '{ print $1 }' \
+    | awk -F ":"  '{ print $1 }' \
     | sort \
     | uniq -c \
-    | sort -r
+    | sort -r \
+    | grep --color -E "[0-9]+.*${me}.*|$"
 }
 
 eval $@
