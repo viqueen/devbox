@@ -135,6 +135,13 @@ function contains() {
   git branch -r --contains ${hash} --list 'origin/release/*'
 }
 
+# @COMMAND snaps [version?]
+function snaps() {
+  git branch -r --list origin/release/* \
+    | grep -Eo 'origin/release/[0-9]+.[0-9]+' \
+    | xargs -I R git grep SNAPSHOT R pom.xml
+}
+
 eval $@
 
 if [[ -z $1 ]]; then
