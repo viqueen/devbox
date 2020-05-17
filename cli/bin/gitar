@@ -142,6 +142,18 @@ function snaps() {
     | xargs -I R git grep SNAPSHOT R pom.xml
 }
 
+# @COMMAND heros [word?]                        displays the authors that use the given word in their commits
+function heros() {
+  _with_arguments 1 $@
+  word=${1}
+  git log --format='%ae %s' \
+    | grep -i "${word}" \
+    | awk '{ print $1 }' \
+    | sort \
+    | uniq -c \
+    | sort -r
+}
+
 eval $@
 
 if [[ -z $1 ]]; then
