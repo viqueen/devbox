@@ -127,6 +127,14 @@ function stats() {
                {print "files changed: ", files, "\nlines inserted: ", inserted, "\nlines deleted: ", deleted }'
 }
 
+# @COMMAND contains [hash]                      displays remote release branches with given commit, warning it says nothing about reverts
+function contains() {
+  _with_arguments 1 $@
+  hash=${1};
+  shift;
+  git branch -r --contains ${hash} --list 'origin/release/*'
+}
+
 eval $@
 
 if [[ -z $1 ]]; then
