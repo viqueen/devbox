@@ -102,7 +102,7 @@ public class SetupResource {
                     final String firstName = faker.name().firstName();
                     final String lastName = faker.name().lastName();
                     final String email = faker.internet().emailAddress();
-                    final String userName = format("user-%d", index);
+                    final String userName = format("user%s%d", (index % 2) == 0 ? "-" : " ", index);
 
                     final DefaultUser defaultUser = new DefaultUser();
                     defaultUser.setFullName(format("%s %s", firstName, lastName));
