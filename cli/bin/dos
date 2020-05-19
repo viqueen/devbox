@@ -26,8 +26,31 @@ program.command('backdate <spaceKey> <publishDate> <title>')
     })
 })
 .then(response => response.json())
-.then(data => console.log(data))  
+.then(data => console.log(data))
 `)
+    });
+
+program.command('restore <id> <version>')
+    .description('restore content from trash')
+    .action((id, version) => {
+        console.log(
+`fetch("/confluence/rest/api/content/${id}", {
+    method: "PUT",
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        version: {
+            number: ${version}
+        },
+        status: 'current'
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+`
+        )
     });
 
 program.version('1.0.0');
