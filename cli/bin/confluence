@@ -33,7 +33,15 @@ _start_cmd() {
 
 _debug_cmd() {
     _run_with_jvm_args \
-        "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
+        "-Xmx2048m
+            -Datlassian.dev.mode=true
+            -Datlassian.disable.caches=true
+            -Datlassian.webresource.disable.minification=true
+            -Dconfluence.context.batching.disable=true
+            -Dplugin.webresource.batching.off=true
+            -Xdebug
+            -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n
+            -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
         $(_product_definition $@)
 }
 
