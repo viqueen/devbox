@@ -68,7 +68,11 @@ class Restful {
                                     'Content-Type': 'application/json'
                                 }
                             })
-                                .then(data => console.log(prettyJson.render(data)))
+                                .then(data => {
+                                    if (data) {
+                                        console.log(prettyJson.render(data))
+                                    }
+                                })
                                 .catch(error => {
                                     console.log(error.response.body)
                                 })
