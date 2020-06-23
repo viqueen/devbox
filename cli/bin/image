@@ -6,7 +6,7 @@
 source selfedit.sh
 
 DOCKER_IMAGES_HOME=${VIQUEEN_DEVBOX_HOME}/docker-images
-DOCKER_HUB_NAMESPACE=viqueen
+DOCKER_HUB_NAMESPACE=${NAMESPACE:-viqueen}
 
 _image() {
     # shellcheck disable=SC2068
