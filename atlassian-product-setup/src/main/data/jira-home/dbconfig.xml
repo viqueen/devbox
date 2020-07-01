@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jira-database-config>
+    <name>defaultDS</name>
+    <delegator-name>default</delegator-name>
+    <database-type>postgres</database-type>
+    <jndi-datasource>
+        <jndi-name>java:comp/env/jdbc/DefaultDS</jndi-name>
+    </jndi-datasource>
+</jira-database-config>
+

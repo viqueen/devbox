@@ -6,6 +6,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: confluence
-      POSTGRES_USER: confluence
-      POSTGRES_PASSWORD: confluence
+      POSTGRES_DB: ${PRODUCT}
+      POSTGRES_USER: ${PRODUCT}
+      POSTGRES_PASSWORD: ${PRODUCT}

@@ -57,7 +57,7 @@
                                     <version>${atlassian.product.version}</version>
                                     <jvmArgs>${jvm.args}</jvmArgs>
                                     <server>localhost</server>
-                                    <dataPath>src/main/data/home</dataPath>
+                                    <dataPath>src/main/data/${atlassian.product}-home</dataPath>
                                     <dataSources>
                                         <dataSource>
                                             <jndi>jdbc/DefaultDS</jndi>
