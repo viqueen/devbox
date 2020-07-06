@@ -71,8 +71,10 @@ _mount_cmd() {
     directory=$(pwd)
     volume_name=$(basename ${directory})
     image=$(_image ${1} ${2})
+    shift
+    shift
     options="--name ${volume_name} --volume ${directory}:/sources/${volume_name}"
-    echo "docker run ${options} -it --entrypoint=/bin/bash -w=/sources/${volume_name} ${image}"
+    echo "docker run ${options} -it --entrypoint=/bin/bash -w=/sources/${volume_name} $@ ${image}"
 }
 
 # @COMMAND mount [name] [tag]         mounts current working directory as volume onto image
