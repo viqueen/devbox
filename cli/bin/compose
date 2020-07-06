@@ -6,14 +6,16 @@ source selfedit.sh
 function up() {
     _with_arguments 1 $@
     profile=${1}
-    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml up
+    shift
+    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml up $@
 }
 
 # @COMMAND down [profile]                 tear down profile
 function down() {
     _with_arguments 1 $@
     profile=${1}
-    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml down
+    shift
+    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml down $@
 }
 
 # @COMMAND profile [name]                 opens profile for edit
@@ -21,6 +23,11 @@ function profile() {
   _with_arguments 1 $@
   profile=${1}
   vim ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml
+}
+
+# @COMMAND list                           lists available compose profiles
+function list() {
+  ls ${VIQUEEN_DEVBOX_HOME}/docker-compose/
 }
 
 eval $@
