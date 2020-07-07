@@ -100,8 +100,8 @@ function start() {
   eval $(_start_cmd $@)
 }
 
-# @COMMAND term <container>            opens terminal session on docker container
-function term() {
+# @COMMAND session <container>            opens terminal session on docker container
+function session() {
   _with_arguments 1 $@
   docker exec -it ${1} bash
 }
