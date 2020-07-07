@@ -7,7 +7,7 @@ _product_definition() {
           --version ${version}
           --http-port ${HTTP_PORT:-8080}
           --context-path ${CONTEXT_PATH:-"/confluence"}
-          --server 127.0.0.1
+          --server localhost
           --ajp-port ${AJP_PORT:-8009}"
 }
 
