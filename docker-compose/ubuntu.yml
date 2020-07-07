@@ -11,6 +11,7 @@ services:
       POSTGRES_PASSWORD: confluence
   confluence:
     image: ubuntu:18.04
+    privileged: true
     stdin_open: true
     tty: true
     volumes:
