@@ -155,7 +155,7 @@ checkout() {
     _with_arguments 1 $@
     version=$(_replace "${1}" "." "\.")
     tag=$(git tag | grep "${version}$")
-    git checkout ${tag}
+    git checkout ${tag}~1
 }
 
 #######
