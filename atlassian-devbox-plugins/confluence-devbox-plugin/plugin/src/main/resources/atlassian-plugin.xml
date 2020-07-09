@@ -15,4 +15,10 @@
         <package>org.viqueen.devbox.resources</package>
     </rest>
 
+    <web-resource key="confluence-devbox-resource" name="Confluence Devbox Resource" >
+        <resource type="download" name="confluence-devbox.js" location="js/confluence-devbox.js" />
+        <condition class="com.atlassian.confluence.plugin.descriptor.web.urlreadingconditions.SystemAdministratorUrlReadingCondition"/>
+        <context>atl.general</context>
+    </web-resource>
+
 </atlassian-plugin>

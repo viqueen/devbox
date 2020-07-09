@@ -90,6 +90,9 @@
 
                         <!-- Add package import here -->
                         <Import-Package>
+                            com.atlassian.confluence.security,
+                            com.atlassian.confluence.plugin.descriptor.web.conditions,
+                            com.atlassian.confluence.plugin.descriptor.web.urlreadingconditions,
                             *
                         </Import-Package>
 
