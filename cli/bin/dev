@@ -32,14 +32,14 @@ src() {
   cd ${VIQUEEN_DEVBOX_HOME}/..
 }
 
-# @COMMAND lc [filepath]                   line count for given file
+# @COMMAND lc [filepath]                    line count for given file
 lc() {
   _with_arguments 1 $@
   filepath=${1}
   wc -l ${filepath} | awk '{ print $1 }'
 }
 
-# @COMMAND rc                             opens .devboxrc file for edit
+# @COMMAND rc                               opens .devboxrc file for edit
 rc() {
   vim ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
   source ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
@@ -219,6 +219,15 @@ getprop() {
   shift
   execArgs=$(printf '${%s}' ${property_name})
   mvn -q -Dexec.executable=echo -Dexec.args="'${execArgs}'" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec $@
+}
+
+# @COMMAND coords                           displays maven coordinates for project
+coords() {
+  mvn -q -Dexec.executable=echo \
+         -Dexec.args='${project.groupId}:${project.artifactId}:${project.version}' \
+         --non-recursive \
+         org.codehaus.mojo:exec-maven-plugin:1.6.0:exec \
+         $@
 }
 
 ###############
