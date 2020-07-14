@@ -164,7 +164,7 @@ checkout() {
 
 # @COMMAND build                            runs threaded maven build with skipping tests
 build() {
-    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
+    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true -Dmaven.test.skip $@
 }
 
 # @COMMAND compile                          runs threaded maven compile
