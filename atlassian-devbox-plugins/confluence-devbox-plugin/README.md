@@ -32,15 +32,18 @@ mvn confluence:install -Dhttp.port=8080
 
 ### use it to setup data
 
-* configure an smtp server
+* configure mail servers
+
 ```
+compose up greenmail
 confdev post setup smtp-server
-maildev
+confdev poset setup pop-server
 ```
 
-* create users
+* create users and configure admin
 ```
 confdev post setup users
+confdev post setup admin
 ```
 
 by default you get 20 users created, their userNames are `user 1`, `user-2`, `user 3` ... `user-20`
@@ -59,3 +62,8 @@ confdev post setup users -q start=30
 confdev delete spaces
 ```
 
+* make all users watch a given space
+
+```bash
+confdev post spaces <key> watchers
+```

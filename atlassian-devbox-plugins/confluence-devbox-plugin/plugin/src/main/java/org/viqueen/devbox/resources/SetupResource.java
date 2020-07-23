@@ -2,11 +2,13 @@ package org.viqueen.devbox.resources;
 
 import com.atlassian.annotations.security.XsrfProtectionExcluded;
 import com.atlassian.confluence.jmx.JmxSMTPMailServer;
+import com.atlassian.confluence.mail.ConfluencePopMailServer;
 import com.atlassian.confluence.setup.settings.SettingsManager;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.mail.MailConstants;
 import com.atlassian.mail.MailException;
+import com.atlassian.mail.MailProtocol;
 import com.atlassian.mail.server.MailServerManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.user.impl.DefaultUser;
@@ -62,14 +64,28 @@ public class SetupResource {
     }
 
     @POST
+    @Path("/admin")
+    @XsrfProtectionExcluded
+    public Response admin() {
+        ConfluenceUser admin = userAccessor.getUserByName("admin");
+        DefaultUser user = new DefaultUser(admin);
+        user.setEmail("admin@localhost.test");
+        userAccessor.saveUser(user);
+        return Response.noContent().build();
+    }
+
+    @POST
     @Path("/smtp-server")
     @Produces(MediaType.APPLICATION_JSON)
     @XsrfProtectionExcluded
-    public Response mailServer(@DefaultValue("confluence-devbox") @QueryParam("name") final String name,
-                               @DefaultValue("localhost") @QueryParam("hostname") final String hostname,
-                               @DefaultValue("1025") @QueryParam("port") final String port,
-                               @DefaultValue("noreply@confluence-devbox.org") @QueryParam("from") final String from,
-                               @DefaultValue("[local]") @QueryParam("prefix") final String prefix) throws MailException {
+    public Response outboundMailServer(
+            @DefaultValue("outbound-mail-devbox") @QueryParam("name") final String name,
+            @DefaultValue("localhost") @QueryParam("hostname") final String hostname,
+            @DefaultValue("3025") @QueryParam("port") final String port,
+            @DefaultValue("confluence@localhost.test") @QueryParam("from") final String fromAddress,
+            @DefaultValue("[local]") @QueryParam("prefix") final String prefix,
+            @DefaultValue("confluence") @QueryParam("username") final String username
+    ) throws MailException {
 
         if (mailServerManager.getMailServer(name) != null) {
             return Response.noContent().build();
@@ -80,7 +96,9 @@ public class SetupResource {
         smtpMailServer.setHostname(hostname);
         smtpMailServer.setPort(port);
         smtpMailServer.setMailProtocol(MailConstants.DEFAULT_SMTP_PROTOCOL);
-        smtpMailServer.setDefaultFrom(from);
+        smtpMailServer.setDefaultFrom(fromAddress);
+        smtpMailServer.setUsername(username);
+        smtpMailServer.setPassword(username);
         smtpMailServer.setPrefix(prefix);
         mailServerManager.create(smtpMailServer);
 
@@ -88,11 +106,37 @@ public class SetupResource {
     }
 
     @POST
+    @Path("/pop-server")
+    @Produces(MediaType.APPLICATION_JSON)
+    @XsrfProtectionExcluded
+    public Response inboundMailServer(
+            @DefaultValue("inbound-mail-devbox") @QueryParam("name") final String name,
+            @DefaultValue("localhost") @QueryParam("hostname") final String hostname,
+            @DefaultValue("3110") @QueryParam("port") final String port,
+            @DefaultValue("confluence") @QueryParam("username") final String username,
+            @DefaultValue("confluence@localhost.test") @QueryParam("to") final String toAddress
+    ) throws MailException {
+        if (mailServerManager.getMailServer(name) != null) {
+            return Response.noContent().build();
+        }
+
+        final ConfluencePopMailServer popMailServer = new ConfluencePopMailServer(
+                0L, name, "", MailProtocol.POP, hostname, port, username, username, toAddress
+        );
+
+        mailServerManager.create(popMailServer);
+
+        return Response.ok(popMailServer).build();
+    }
+
+    @POST
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     @XsrfProtectionExcluded
-    public Response createUsers(@DefaultValue("1") @QueryParam("start") final int start,
-                                @DefaultValue("20") @QueryParam("count") final int count) {
+    public Response createUsers(
+            @DefaultValue("1") @QueryParam("start") final int start,
+            @DefaultValue("20") @QueryParam("count") final int count
+    ) {
 
         final Map<String, Map<String, String>> users = new HashMap<>();
 
@@ -101,7 +145,7 @@ public class SetupResource {
                     final Faker faker = LOCALES[index % 23];
                     final String firstName = faker.name().firstName();
                     final String lastName = faker.name().lastName();
-                    final String email = faker.internet().emailAddress();
+                    final String email = format("user%d@localhost.test", index);
                     final String userName = format("user%s%d", (index % 2) == 0 ? "-" : " ", index);
 
                     final DefaultUser defaultUser = new DefaultUser();
