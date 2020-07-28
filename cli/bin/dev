@@ -158,6 +158,35 @@ checkout() {
     git checkout ${tag}~1
 }
 
+# @COMMAND milestone                        create a milestone branch from current issue branch
+milestone() {
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    if [[ ${branch_name} =~ ^milestone-(.*)$ ]]; then
+        echo "already a milestone branch"
+    elif [[ ${branch_name} =~ ^(.*)/([A-Z]+-[0-9]+)-(.*)$ ]]; then
+        milestone_branch="milestone-${branch_name}"
+        exits=$(git rev-parse --verify ${milestone_branch})
+        if [[ -n ${exits} ]]; then
+            git checkout ${milestone_branch}
+        else
+            git checkout -b ${milestone_branch}
+        fi
+    else
+        echo "not an issue branch"
+    fi
+}
+
+# @COMMAND issue                            switch back to issue branch from current milestone branch
+issue() {
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    if [[ ${branch_name} =~ ^milestone-(.*)$ ]]; then
+        issue_branch=${BASH_REMATCH[1]}
+        git checkout ${issue_branch}
+    else
+        echo "not a milestone branch"
+    fi
+}
+
 #######
 # MAVEN
 #######
