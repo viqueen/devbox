@@ -3,20 +3,33 @@
 const express = require('express');
 const prettyJson = require('prettyjson');
 const minimist = require('minimist');
+const morgan = require('morgan');
 
 const argv = minimist(process.argv.slice(2));
 
 const app = express();
 const port = argv.port || 3000;
 
-app.use(express.json());
+morgan.token('body', (request, response) => {
+  return prettyJson.render(request.body);
+});
 
-// noinspection JSUnresolvedFunction,JSUnresolvedFunction
-app.post('/basic', (request, response) => {
-    console.log('*** BASIC');
-    console.log(prettyJson.render(request.body));
-    console.log('*** BASIC');
+app.use(express.json());
+app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms ":user-agent"\n:body'));
+
+app.post('/204', (request, response) => {
     response.sendStatus(204);
+});
+
+app.post('/204-delay', (request, response) => {
+  const ms = request.query.ms;
+  const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
+  setTimeout(
+    () => {
+      response.sendStatus(204);
+    },
+    msDelay
+  );
 });
 
 app.listen(port, () => {
