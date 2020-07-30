@@ -1,7 +1,8 @@
-FROM openjdk:${JDK_VERSION}
+FROM adoptopenjdk/openjdk11:${JDK_VERSION}
 
 ARG MAVEN_VERSION=3.6.3
 ARG NODE_VERSION=v12.16.2
+ARG NVM_VERSION=v0.35.3
 
 SHELL ["/bin/bash", "-c"]
 
@@ -12,7 +13,7 @@ RUN apt-get update \
 RUN mkdir -p /usr/local/bin \
     && curl -s https://bitbucket.org/mjensen/mvnvm/raw/master/mvn > /usr/local/bin/mvn \
     && chmod 0755 /usr/local/bin/mvn \
-    && echo "mvn_version=$MAVEN_VERSION" > mvnvm.properties \
+    && echo "mvn_version=${MAVEN_VERSION}" > mvnvm.properties \
     && mvn --version \
     && rm mvnvm.properties
 
@@ -30,7 +31,7 @@ ENV PATH=${PATH}:/opt/atlassian-plugin-sdk/bin
 ENV ATLAS_MVN=/usr/local/bin/mvn
 
 # NVM
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
 
 # devbox
 RUN mkdir -p ~/sources \
