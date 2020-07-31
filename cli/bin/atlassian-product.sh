@@ -71,7 +71,7 @@ function cmd() {
     esac
 }
 
-# @COMMAND get [version]                           cd to product's installed version
+# @COMMAND get [version]                            cd to product's installed version
 function get() {
     _with_arguments 1 $@
     product=$(_product_name)
@@ -104,4 +104,30 @@ function wars() {
         | awk -F "/" '{print $NF}' \
         | sed "s/${webapp}-\(.*\).war/\1/" \
         | sort -u
+}
+
+# @COMMAND home                                     manage atlassian product home for development
+function home() {
+    product=$(_product_name)
+    product_dev_home=${HOME}/data/${product}
+    mkdir -p ${product_dev_home}
+
+    if [[ -z ${1} ]]; then
+        ls -lrt ${product_dev_home}
+        exit 0
+    fi
+
+    version=${1}
+    hosting=${2:-server}
+    if [[ ${version} =~ ^master|([0-9]+.[0-9]+)$ ]] && [[ ${hosting} =~ ^server|dc$ ]]; then
+        home_directory=${product_dev_home}/${hosting}-${version}
+        mkdir -p ${home_directory}
+        if [[ ${hosting} == 'dc' ]]; then
+            mkdir -p ${home_directory}/{node1,node2,shared}
+        fi
+        ln -sfvn ${home_directory} ${product_dev_home}/home-default
+        cd ${product_dev_home}/home-default
+    else
+        echo "invalid version"
+    fi
 }
