@@ -5,17 +5,17 @@ source selfedit.sh
 # @COMMAND up [profile]                  spin up a new profile
 function up() {
     _with_arguments 1 $@
-    profile=${1}
-    shift
-    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml up -d $@
+    profile=${1}; shift
+    prefix=${1:-"main"}; shift
+    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml --project-name "${prefix}" up -d $@
 }
 
 # @COMMAND down [profile]                 tear down profile
 function down() {
     _with_arguments 1 $@
-    profile=${1}
-    shift
-    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml down $@
+    profile=${1}; shift
+    prefix=${1:-"main"}; shift
+    docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml --project-name "${prefix}" down $@
 }
 
 # @COMMAND profile [name]                 opens profile for edit
