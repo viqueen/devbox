@@ -5,6 +5,15 @@ const queryString = require('query-string');
 const program = require('commander');
 const prettyJson = require('prettyjson');
 
+require('request-debug')(request, (type, data, req) => {
+    if (type === 'response') {
+        console.log('--------- %s', data.statusCode);
+        console.log(prettyJson.render(data.headers));
+        console.log('***');
+        console.log(prettyJson.render(data.body));
+    }
+});
+
 function collect(val, memo) {
     memo.push(val);
     return memo;
@@ -68,13 +77,8 @@ class Restful {
                                     'Content-Type': 'application/json'
                                 }
                             })
-                                .then(data => {
-                                    if (data) {
-                                        console.log(prettyJson.render(data))
-                                    }
-                                })
                                 .catch(error => {
-                                    console.log(error.response.body)
+                                    console.error(error);
                                 })
                         }
                     )
