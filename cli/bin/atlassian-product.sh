@@ -126,7 +126,7 @@ function home() {
             mkdir -p ${home_directory}/{main,node1,node2,node3,shared}
         fi
         ln -sfvn ${home_directory} ${product_dev_home}/home-default
-        cd ${product_dev_home}/home-default
+        cd ${home_directory}
     else
         echo "invalid version"
     fi
