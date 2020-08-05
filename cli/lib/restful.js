@@ -9,8 +9,11 @@ require('request-debug')(request, (type, data, req) => {
     if (type === 'response') {
         console.log('--------- %s', data.statusCode);
         console.log(prettyJson.render(data.headers));
-        console.log('***');
-        console.log(prettyJson.render(data.body));
+        const body = data.body;
+        if (body) {
+            console.log('***');
+            console.log(prettyJson.render(data.body));
+        }
     }
 });
 
