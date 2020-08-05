@@ -5,14 +5,18 @@ const queryString = require('query-string');
 const program = require('commander');
 const prettyJson = require('prettyjson');
 
+const jsonOptions = {
+    numberColor:  'yellow'
+};
+
 require('request-debug')(request, (type, data, req) => {
     if (type === 'response') {
         console.log('--------- %s', data.statusCode);
-        console.log(prettyJson.render(data.headers));
+        console.log(prettyJson.render(data.headers, jsonOptions));
         const body = data.body;
         if (body) {
             console.log('***');
-            console.log(prettyJson.render(data.body));
+            console.log(prettyJson.render(data.body, jsonOptions));
         }
     }
 });
