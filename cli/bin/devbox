@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+source selfedit.sh
+
+# @COMMAND conf     install devbox plugin on confluence
+function conf() {
+  cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
+  dev build
+  atlas pi $@
+}
+
+
+eval $@
