@@ -122,7 +122,7 @@ function home() {
     if [[ ${version} =~ ^master|([0-9]+.[0-9]+)$ ]]; then
         home_directory=${product_dev_home}/${prefix}-${version}
         mkdir -p ${home_directory}
-        if [[ ${prefix} == 'dc' ]]; then
+        if [[ ${prefix} == *'dc'* ]]; then
             mkdir -p ${home_directory}/{main,node1,node2,node3,shared}
         fi
         ln -sfvn ${home_directory} ${product_dev_home}/home-default
