@@ -2,11 +2,13 @@
 
 source selfedit.sh
 
+directory_name=$(basename "$(pwd)")
+
 # @COMMAND up [profile]                   spin up a new profile
 function up() {
     _with_arguments 1 $@
     profile=${1}; shift
-    prefix=${1:-"main"}; shift
+    prefix=${1:-${directory_name}}; shift
     docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml --project-name "${prefix}" up -d $@
 }
 
@@ -14,7 +16,7 @@ function up() {
 function down() {
     _with_arguments 1 $@
     profile=${1}; shift
-    prefix=${1:-"main"}; shift
+    prefix=${1:-${directory_name}}; shift
     docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml --project-name "${prefix}" down $@
 }
 
@@ -22,7 +24,7 @@ function down() {
 function stop() {
   _with_arguments 1 $@
   profile=${1}; shift
-  prefix=${1:-"main"}; shift
+  prefix=${1:-${directory_name}}; shift
   docker-compose -f ${VIQUEEN_DEVBOX_HOME}/docker-compose/${profile}.yml --project-name "${prefix}" stop $@
 }
 
