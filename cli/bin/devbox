@@ -2,12 +2,36 @@
 
 source selfedit.sh
 
-# @COMMAND conf     install devbox plugin on confluence
-function conf() {
-  cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
-  dev build
-  atlas pi $@
+# @COMMAND install  <product>   install devbox plugin
+function install() {
+    product=${1:-confluence}
+    case "${product}" in
+        confluence)
+            cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
+            dev build
+            atlas pi $@
+        ;;
+        *)
+            echo "oops we need to setup the other products"
+        ;;
+    esac
 }
 
+# @COMMAND setup <product>     configures instance
+function setup() {
+    product=${1:-confluence}
+    case "${product}" in
+        confluence)
+            confdev post setup admin
+            confdev post setup smtp-server
+            confdev post setup pop-server
+            confdev post setup users -q count=100
+            confdev post setup spaces -q count=10
+        ;;
+        *)
+            echo "oops we need to setup the other products"
+        ;;
+    esac
+}
 
 eval $@
