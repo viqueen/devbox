@@ -27,7 +27,7 @@ _maybe_download_product() {
 
         extract_dir=${ELASTIC_PRODUCTS_HOME}/${product}-${version}
         mkdir -p ${extract_dir}
-        tar -C ${extract_dir} -xvf ${ELASTIC_DOWNLOAD_CACHE}/${target}.tar.gz --strip 1
+        tar -C ${extract_dir} -xf ${ELASTIC_DOWNLOAD_CACHE}/${target}.tar.gz --strip 1
     fi
 }
 
