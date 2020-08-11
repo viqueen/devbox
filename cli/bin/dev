@@ -100,7 +100,7 @@ pull() {
 # @COMMAND push                             git push to upstream
 push() {
     upstream=$(git branch | sed -n '/\* /s///p')
-    git push origin ${upstream}
+    git push origin ${upstream} $@
 }
 
 # @COMMAND fetch                            git fetch and git pull from origin
