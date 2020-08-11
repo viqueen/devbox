@@ -16,7 +16,6 @@ import com.atlassian.user.EntityException;
 import com.atlassian.user.User;
 import com.atlassian.user.UserManager;
 import com.atlassian.user.search.page.Pager;
-import com.atlassian.user.search.query.AbstractBooleanQuery;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -85,7 +84,7 @@ public class SpaceResource {
 
     @POST
     @Path("/{spaceKey}/watchers")
-    public Response watchers(@PathParam("spaceKey") final String spaceKey) {
+    public Response setSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
         try {
             Pager<User> users = userManager.getUsers();
             users.getCurrentPage()
@@ -100,9 +99,20 @@ public class SpaceResource {
         }
     }
 
-    static class AllUsersQuery extends AbstractBooleanQuery<User> {
-        protected AllUsersQuery() {
-            super(true);
+    @DELETE
+    @Path("/{spaceKey}/watchers")
+    public Response unsetSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
+        try {
+            Pager<User> users = userManager.getUsers();
+            users.getCurrentPage()
+                    .stream()
+                    .map(user -> userAccessor.getUserByName(user.getName()))
+                    .filter(Objects::nonNull)
+                    .map(ConfluenceUser::getKey)
+                    .forEach(userKey -> watchService.unwatchSpace(userKey, spaceKey));
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (EntityException exception) {
+            throw new ServiceException(exception.getMessage(), exception);
         }
     }
 
