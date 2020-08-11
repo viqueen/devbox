@@ -25,7 +25,7 @@ function setup() {
             confdev post setup admin
             confdev post setup smtp-server
             confdev post setup pop-server
-            confdev post setup users -q count=100
+            confdev post setup users -q count=10
             confdev post setup spaces -q count=10
         ;;
         *)
