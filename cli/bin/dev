@@ -193,7 +193,7 @@ issue() {
 
 # @COMMAND build                            runs threaded maven build with skipping tests
 build() {
-    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true -Dmaven.test.skip $@
+    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
 }
 
 # @COMMAND compile                          runs threaded maven compile
