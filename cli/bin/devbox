@@ -8,7 +8,7 @@ function install() {
     case "${product}" in
         confluence)
             cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
-            dev build
+            atlas build
             atlas pi $@
         ;;
         *)
