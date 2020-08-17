@@ -1,6 +1,6 @@
 'use strict';
 
-const request = require('request-promise');
+const http = require('http');
 const queryString = require('query-string');
 const program = require('commander');
 const prettyJson = require('prettyjson');
@@ -8,18 +8,6 @@ const prettyJson = require('prettyjson');
 const jsonOptions = {
     numberColor:  'yellow'
 };
-
-require('request-debug')(request, (type, data, req) => {
-    if (type === 'response') {
-        console.log('--------- %s', data.statusCode);
-        console.log(prettyJson.render(data.headers, jsonOptions));
-        const body = data.body;
-        if (body) {
-            console.log('***');
-            console.log(prettyJson.render(data.body, jsonOptions));
-        }
-    }
-});
 
 function collect(val, memo) {
     memo.push(val);
@@ -67,26 +55,39 @@ class Restful {
                     .action(
                         (parts, options) => {
                             const query = Object.assign({}, base.query, extractQuery(options.query));
-                            const auth = (program.username && program.secret)
-                                ? { user : program.username, pass : program.secret }
+                            const authorization = (program.username && program.secret)
+                                ? `Basic ${Buffer.from(program.username + ':' + program.secret).toString('base64')}`
                                 : undefined;
 
                             const context = program.context === "/" ? "" : program.context;
-                            const url = program.instance || `http://${program.host}:${program.port}${context}`;
 
-                            request({
-                                url     : `${url}${base.apiUrl}/${parts.join('/')}?${queryString.stringify(query)}`,
-                                method  : method,
-                                json    : base.json,
-                                auth    : auth,
-                                headers : {
-                                    'User-Agent' : 'devtools-request',
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                                .catch(error => {
-                                    console.error(error);
-                                })
+                            const settings = {
+                                host: program.host,
+                                port: program.port,
+                                path: `${context}${base.apiUrl}/${parts.join('/')}?${queryString.stringify(query)}`,
+                                headers: {
+                                    'User-Agent': 'devbox-rest-client',
+                                    'Content-Type': 'application/json',
+                                    'Authorization': authorization
+                                },
+                                method: method
+                            };
+
+                            const callback = (response) => {
+                                console.debug(`--------- ${response.statusCode}\n${prettyJson.render(response.headers, jsonOptions)}\n-------\n`);
+                                let buffer = '';
+                                response.on('data', (chunk) => {
+                                    buffer += chunk;
+                                });
+                                response.on('end', () => {
+                                    if (buffer !== '') {
+                                        console.log(prettyJson.render(JSON.parse(buffer.toString()), jsonOptions));
+                                    }
+                                });
+                            };
+
+                            const request = http.request(settings, callback);
+                            request.end();
                         }
                     )
             }
