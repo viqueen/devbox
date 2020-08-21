@@ -4,8 +4,8 @@
   "description": "viqueen devbox",
   "scripts": {
     "start:ftp": "ftp-server --port 4000",
-    "pretty:check": "prettier --check ./cli/**/**",
-    "pretty": "prettier --wirte ./cli/**/**"
+    "pretty:check": "prettier --check .",
+    "pretty": "prettier --check --write ."
   },
   "repository": {
     "type": "git",

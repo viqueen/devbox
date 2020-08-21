@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   greenmail:
     image: greenmail/standalone:1.5.14
@@ -11,11 +11,11 @@ services:
       - 3993:3993 # IMAPS
       - 3995:3995 # POP3S
     environment:
-      GREENMAIL_OPTS: '-Dgreenmail.setup.test.all
-                         -Dgreenmail.hostname=0.0.0.0
-                         -Dgreenmail.verbose
-                         -Dgreenmail.users=admin:admin@localhost.test,confluence:confluence@localhost.test'
-      JAVA_OPTS: '-Djava.net.preferIPv4Stack=true -Xmx512m'
+      GREENMAIL_OPTS: "-Dgreenmail.setup.test.all
+        -Dgreenmail.hostname=0.0.0.0
+        -Dgreenmail.verbose
+        -Dgreenmail.users=admin:admin@localhost.test,confluence:confluence@localhost.test"
+      JAVA_OPTS: "-Djava.net.preferIPv4Stack=true -Xmx512m"
   postgres:
     image: postgres:9.6
     restart: always

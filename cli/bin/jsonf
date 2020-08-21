@@ -1,19 +1,15 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const prettyJson = require('prettyjson');
-const concatStream = require('concat-stream');
+const prettyJson = require("prettyjson");
+const concatStream = require("concat-stream");
 
-process
-    .stdin
-    .pipe(
-        concatStream(
-            function (buffer) {
-                if (buffer.length > 0) {
-                    const json = JSON.parse(buffer.toString());
-                    console.log(prettyJson.render(json));
-                }
-            }
-        )
-    );
+process.stdin.pipe(
+  concatStream(function (buffer) {
+    if (buffer.length > 0) {
+      const json = JSON.parse(buffer.toString());
+      console.log(prettyJson.render(json));
+    }
+  })
+);

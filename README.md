@@ -2,7 +2,8 @@
 
 ## Playground - try it before you buy it
 
-* ubuntu
+- ubuntu
+
 ```bash
 # comes with openjdk 8
 docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-slim
@@ -57,7 +58,7 @@ echo "fortune | cowsay" >> ~/.profile
 
 #### Requirements
 
-* [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
+- [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
 
 ```bash
 # java
@@ -113,23 +114,25 @@ brew install kotlin
 </p>
 </details>
 
-
 ## Scripts and Binaries
 
 ### tricks up this sleeve : from anywhere
 
-* navigate to where devbox is installed
+- navigate to where devbox is installed
+
 ```bash
 . dev
 ```
 
-* open existing scripts for edit
+- open existing scripts for edit
+
 ```bash
 dev edit
 gitar edit
 ```
 
-* create a new script in devbox
+- create a new script in devbox
+
 ```bash
 dev edit mynewscript
 ```
@@ -176,20 +179,21 @@ saymyname       # finds the longest java class name in a directory , I was bored
 
 ### Atlassian scripts
 
-> :warning: these are wrappers around the atlassian-sdk 
-> so please make sure you have it installed 
+> :warning: these are wrappers around the atlassian-sdk
+> so please make sure you have it installed
 
 <details>
 <summary>install_atlassian_sdk</summary>
 <p>
 
-* mac OS
+- mac OS
+
 ```bash
 brew tap atlassian/tap
 brew install atlassian/tap/atlassian-plugin-sdk
 ```
 
-* for other platforms, please take a look at https://developer.atlassian.com/server/framework/atlassian-sdk/downloads/
+- for other platforms, please take a look at https://developer.atlassian.com/server/framework/atlassian-sdk/downloads/
 
 </p>
 </details>
@@ -223,18 +227,18 @@ wars                                     lists available versions in local maven
 
 So in the case of Confluence, I usually kick off my dev by launching the version I am interested in
 
-* start the instance
-`confluence start 6.15.4`
-* monitor the logs
-`confluence logs 6.15.4`
-* list the version I have already installed
-`confluence versions`
+- start the instance
+  `confluence start 6.15.4`
+- monitor the logs
+  `confluence logs 6.15.4`
+- list the version I have already installed
+  `confluence versions`
 
 The instances are installed under `.atlassian-products` directory
 
 ### Atlassian Devbox Plugins
 
-These are development helper plugins I use in all my feature/bug-fix endeavours 
+These are development helper plugins I use in all my feature/bug-fix endeavours
 
 #### confluence
 
@@ -243,7 +247,7 @@ These are development helper plugins I use in all my feature/bug-fix endeavours
 cd atlassian-devbox-plugins/confluence-devbox-plugin
 atlas build
 # update the following to match your context path and port
-atlas pi confluence 8080 
+atlas pi confluence 8080
 
 # setup an smtp server
 confdev post setup smtp-server
@@ -254,7 +258,7 @@ confdev post setup users
 > :information_source: `confdev` script is available under `cli/bin` , this is just a rest client to interact with
 > confluence-devbox-plugin rest resources.
 >
-> Note that these are just the basics, but I trust you can poke around the repo to find out how to tune 
+> Note that these are just the basics, but I trust you can poke around the repo to find out how to tune
 > the options so the scripts are interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
 
 ### Elastic scripts
@@ -280,7 +284,7 @@ I want by running the following
 . filebeat get 7.5.0
 ```
 
-The above commands also take care of downloading the artifacts 
+The above commands also take care of downloading the artifacts
 
 > :warning: please notice the `_distro() { echo "darwin-x86_64" }` in `elastic-product.sh`, you
 > probably want to adjust that to whatever distro you need for your platform.

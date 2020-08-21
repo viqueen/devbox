@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const Restful = require('../lib/restful');
+const Restful = require("../lib/restful");
 
 const restful = new Restful({
-    name: 'Confluence Devbox',
-    apiUrl: '/rest/devbox/latest',
-    json: true,
-    auth: {
-        user: 'admin',
-        pass: 'admin'
-    },
-    context: '/confluence'
+  name: "Confluence Devbox",
+  apiUrl: "/rest/devbox/latest",
+  json: true,
+  auth: {
+    user: "admin",
+    pass: "admin",
+  },
+  context: "/confluence",
 });
 
 const program = restful.program();
-program.version('1.0.0');
+program.version("1.0.0");
 // noinspection JSUnresolvedVariable,ES6ModulesDependencies
 program.parse(process.argv);

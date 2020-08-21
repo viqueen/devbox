@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const program = require('commander');
-const moment = require('moment');
+const program = require("commander");
+const moment = require("moment");
 
-program.command('backdate <spaceKey> <publishDate> <title>')
-    .description('backdates a blog')
-    .action((spaceKey, publishDate, title) => {
-        const date = moment(publishDate, "DD/MM/YYYY");
-        console.log(
-`fetch("/wiki/rest/api/content", {
+program
+  .command("backdate <spaceKey> <publishDate> <title>")
+  .description("backdates a blog")
+  .action((spaceKey, publishDate, title) => {
+    const date = moment(publishDate, "DD/MM/YYYY");
+    console.log(
+      `fetch("/wiki/rest/api/content", {
     method: "POST",
     headers: {
         'Accept': 'application/json',
@@ -27,14 +28,16 @@ program.command('backdate <spaceKey> <publishDate> <title>')
 })
 .then(response => response.json())
 .then(data => console.log(data))
-`)
-    });
+`
+    );
+  });
 
-program.command('restore <id> <version>')
-    .description('restore content from trash')
-    .action((id, version) => {
-        console.log(
-`fetch("/confluence/rest/api/content/${id}", {
+program
+  .command("restore <id> <version>")
+  .description("restore content from trash")
+  .action((id, version) => {
+    console.log(
+      `fetch("/confluence/rest/api/content/${id}", {
     method: "PUT",
     headers: {
         'Accept': 'application/json',
@@ -50,8 +53,8 @@ program.command('restore <id> <version>')
 .then(response => response.json())
 .then(data => console.log(data))
 `
-        )
-    });
+    );
+  });
 
-program.version('1.0.0');
+program.version("1.0.0");
 program.parse(process.argv);

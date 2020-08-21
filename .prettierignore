@@ -1,2 +1,7 @@
+.atlassian-products/
+.elastic-products/
+.idea/
+.vim/
+
 node_modules/
 target/

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const express = require('express');
-const prettyJson = require('prettyjson');
-const minimist = require('minimist');
-const morgan = require('morgan');
+const express = require("express");
+const prettyJson = require("prettyjson");
+const minimist = require("minimist");
+const morgan = require("morgan");
 
 const argv = minimist(process.argv.slice(2));
 
@@ -11,54 +11,73 @@ const app = express();
 // noinspection JSUnresolvedVariable
 const port = argv.port || 3000;
 
-morgan.token('body', (request, response) => {
-    return prettyJson.render(request.body);
+morgan.token("body", (request, response) => {
+  return prettyJson.render(request.body);
 });
-morgan.token('headers', (request, response) => {
-    return prettyJson.render(request.headers);
+morgan.token("headers", (request, response) => {
+  return prettyJson.render(request.headers);
 });
 
 app.use(express.json());
-app.use(morgan(
-    ':remote-addr - ' +
-    ':remote-user [:date[clf]] ' +
-    '":method :url HTTP/:http-version" ' +
-    ':status :response-time ms ":user-agent"' +
-    '\n:headers\n***\n:body\n------------------------'));
+app.use(
+  morgan(
+    ":remote-addr - " +
+      ":remote-user [:date[clf]] " +
+      '":method :url HTTP/:http-version" ' +
+      ':status :response-time ms ":user-agent"' +
+      "\n:headers\n***\n:body\n------------------------"
+  )
+);
 
 function register(code) {
-    // noinspection JSUnresolvedFunction
-    app.post(`/${code}`, (request, response) => {
-        response.sendStatus(code);
-    });
-    // noinspection JSUnresolvedFunction
-    app.post(`/${code}-delay`, (request, response) => {
-        const ms = request.query.ms;
-        const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
-        setTimeout(
-            () => {
-                response.sendStatus(code);
-            },
-            msDelay
-        );
-    });
+  // noinspection JSUnresolvedFunction
+  app.post(`/${code}`, (request, response) => {
+    response.sendStatus(code);
+  });
+  // noinspection JSUnresolvedFunction
+  app.post(`/${code}-delay`, (request, response) => {
+    const ms = request.query.ms;
+    const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
+    setTimeout(() => {
+      response.sendStatus(code);
+    }, msDelay);
+  });
 }
 
 const SUCCESS = [200, 201, 202, 203, 204, 205, 206];
-SUCCESS.forEach(code => {
-    register(code);
+SUCCESS.forEach((code) => {
+  register(code);
 });
 
-const CLIENT_ERROR = [400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417];
-CLIENT_ERROR.forEach(code => {
-    register(code);
+const CLIENT_ERROR = [
+  400,
+  401,
+  402,
+  403,
+  404,
+  405,
+  406,
+  407,
+  408,
+  409,
+  410,
+  411,
+  412,
+  413,
+  414,
+  415,
+  416,
+  417,
+];
+CLIENT_ERROR.forEach((code) => {
+  register(code);
 });
 
 const SERVER_ERROR = [500, 501, 502, 503, 504, 505, 506, 511];
-SERVER_ERROR.forEach(code => {
-    register(code);
+SERVER_ERROR.forEach((code) => {
+  register(code);
 });
 
 app.listen(port, () => {
-    console.log(`express server started at http://localhost:${port}`);
+  console.log(`express server started at http://localhost:${port}`);
 });

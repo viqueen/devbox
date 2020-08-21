@@ -1,9 +1,8 @@
 ## Confluence Devbox Plugin
 
-
 ### run it
 
-* using Java 8
+- using Java 8
 
 ```bash
 cd plugin
@@ -13,7 +12,7 @@ atlas-run
 atlas-debug
 ```
 
-* using Java 11
+- using Java 11
 
 ```bash
 cd plugin
@@ -32,7 +31,7 @@ mvn confluence:install -Dhttp.port=8080
 
 ### use it to setup data
 
-* configure mail servers
+- configure mail servers
 
 ```
 compose up greenmail
@@ -40,7 +39,8 @@ confdev post setup smtp-server
 confdev poset setup pop-server
 ```
 
-* create users and configure admin
+- create users and configure admin
+
 ```
 confdev post setup users
 confdev post setup admin
@@ -56,13 +56,13 @@ if you need more users created you can pass in a start param as follow
 confdev post setup users -q start=30
 ```
 
-* delete spaces
+- delete spaces
 
 ```
 confdev delete spaces
 ```
 
-* make all users watch a given space
+- make all users watch a given space
 
 ```bash
 confdev post spaces <key> watchers
