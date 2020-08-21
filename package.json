@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "viqueen devbox",
   "scripts": {
-    "start:ftp": "ftp-server --port 4000"
+    "start:ftp": "ftp-server --port 4000",
+    "pretty:check": "prettier --check ./cli/**/**",
+    "pretty": "prettier --wirte ./cli/**/**"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
     "minimist": "^1.2.5",
     "moment": "^2.24.0",
     "morgan": "^1.10.0",
+    "prettier": "^2.0.5",
     "prettyjson": "^1.2.1",
     "query-string": "^6.11.1",
     "simple-ftpd": "0.0.4",

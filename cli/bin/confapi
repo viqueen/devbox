@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 // https://docs.atlassian.com/ConfluenceServer/rest/7.2.1/
 
