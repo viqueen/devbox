@@ -27,6 +27,7 @@
     "commander": "^5.0.0",
     "concat-stream": "^2.0.0",
     "express": "^4.17.1",
+    "husky": "^4.2.5",
     "labset-config-js": "^1.0.0",
     "minimist": "^1.2.5",
     "moment": "^2.24.0",
@@ -36,5 +37,10 @@
     "query-string": "^6.11.1",
     "simple-ftpd": "0.0.4",
     "xml-formatter": "^1.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretty:check"
+    }
   }
 }
