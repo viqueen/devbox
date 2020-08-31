@@ -116,7 +116,7 @@ recent() {
 
 # @COMMAND merged                           list merged branches
 merged() {
-  git branch --merged | egrep -v "(^\*|master|release)"
+  git branch --merged | egrep -v "(^\*|master|release|renovate)"
 }
 
 # @COMMAND branch                           displays current branch name
