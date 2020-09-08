@@ -193,7 +193,14 @@ issue() {
 
 # @COMMAND build                            runs threaded maven build with skipping tests
 build() {
-    mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
+    pom_file=$(pwd)/pom.xml
+    gradle_file=$(pwd)/build.gradle
+
+    if [[ -f "${pom_file}" ]]; then
+        mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
+    elif [[ -f "${gradle_file}" ]]; then
+        ./gradlew build
+    fi
 }
 
 # @COMMAND compile                          runs threaded maven compile
@@ -218,7 +225,13 @@ upver() {
 
 # @COMMAND ver                              display maven project version
 ver() {
-  getprop 'project.version'
+    pom_file=$(pwd)/pom.xml
+    gradle_file=$(pwd)/build.gradle
+    if [[ -f "${pom_file}" ]]; then
+        getprop 'project.version'
+    elif [[ -f "${gradle_file}" ]]; then
+        ./gradlew properties --console=plain -q | grep "^version:" | awk '{printf $2; printf "\n"}'
+    fi
 }
 
 # @COMMAND release                          runs a maven release
