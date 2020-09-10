@@ -42,4 +42,5 @@ RUN mkdir -p ~/sources \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
     && source ~/.nvm/nvm.sh \
-    && nvm install ${NODE_VERSION}
+    && nvm install ${NODE_VERSION} \
+    && ./cli/bin/atlas build

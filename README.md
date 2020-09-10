@@ -5,12 +5,8 @@
 - ubuntu
 
 ```bash
-# comes with openjdk 8
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:8-slim
 # comes with openjdk 11
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:11.0.6-slim
-# comes with openjdk 14
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:14-slim
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:jdk-11.0.8_10-slim
 ```
 
 ## Setup and Configure
