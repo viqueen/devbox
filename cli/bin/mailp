@@ -2,6 +2,10 @@
 
 const concatStream = require("concat-stream");
 const simpleParser = require('mailparser').simpleParser;
+const moment = require('moment');
+const chalk = require('chalk');
+
+const RECEIVED_PATTERN = /^(?<direction>by|from) (?<source>.*); (?<date>.*)$/;
 
 // noinspection JSUnresolvedVariable
 process.stdin.pipe(
@@ -9,7 +13,17 @@ process.stdin.pipe(
         if (buffer.length > 0) {
             simpleParser(buffer, {})
                 .then(parsed => {
-                    console.log(parsed.headers);
+                    const received = parsed.headers.get('received');
+                    received.forEach(item => {
+                        const matcher = item.match(RECEIVED_PATTERN);
+                        if (matcher) {
+                            const date = moment(matcher.groups['date']).toString();
+                            const source = matcher.groups['source'];
+                            // noinspection JSUnresolvedFunction
+                            console.log(`date: ${chalk.red(date)} - source: ${source}`);
+                        }
+                    });
+                    console.log(parsed.headers.get('received'));
                 })
                 .catch(error => {
                     console.error(error);
