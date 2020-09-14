@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+const concatStream = require("concat-stream");
+const simpleParser = require('mailparser').simpleParser;
+
+// noinspection JSUnresolvedVariable
+process.stdin.pipe(
+    concatStream(function (buffer) {
+        if (buffer.length > 0) {
+            simpleParser(buffer, {})
+                .then(parsed => {
+                    console.log(parsed.headers);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    })
+);

@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "husky": "^4.2.5",
     "labset-config-js": "^1.0.0",
+    "mailparser": "^3.0.0",
     "minimist": "^1.2.5",
     "moment": "^2.24.0",
     "morgan": "^1.10.0",
