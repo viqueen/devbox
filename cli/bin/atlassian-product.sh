@@ -131,3 +131,20 @@ function home() {
         echo "invalid version"
     fi
 }
+
+# @COMMAND support                                  manage my support resources
+function support() {
+    product=$(_product_name)
+    product_support_home=${HOME}/support/${product}
+    mkdir -p ${product_support_home}
+
+    if [[ -z ${1} ]]; then
+        ls -lrt ${product_support_home}
+        exit 0
+    fi
+
+    ticket=${1}
+    support_directory=${product_support_home}/${ticket}
+    mkdir -p ${support_directory}
+    cd ${support_directory}
+}
