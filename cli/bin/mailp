@@ -30,8 +30,17 @@ process.stdin.pipe(
         if (buffer.length > 0) {
             simpleParser(buffer, {})
                 .then(parsed => {
+                    console.log('-------- received \\');
                     const received = parsed.headers.get('received');
                     handleReceivedHeader(received);
+
+                    console.log('-------- date header \\');
+                    // noinspection JSUnresolvedFunction
+                    const date = moment(parsed.headers.get('date')).toString();
+                    console.log(chalk.red(date));
+
+                    console.log('-------- all headers \\');
+                    console.log(parsed.headers);
                 })
                 .catch(error => {
                     console.error(error);
