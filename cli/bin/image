@@ -55,10 +55,13 @@ function push() {
 _run_cmd() {
     _with_arguments 2 $@
     image=$(_image ${1} ${2})
-    if [[ -n $3 ]]; then
-      options="--name ${3}"
+    shift
+    shift
+    if [[ -n ${1} ]]; then
+      options="--name ${1}"
+      shift
     fi
-    echo "docker run ${options} -it --entrypoint=/bin/bash ${image}"
+    echo "docker run ${options} $@ -it --entrypoint=/bin/bash ${image}"
 }
 
 # @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
