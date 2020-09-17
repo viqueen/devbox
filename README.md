@@ -7,6 +7,12 @@
 ```bash
 # comes with openjdk 11
 docker run -it --entrypoint=/bin/bash viqueen/teknologi:jdk-11.0.8_10-slim
+
+# mount it
+docker run --name <name_it> --volume <target_dir>:/sources/<target_dir> \
+    -it --entrypoint=/bin/bash \
+    -w=/sources/<target_dir>  \
+    viqueen/teknologi:jdk-11.0.8_10-slim
 ```
 
 ## Setup and Configure
