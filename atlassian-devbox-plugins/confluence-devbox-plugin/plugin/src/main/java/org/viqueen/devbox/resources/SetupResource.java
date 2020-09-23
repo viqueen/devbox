@@ -20,6 +20,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.user.impl.DefaultUser;
 import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
+import org.viqueen.devbox.services.FakerService;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -29,9 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.security.SecureRandom;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -48,19 +47,22 @@ public class SetupResource {
     private final SettingsManager settingsManager;
     private final SpaceService spaceService;
     private final ContentService contentService;
-    private final SecureRandom random = new SecureRandom();
+    private final FakerService fakerService;
 
     public SetupResource(
-            @ComponentImport MailServerManager mailServerManager,
-            @ComponentImport UserAccessor userAccessor,
-            @ComponentImport SettingsManager settingsManager,
-            @ComponentImport SpaceService spaceService,
-            @ComponentImport ContentService contentService) {
+            @ComponentImport final MailServerManager mailServerManager,
+            @ComponentImport final UserAccessor userAccessor,
+            @ComponentImport final SettingsManager settingsManager,
+            @ComponentImport final SpaceService spaceService,
+            @ComponentImport final ContentService contentService,
+            final FakerService fakerService
+    ) {
         this.mailServerManager = mailServerManager;
         this.userAccessor = userAccessor;
         this.settingsManager = settingsManager;
         this.spaceService = spaceService;
         this.contentService = contentService;
+        this.fakerService = fakerService;
     }
 
     @GET
@@ -157,7 +159,7 @@ public class SetupResource {
 
         IntStream.rangeClosed(start, start + count)
                 .forEach(index -> {
-                    final Faker faker = LOCALES[random.nextInt(50) % 23];
+                    final Faker faker = fakerService.getInstance();
                     final String firstName = faker.name().firstName();
                     final String lastName = faker.name().lastName();
                     final String email = format("user%d@localhost.test", index);
@@ -194,7 +196,7 @@ public class SetupResource {
         final Map<String, String> spaces = new HashMap<>();
         IntStream.rangeClosed(start, start + count)
                 .forEach(index -> {
-                    final Faker faker = LOCALES[random.nextInt(50) % 23];
+                    final Faker faker = fakerService.getInstance();
                     final String spaceName = format("%s - %s", faker.artist().name(), faker.rockBand().name());
                     final String spaceKey = format("SPACE%d", index);
 
@@ -218,7 +220,7 @@ public class SetupResource {
         if (width == 0 || depth == 0) {
             return;
         }
-        final Faker faker = LOCALES[random.nextInt(50) % 23];
+        final Faker faker = fakerService.getInstance();
         for (int w = 1; w <= width; w++) {
             final String title = format("%s - %s - %d", faker.book().title(), faker.book().genre(), currentTimeMillis());
             final String body = format("%s%n%s", faker.shakespeare().romeoAndJulietQuote(), faker.lorem().paragraphs(3));
@@ -236,31 +238,4 @@ public class SetupResource {
             }
         }
     }
-
-    private static final Faker[] LOCALES = new Faker[]{
-            Faker.instance(Locale.CANADA),
-            Faker.instance(Locale.CANADA_FRENCH),
-            Faker.instance(Locale.CHINA),
-            Faker.instance(Locale.forLanguageTag("da-DK")),
-            Faker.instance(Locale.forLanguageTag("de-AT")),
-            Faker.instance(Locale.forLanguageTag("de-CH")),
-            Faker.instance(Locale.ENGLISH),
-            Faker.instance(Locale.forLanguageTag("es")),
-            Faker.instance(Locale.forLanguageTag("es-MX")),
-            Faker.instance(Locale.forLanguageTag("fi-FI")),
-            Faker.instance(Locale.FRANCE),
-            Faker.instance(Locale.GERMANY),
-            Faker.instance(Locale.ITALY),
-            Faker.instance(Locale.JAPANESE),
-            Faker.instance(Locale.KOREA),
-            Faker.instance(Locale.forLanguageTag("nb-NO")),
-            Faker.instance(Locale.forLanguageTag("nl")),
-            Faker.instance(Locale.forLanguageTag("pl")),
-            Faker.instance(Locale.forLanguageTag("pt")),
-            Faker.instance(Locale.forLanguageTag("ru")),
-            Faker.instance(Locale.forLanguageTag("sk")),
-            Faker.instance(Locale.forLanguageTag("sv-SE")),
-            Faker.instance(Locale.TAIWAN),
-            Faker.instance(Locale.UK)
-    };
 }
