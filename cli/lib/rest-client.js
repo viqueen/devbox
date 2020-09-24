@@ -73,7 +73,7 @@ class RestClient {
       .command("ab [parts...]")
       .description("runs apache benchmark on resources")
       .option("-q, --query [value]", "set the request query", collect, [])
-      .option("-n, --number [value]", "set the number of requests", "1000")
+      .option("-n, --number [value]", "set the number of requests", "100")
       .option(
         "-c, --concurrency [value]",
         "set the number of concurrent requests",
