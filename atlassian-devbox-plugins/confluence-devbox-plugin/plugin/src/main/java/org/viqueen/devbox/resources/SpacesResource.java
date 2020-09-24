@@ -119,15 +119,17 @@ public class SpacesResource {
     @POST
     @Path("/{spaceKey}/mentions")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response mentionUsers(@PathParam("spaceKey") final String spaceKey) {
+    public Response mentionUsers(
+            @PathParam("spaceKey") final String spaceKey,
+            @QueryParam("count") @DefaultValue("20") final int count
+    ) {
         try {
             Pager<String> userNames = userManager.getUserNames();
             String mentions = userNames.getCurrentPage()
                     .stream()
-                    .map(userAccessor::getUserByName)
+                    .limit(count)
                     .filter(Objects::nonNull)
-                    .map(ConfluenceUser::getKey)
-                    .map(userKey -> format("<ac:link><ri:user ri:userkey=\"{0}\" /></ac:link>", userKey.getStringValue()))
+                    .map(userName -> format("<ac:link><ri:user ri:username=\"{0}\" /></ac:link>", userName))
                     .collect(joining("<br/>"));
             Faker instance = fakerService.getInstance();
             Content content = contentService.create(
