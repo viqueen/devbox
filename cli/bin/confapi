@@ -4,9 +4,9 @@
 
 "use strict";
 
-const Restful = require("../lib/restful");
+const RestClient = require("../lib/rest-client");
 
-const restful = new Restful({
+const restClient = new RestClient({
   name: "Confluence API",
   apiUrl: "/rest/api",
   json: true,
@@ -17,6 +17,6 @@ const restful = new Restful({
   context: "/confluence",
 });
 
-const program = restful.program();
+const program = restClient.program();
 program.version("1.0.0");
 program.parse(process.argv);
