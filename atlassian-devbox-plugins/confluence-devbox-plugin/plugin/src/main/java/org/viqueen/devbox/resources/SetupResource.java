@@ -98,7 +98,7 @@ public class SetupResource {
     public Response outboundMailServer(
             @DefaultValue("outbound-mail-devbox") @QueryParam("name") final String name,
             @DefaultValue("localhost") @QueryParam("hostname") final String hostname,
-            @DefaultValue("3025") @QueryParam("port") final String port,
+            @DefaultValue("1025") @QueryParam("port") final String port,
             @DefaultValue("confluence@localhost.test") @QueryParam("from") final String fromAddress,
             @DefaultValue("[local]") @QueryParam("prefix") final String prefix,
             @DefaultValue("confluence") @QueryParam("username") final String username

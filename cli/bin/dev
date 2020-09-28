@@ -19,7 +19,7 @@ addkey() {
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
 audit() {
     max=$(_default '500000')
-    sudo du -k * | awk "\$1 > $max" | sort -nr
+    du -k * | awk "\$1 > $max" | sort -nr
 }
 
 # @COMMAND portid [port]                    displays process listening on target port
