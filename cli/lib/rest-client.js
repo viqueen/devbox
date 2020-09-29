@@ -79,7 +79,7 @@ class RestClient {
         "set the number of concurrent requests",
         "10"
       )
-      .option("-m, --method [name]", "sets the request method", "GET")
+      .option("-M, --method [name]", "sets the request method", "GET")
       .action((parts, options) => {
         const query = makeQuery(base.query, options.query);
         const context = program.context === "/" ? "" : program.context;
