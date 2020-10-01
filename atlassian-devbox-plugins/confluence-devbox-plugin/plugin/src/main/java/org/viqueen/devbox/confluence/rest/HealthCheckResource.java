@@ -1,8 +1,8 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.viqueen.devbox.services.SampleCommunityService;
+import org.viqueen.devbox.confluence.services.SampleCommunityService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

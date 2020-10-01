@@ -1,4 +1,4 @@
-package org.viqueen.devbox.services;
+package org.viqueen.devbox.confluence.services;
 
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;

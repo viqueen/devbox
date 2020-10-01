@@ -1,4 +1,4 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;

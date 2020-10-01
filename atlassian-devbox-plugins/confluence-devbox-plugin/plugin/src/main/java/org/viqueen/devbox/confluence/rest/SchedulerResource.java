@@ -1,4 +1,4 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.scheduler.config.JobRunnerKey;

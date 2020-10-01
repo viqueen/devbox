@@ -1,4 +1,4 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import com.atlassian.confluence.api.model.JsonString;
 import com.atlassian.confluence.api.model.content.Content;

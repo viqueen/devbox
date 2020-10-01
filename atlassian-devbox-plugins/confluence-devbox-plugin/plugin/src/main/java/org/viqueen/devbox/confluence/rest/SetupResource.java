@@ -1,4 +1,4 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import com.atlassian.annotations.security.XsrfProtectionExcluded;
 import com.atlassian.confluence.api.model.content.Content;
@@ -20,7 +20,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.user.impl.DefaultUser;
 import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
-import org.viqueen.devbox.services.FakerService;
+import org.viqueen.devbox.confluence.services.FakerService;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;

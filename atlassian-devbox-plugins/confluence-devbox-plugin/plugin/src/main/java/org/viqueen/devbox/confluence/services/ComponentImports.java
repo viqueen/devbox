@@ -1,4 +1,4 @@
-package org.viqueen.devbox.services;
+package org.viqueen.devbox.confluence.services;
 
 import com.atlassian.confluence.security.PermissionManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;

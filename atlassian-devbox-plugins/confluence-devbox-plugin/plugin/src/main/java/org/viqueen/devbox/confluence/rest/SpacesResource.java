@@ -1,4 +1,4 @@
-package org.viqueen.devbox.resources;
+package org.viqueen.devbox.confluence.rest;
 
 import com.atlassian.annotations.security.XsrfProtectionExcluded;
 import com.atlassian.confluence.api.model.content.Content;
@@ -21,7 +21,7 @@ import com.atlassian.user.User;
 import com.atlassian.user.UserManager;
 import com.atlassian.user.search.page.Pager;
 import com.github.javafaker.Faker;
-import org.viqueen.devbox.services.FakerService;
+import org.viqueen.devbox.confluence.services.FakerService;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
