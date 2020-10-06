@@ -215,7 +215,13 @@ package() {
 
 # @COMMAND setver                           interactively updates the maven version of a project
 setver() {
-    mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
+    if [[ -z ${1} ]]; then
+      mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
+    else
+      version=${1}
+      shift
+      mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false $@
+    fi
 }
 
 # @COMMAND upver                            updates parent pom version to more recent value
