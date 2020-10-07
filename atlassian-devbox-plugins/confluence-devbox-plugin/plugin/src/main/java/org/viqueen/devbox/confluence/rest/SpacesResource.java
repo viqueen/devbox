@@ -7,14 +7,18 @@ import com.atlassian.confluence.api.model.content.ContentType;
 import com.atlassian.confluence.api.model.content.Space;
 import com.atlassian.confluence.api.model.content.SpaceType;
 import com.atlassian.confluence.api.model.longtasks.LongTaskSubmission;
+import com.atlassian.confluence.api.model.pagination.PageResponse;
 import com.atlassian.confluence.api.model.pagination.SimplePageRequest;
 import com.atlassian.confluence.api.service.content.ContentService;
 import com.atlassian.confluence.api.service.content.SpaceService;
 import com.atlassian.confluence.api.service.exceptions.ServiceException;
 import com.atlassian.confluence.api.service.watch.WatchService;
+import com.atlassian.confluence.rest.api.model.ExpansionsParser;
 import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
+import com.atlassian.confluence.util.longrunning.LongRunningTaskId;
+import com.atlassian.confluence.util.longrunning.LongRunningTaskManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.user.EntityException;
 import com.atlassian.user.User;
@@ -22,6 +26,7 @@ import com.atlassian.user.UserManager;
 import com.atlassian.user.search.page.Pager;
 import com.github.javafaker.Faker;
 import org.viqueen.devbox.confluence.services.FakerService;
+import org.viqueen.devbox.confluence.tasks.DevboxLongRunningTask;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -52,6 +57,7 @@ public class SpacesResource {
     private final UserAccessor userAccessor;
     private final UserManager userManager;
     private final ContentService contentService;
+    private final LongRunningTaskManager taskManager;
     private final FakerService fakerService;
 
     public SpacesResource(
@@ -60,6 +66,7 @@ public class SpacesResource {
             final @ComponentImport UserAccessor userAccessor,
             final @ComponentImport UserManager userManager,
             final @ComponentImport ContentService contentService,
+            final @ComponentImport LongRunningTaskManager taskManager,
             final FakerService fakerService
     ) {
         this.spaceService = spaceService;
@@ -67,6 +74,7 @@ public class SpacesResource {
         this.userAccessor = userAccessor;
         this.userManager = userManager;
         this.contentService = contentService;
+        this.taskManager = taskManager;
         this.fakerService = fakerService;
     }
 
@@ -116,6 +124,23 @@ public class SpacesResource {
         }
     }
 
+    @DELETE
+    @Path("/{spaceKey}/watchers")
+    public Response unsetSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
+        try {
+            Pager<User> users = userManager.getUsers();
+            users.getCurrentPage()
+                    .stream()
+                    .map(user -> userAccessor.getUserByName(user.getName()))
+                    .filter(Objects::nonNull)
+                    .map(ConfluenceUser::getKey)
+                    .forEach(userKey -> watchService.unwatchSpace(userKey, spaceKey));
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (EntityException exception) {
+            throw new ServiceException(exception.getMessage(), exception);
+        }
+    }
+
     @POST
     @Path("/{spaceKey}/mentions")
     @Produces(MediaType.APPLICATION_JSON)
@@ -146,21 +171,37 @@ public class SpacesResource {
         }
     }
 
-    @DELETE
-    @Path("/{spaceKey}/watchers")
-    public Response unsetSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
-        try {
-            Pager<User> users = userManager.getUsers();
-            users.getCurrentPage()
-                    .stream()
-                    .map(user -> userAccessor.getUserByName(user.getName()))
-                    .filter(Objects::nonNull)
-                    .map(ConfluenceUser::getKey)
-                    .forEach(userKey -> watchService.unwatchSpace(userKey, spaceKey));
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } catch (EntityException exception) {
-            throw new ServiceException(exception.getMessage(), exception);
-        }
+    @POST
+    @Path("/{spaceKey}/updates")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updates(@PathParam("spaceKey") final String spaceKey) {
+        LongRunningTaskId taskId = taskManager.startLongRunningTask(
+                AuthenticatedUserThreadLocal.get(),
+                new DevboxLongRunningTask("update-space", () -> {
+                    final PageResponse<Content> contents = contentService.find(ExpansionsParser.parse("version,space,ancestors"))
+                            .withSpace(Space.builder().key(spaceKey).build())
+                            .fetchMany(ContentType.PAGE, new SimplePageRequest(0, 100));
+
+                    contents.getResults().forEach(content -> {
+                        final Faker instance = fakerService.getInstance();
+                        contentService.create(
+                                Content.builder()
+                                        .type(ContentType.COMMENT)
+                                        .container(content)
+                                        .body(format("<p>{0}</p>", instance.chuckNorris().fact()), ContentRepresentation.STORAGE)
+                                        .build()
+                        );
+                        contentService.update(
+                                Content.builder(content)
+                                        .body(format("<p>{0}</p>", instance.shakespeare().hamletQuote()), ContentRepresentation.STORAGE)
+                                        .version(content.getVersion().nextBuilder().build())
+                                        .build()
+                        );
+                    });
+                })
+        );
+
+        return Response.ok(taskId.asLongTaskId()).build();
     }
 
     @DELETE
