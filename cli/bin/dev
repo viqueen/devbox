@@ -53,6 +53,11 @@ path() {
   done
 }
 
+# @COMMAND list                             lists all devbox binaries
+list() {
+  ls -la ${VIQUEEN_DEVBOX_HOME}/cli/bin
+}
+
 #######
 # VIM
 #######
