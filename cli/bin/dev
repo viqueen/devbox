@@ -19,7 +19,7 @@ addkey() {
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
 audit() {
     max=$(_default '500000')
-    sudo du -k * | awk "\$1 > $max" | sort -nr
+    du -k * | awk "\$1 > $max" | sort -nr
 }
 
 # @COMMAND portid [port]                    displays process listening on target port
@@ -220,7 +220,13 @@ package() {
 
 # @COMMAND setver                           interactively updates the maven version of a project
 setver() {
-    mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
+    if [[ -z ${1} ]]; then
+      mvn release:update-versions -DautoVersionSubmodules=true -DgenerateBackupPoms=false $@
+    else
+      version=${1}
+      shift
+      mvn versions:set -DnewVersion=${version} -DgenerateBackupPoms=false $@
+    fi
 }
 
 # @COMMAND upver                            updates parent pom version to more recent value

@@ -1,4 +1,4 @@
-package org.viqueen.devbox.services;
+package org.viqueen.devbox.confluence.services;
 
 import com.atlassian.confluence.api.model.content.id.ContentId;
 import com.atlassian.confluence.api.model.link.Link;

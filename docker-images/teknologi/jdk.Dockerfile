@@ -7,7 +7,7 @@ ARG NVM_VERSION=v0.35.3
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update \
-    && apt-get install -y curl unzip wget git vim
+    && apt-get install -y curl unzip wget git vim ruby
 
 # maven
 RUN mkdir -p /usr/local/bin \

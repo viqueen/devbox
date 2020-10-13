@@ -2,9 +2,9 @@
 
 "use strict";
 
-const Restful = require("../lib/restful");
+const RestClient = require("../lib/rest-client");
 
-const restful = new Restful({
+const restClient = new RestClient({
   name: "Confluence Devbox",
   apiUrl: "/rest/devbox/latest",
   json: true,
@@ -15,7 +15,7 @@ const restful = new Restful({
   context: "/confluence",
 });
 
-const program = restful.program();
+const program = restClient.program();
 program.version("1.0.0");
 // noinspection JSUnresolvedVariable,ES6ModulesDependencies
 program.parse(process.argv);

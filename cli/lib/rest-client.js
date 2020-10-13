@@ -4,6 +4,7 @@ const http = require("http");
 const queryString = require("query-string");
 const program = require("commander");
 const prettyJson = require("prettyjson");
+const { exec } = require("child_process");
 
 const jsonOptions = {
   numberColor: "yellow",
@@ -23,7 +24,17 @@ function extractQuery(parameters) {
   return query;
 }
 
-class Restful {
+function makeQuery(fromBase, fromOptions) {
+  return Object.assign({}, fromBase, extractQuery(fromOptions));
+}
+
+function makeBasicAuth(userName, password) {
+  return userName && password
+    ? `Basic ${Buffer.from(userName + ":" + password).toString("base64")}`
+    : undefined;
+}
+
+class RestClient {
   constructor(options) {
     this.name = options.name;
     this.apiUrl = options.apiUrl;
@@ -58,24 +69,48 @@ class Restful {
 
     const base = this;
 
+    program
+      .command("ab [parts...]")
+      .description("runs apache benchmark on resources")
+      .option("-q, --query [value]", "set the request query", collect, [])
+      .option("-N, --number [value]", "set the number of requests", "100")
+      .option(
+        "-C, --concurrency [value]",
+        "set the number of concurrent requests",
+        "10"
+      )
+      .option("-M, --method [name]", "sets the request method", "GET")
+      .action((parts, options) => {
+        const query = makeQuery(base.query, options.query);
+        const context = program.context === "/" ? "" : program.context;
+        const url = `http://${program.host}:${program.port}${context}${
+          base.apiUrl
+        }/${parts.join("/")}?${queryString.stringify(query)}`;
+
+        // noinspection JSUnresolvedVariable
+        const abArgs = [
+          "ab",
+          `-n ${options.number}`,
+          `-c ${options.concurrency}`,
+          `-m ${options.method}`,
+          "-H 'Content-Type: application/json'",
+          `-A '${program.username}:${program.secret}'`,
+          "-v 5",
+          `'${url}'`,
+        ];
+        const ab = exec(abArgs.join(" "));
+        ab.stdout.pipe(process.stdout);
+        ab.stderr.pipe(process.stderr);
+      });
+
     ["get", "post", "put", "delete", "head"].forEach((method) => {
       program
         .command(`${method} [parts...]`)
         .description(`${method} ${base.name} resources`)
         .option("-q, --query [value]", "set the request query", collect, [])
         .action((parts, options) => {
-          const query = Object.assign(
-            {},
-            base.query,
-            extractQuery(options.query)
-          );
-          const authorization =
-            program.username && program.secret
-              ? `Basic ${Buffer.from(
-                  program.username + ":" + program.secret
-                ).toString("base64")}`
-              : undefined;
-
+          const query = makeQuery(base.query, options.query);
+          const authorization = makeBasicAuth(program.username, program.secret);
           const context = program.context === "/" ? "" : program.context;
 
           const settings = {
@@ -121,4 +156,4 @@ class Restful {
   }
 }
 
-module.exports = Restful;
+module.exports = RestClient;
