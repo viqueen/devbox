@@ -3,7 +3,8 @@
 source selfedit.sh
 
 function run() {
-  docker run -it --rm=true -p 1025:1025 -p 8025:8025 mailhog/mailhog:v1.0.1 -invite-jim=1
+  jim=${1:-1}
+  docker run -it --rm=true -p 1025:1025 -p 8025:8025 mailhog/mailhog:v1.0.1 -invite-jim=${jim}
 }
 
 eval $@
