@@ -98,8 +98,8 @@ public class SpacesResource {
                 .fetch();
 
         return space.map(Response::ok)
-                    .orElse(Response.status(Response.Status.NOT_FOUND))
-                    .build();
+                .orElse(Response.status(Response.Status.NOT_FOUND))
+                .build();
     }
 
     private static String getSpaceKeyForCurrentUser() {
@@ -109,11 +109,15 @@ public class SpacesResource {
 
     @POST
     @Path("/{spaceKey}/watchers")
-    public Response setSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
+    public Response setSpaceWatchers(
+            @PathParam("spaceKey") final String spaceKey,
+            @QueryParam("count") @DefaultValue("100") final int count
+    ) {
         try {
             Pager<User> users = userManager.getUsers();
             users.getCurrentPage()
                     .stream()
+                    .limit(count)
                     .map(user -> userAccessor.getUserByName(user.getName()))
                     .filter(Objects::nonNull)
                     .map(ConfluenceUser::getKey)
@@ -189,12 +193,6 @@ public class SpacesResource {
                                         .type(ContentType.COMMENT)
                                         .container(content)
                                         .body(format("<p>{0}</p>", instance.chuckNorris().fact()), ContentRepresentation.STORAGE)
-                                        .build()
-                        );
-                        contentService.update(
-                                Content.builder(content)
-                                        .body(format("<p>{0}</p>", instance.shakespeare().hamletQuote()), ContentRepresentation.STORAGE)
-                                        .version(content.getVersion().nextBuilder().build())
                                         .build()
                         );
                     });
