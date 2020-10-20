@@ -13,13 +13,17 @@ import com.atlassian.confluence.api.service.content.ContentService;
 import com.atlassian.confluence.api.service.content.SpaceService;
 import com.atlassian.confluence.api.service.exceptions.ServiceException;
 import com.atlassian.confluence.api.service.watch.WatchService;
+import com.atlassian.confluence.mail.notification.Notification;
+import com.atlassian.confluence.mail.notification.NotificationManager;
 import com.atlassian.confluence.rest.api.model.ExpansionsParser;
+import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.confluence.util.longrunning.LongRunningTaskId;
 import com.atlassian.confluence.util.longrunning.LongRunningTaskManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.sal.api.permission.PermissionEnforcer;
 import com.atlassian.user.EntityException;
 import com.atlassian.user.User;
 import com.atlassian.user.UserManager;
@@ -58,6 +62,9 @@ public class SpacesResource {
     private final UserManager userManager;
     private final ContentService contentService;
     private final LongRunningTaskManager taskManager;
+    private final PermissionEnforcer permissionEnforcer;
+    private final NotificationManager notificationManager;
+    private final SpaceManager spaceManager;
     private final FakerService fakerService;
 
     public SpacesResource(
@@ -67,6 +74,9 @@ public class SpacesResource {
             final @ComponentImport UserManager userManager,
             final @ComponentImport ContentService contentService,
             final @ComponentImport LongRunningTaskManager taskManager,
+            final @ComponentImport PermissionEnforcer permissionEnforcer,
+            final @ComponentImport NotificationManager notificationManager,
+            final @ComponentImport SpaceManager spaceManager,
             final FakerService fakerService
     ) {
         this.spaceService = spaceService;
@@ -75,12 +85,16 @@ public class SpacesResource {
         this.userManager = userManager;
         this.contentService = contentService;
         this.taskManager = taskManager;
+        this.permissionEnforcer = permissionEnforcer;
+        this.notificationManager = notificationManager;
+        this.spaceManager = spaceManager;
         this.fakerService = fakerService;
     }
 
     @GET
     @Path("/ping")
     public Response ping() {
+        permissionEnforcer.enforceAdmin();
         return Response.ok(
                 singletonMap(
                         "components",
@@ -107,19 +121,35 @@ public class SpacesResource {
         return "~" + confluenceUser.getName();
     }
 
+    @GET
+    @Path("/{spaceKey}/watchers/count")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSpaceWatchersCount(
+            @PathParam("spaceKey") final String spaceKey
+    ) {
+        permissionEnforcer.enforceAdmin();
+        List<Notification> notificationsBySpaceAndType = notificationManager.getNotificationsBySpaceAndType(
+                spaceManager.getSpace(spaceKey),
+                null
+        );
+        return Response.ok(singletonMap("count", notificationsBySpaceAndType.size())).build();
+    }
+
     @POST
     @Path("/{spaceKey}/watchers")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response setSpaceWatchers(
             @PathParam("spaceKey") final String spaceKey,
             @QueryParam("count") @DefaultValue("100") final int count
     ) {
+        permissionEnforcer.enforceAdmin();
         try {
             Pager<User> users = userManager.getUsers();
             users.getCurrentPage()
                     .stream()
-                    .limit(count)
                     .map(user -> userAccessor.getUserByName(user.getName()))
                     .filter(user -> user != null && !userAccessor.isDeactivated(user))
+                    .limit(count)
                     .map(ConfluenceUser::getKey)
                     .forEach(userKey -> watchService.watchSpace(userKey, spaceKey));
             return Response.status(Response.Status.CREATED).build();
@@ -130,7 +160,9 @@ public class SpacesResource {
 
     @DELETE
     @Path("/{spaceKey}/watchers")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response unsetSpaceWatchers(@PathParam("spaceKey") final String spaceKey) {
+        permissionEnforcer.enforceAdmin();
         try {
             Pager<User> users = userManager.getUsers();
             users.getCurrentPage()
@@ -152,6 +184,7 @@ public class SpacesResource {
             @PathParam("spaceKey") final String spaceKey,
             @QueryParam("count") @DefaultValue("20") final int count
     ) {
+        permissionEnforcer.enforceAdmin();
         try {
             Pager<String> userNames = userManager.getUserNames();
             String mentions = userNames.getCurrentPage()
@@ -179,6 +212,7 @@ public class SpacesResource {
     @Path("/{spaceKey}/updates")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updates(@PathParam("spaceKey") final String spaceKey) {
+        permissionEnforcer.enforceAdmin();
         LongRunningTaskId taskId = taskManager.startLongRunningTask(
                 AuthenticatedUserThreadLocal.get(),
                 new DevboxLongRunningTask("update-space", () -> {
@@ -207,7 +241,9 @@ public class SpacesResource {
     @XsrfProtectionExcluded
     public Response deleteAll(
             @QueryParam("start") @DefaultValue("0") final int start,
-            @QueryParam("limit") @DefaultValue("100") final int limit) {
+            @QueryParam("limit") @DefaultValue("100") final int limit
+    ) {
+        permissionEnforcer.enforceAdmin();
         final List<LongTaskSubmission> tasks = spaceService.find()
                 .fetchMany(new SimplePageRequest(start, limit))
                 .getResults()
