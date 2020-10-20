@@ -128,11 +128,15 @@ public class SpacesResource {
             @PathParam("spaceKey") final String spaceKey
     ) {
         permissionEnforcer.enforceAdmin();
+        ConfluenceUser confluenceUser = AuthenticatedUserThreadLocal.get();
         List<Notification> notificationsBySpaceAndType = notificationManager.getNotificationsBySpaceAndType(
                 spaceManager.getSpace(spaceKey),
                 null
         );
-        return Response.ok(singletonMap("count", notificationsBySpaceAndType.size())).build();
+        long count = notificationsBySpaceAndType.stream()
+                .filter(n -> !confluenceUser.equals(n.getReceiver()))
+                .count();
+        return Response.ok(singletonMap("count", count)).build();
     }
 
     @POST
@@ -143,12 +147,18 @@ public class SpacesResource {
             @QueryParam("count") @DefaultValue("100") final int count
     ) {
         permissionEnforcer.enforceAdmin();
+        ConfluenceUser confluenceUser = AuthenticatedUserThreadLocal.get();
         try {
             Pager<User> users = userManager.getUsers();
             users.getCurrentPage()
                     .stream()
                     .map(user -> userAccessor.getUserByName(user.getName()))
-                    .filter(user -> user != null && !userAccessor.isDeactivated(user))
+                    .filter(
+                            user ->
+                                    user != null
+                                            && !userAccessor.isDeactivated(user)
+                                            && !confluenceUser.equals(user)
+                    )
                     .limit(count)
                     .map(ConfluenceUser::getKey)
                     .forEach(userKey -> watchService.watchSpace(userKey, spaceKey));
