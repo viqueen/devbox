@@ -119,7 +119,7 @@ public class SpacesResource {
                     .stream()
                     .limit(count)
                     .map(user -> userAccessor.getUserByName(user.getName()))
-                    .filter(Objects::nonNull)
+                    .filter(user -> user != null && !userAccessor.isDeactivated(user))
                     .map(ConfluenceUser::getKey)
                     .forEach(userKey -> watchService.watchSpace(userKey, spaceKey));
             return Response.status(Response.Status.CREATED).build();
@@ -136,7 +136,7 @@ public class SpacesResource {
             users.getCurrentPage()
                     .stream()
                     .map(user -> userAccessor.getUserByName(user.getName()))
-                    .filter(Objects::nonNull)
+                    .filter(user -> user != null && !userAccessor.isDeactivated(user))
                     .map(ConfluenceUser::getKey)
                     .forEach(userKey -> watchService.unwatchSpace(userKey, spaceKey));
             return Response.status(Response.Status.NO_CONTENT).build();
