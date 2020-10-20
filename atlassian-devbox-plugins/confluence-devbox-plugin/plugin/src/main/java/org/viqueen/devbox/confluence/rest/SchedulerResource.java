@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ public class SchedulerResource {
 
     @GET
     @Path("/status")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response status() {
         Collection<RunningJob> locallyRunningJobs = serviceController.getLocallyRunningJobs();
         Set<JobRunnerKey> registeredJobs = serviceController.getRegisteredJobRunnerKeys();
