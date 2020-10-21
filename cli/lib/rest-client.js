@@ -15,7 +15,7 @@ function collect(val, memo) {
   return memo;
 }
 
-function extractQuery(parameters) {
+function extractParameters(parameters) {
   const query = {};
   parameters.forEach((value) => {
     const parts = value.split("=");
@@ -24,8 +24,8 @@ function extractQuery(parameters) {
   return query;
 }
 
-function makeQuery(fromBase, fromOptions) {
-  return Object.assign({}, fromBase, extractQuery(fromOptions));
+function makeDataObject(fromBase, fromOptions) {
+  return Object.assign({}, fromBase, extractParameters(fromOptions));
 }
 
 function authorizationHeader(userName, password, token) {
@@ -89,7 +89,7 @@ class RestClient {
       )
       .option("-M, --method [name]", "sets the request method", "GET")
       .action((parts, options) => {
-        const query = makeQuery(base.query, options.query);
+        const query = makeDataObject(base.query, options.query);
         const context = program.context === "/" ? "" : program.context;
         const url = `http://${program.host}:${program.port}${context}${
           base.apiUrl
@@ -116,8 +116,10 @@ class RestClient {
         .command(`${method} [parts...]`)
         .description(`${method} ${base.name} resources`)
         .option("-q, --query [value]", "set the request query", collect, [])
+        .option("-d, --data [value]", "set the request data", collect, [])
         .action((parts, options) => {
-          const query = makeQuery(base.query, options.query);
+          const query = makeDataObject(base.query, options.query);
+          const data = makeDataObject({}, options.data);
           const authorization = authorizationHeader(
             program.username,
             program.secret,
@@ -161,6 +163,7 @@ class RestClient {
           };
 
           const request = http.request(settings, callback);
+          request.write(JSON.stringify(data));
           request.end();
         });
     });
