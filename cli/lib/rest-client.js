@@ -28,7 +28,10 @@ function makeQuery(fromBase, fromOptions) {
   return Object.assign({}, fromBase, extractQuery(fromOptions));
 }
 
-function makeBasicAuth(userName, password) {
+function authorizationHeader(userName, password, token) {
+  if (token) {
+    return `Bearer ${token}`;
+  }
   return userName && password
     ? `Basic ${Buffer.from(userName + ":" + password).toString("base64")}`
     : undefined;
@@ -57,6 +60,11 @@ class RestClient {
       "-s, --secret [pass]",
       "auth password",
       this.auth && this.auth.pass
+    );
+    program.option(
+      "-t, --token [token]",
+      "bearer token",
+      this.auth && this.auth.token
     );
     program.option("-c, --context [context]", "context path", this.context);
     program.option(
@@ -110,7 +118,11 @@ class RestClient {
         .option("-q, --query [value]", "set the request query", collect, [])
         .action((parts, options) => {
           const query = makeQuery(base.query, options.query);
-          const authorization = makeBasicAuth(program.username, program.secret);
+          const authorization = authorizationHeader(
+            program.username,
+            program.secret,
+            program.token
+          );
           const context = program.context === "/" ? "" : program.context;
 
           const settings = {
@@ -122,6 +134,7 @@ class RestClient {
             headers: {
               "User-Agent": "devbox-rest-client",
               "Content-Type": "application/json",
+              Accept: "application/json",
               Authorization: authorization,
             },
             method: method,
