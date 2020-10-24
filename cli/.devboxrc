@@ -20,5 +20,3 @@ git config \
 
 # atlas sdk
 export ATLAS_MVN=$(which mvn)
-
-nvm use 12.16.3
