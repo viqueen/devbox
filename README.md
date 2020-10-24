@@ -35,6 +35,12 @@ npm link
 git config --global core.editor vim
 ```
 
+> :warning: to update the submodules
+
+```bash
+git submodule update --init --recursive
+```
+
 ## Optional - macOs dev setup
 
 <details>
