@@ -19,7 +19,14 @@ function extractParameters(parameters) {
   const query = {};
   parameters.forEach((value) => {
     const parts = value.split("=");
-    query[parts[0]] = parts[1];
+    const right = parts[1];
+    if (right === "true") {
+      query[parts[0]] = true;
+    } else if (right === "false") {
+      query[parts[0]] = false;
+    } else {
+      query[parts[0]] = right;
+    }
   });
   return query;
 }
@@ -95,6 +102,11 @@ class RestClient {
           base.apiUrl
         }/${parts.join("/")}?${queryString.stringify(query)}`;
 
+        const authorization = authorizationHeader(
+          program.username,
+          program.secret,
+          program.token
+        );
         // noinspection JSUnresolvedVariable
         const abArgs = [
           "ab",
@@ -102,7 +114,8 @@ class RestClient {
           `-c ${options.concurrency}`,
           `-m ${options.method}`,
           "-H 'Content-Type: application/json'",
-          `-A '${program.username}:${program.secret}'`,
+          `-H 'Authorization: ${authorization}'`,
+          // `-A '${program.username}:${program.secret}'`,
           "-v 5",
           `'${url}'`,
         ];
