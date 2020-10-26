@@ -18,6 +18,8 @@
         <atlassian.product>confluence</atlassian.product>
         <atlassian.product.version>7.4.0</atlassian.product.version>
 
+        <jira.software.application.version>8.13.0</jira.software.application.version>
+        <jira.servicedesk.application.version>4.13.0</jira.servicedesk.application.version>
         <jvm.args>-Xmx2048m</jvm.args>
 
         <data.source.url/>
@@ -76,6 +78,30 @@
                                     </dataSources>
                                 </product>
                             </products>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jira-servicedesk</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>jira-maven-plugin</artifactId>
+                        <version>${amps.version}</version>
+                        <configuration>
+                            <applications>
+                                <application>
+                                    <applicationKey>jira-software</applicationKey>
+                                    <version>${jira.software.application.version}</version>
+                                </application>
+                                <application>
+                                    <applicationKey>jira-servicedesk</applicationKey>
+                                    <version>${jira.servicedesk.application.version}</version>
+                                </application>
+                            </applications>
                         </configuration>
                     </plugin>
                 </plugins>

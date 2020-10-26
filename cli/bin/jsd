@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+source selfedit.sh
+
+ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
+
+# @COMMAND start            starts a jira software istance with servicedesk support
+function start() {
+  cd "${VIQUEEN_DEVBOX_HOME}"
+  atlas-run -P jira-servicedesk -pl :atlassian-product-setup
+}
+
+eval "$@"
