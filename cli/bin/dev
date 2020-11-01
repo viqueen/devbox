@@ -210,12 +210,17 @@ build() {
 
 # @COMMAND compile                          runs threaded maven compile
 compile() {
-  mvn -e -T 0.75C compile $@
+  mvn -e -T 0.75C compile -DskipTests $@
 }
 
 # @COMMAND package                          runs threaded maven package
 package() {
   mvn -e -T 0.75C package -DskipTests=true -DskipITs=true $@
+}
+
+# @COMMAND verify                           runs maven verify and skips tests
+verify() {
+  mvn -e -T 0.75C verify -DskipTests $@
 }
 
 # @COMMAND setver                           interactively updates the maven version of a project
