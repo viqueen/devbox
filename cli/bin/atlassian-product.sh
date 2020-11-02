@@ -25,7 +25,7 @@ function start () {
 
 _debug_cmd() {
     _run_with_jvm_args \
-        "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n" \
+        "-Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT:-5005},server=y,suspend=n" \
         $(_product_definition $@)
 }
 
