@@ -65,7 +65,7 @@ pi() {
 
 # @COMMAND style                runs maven checkstyle using confluence code-style rules
 style() {
-  atlas-mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.1.0 -Dcheckstyle.failOnViolation=true -DskipITs=true
+  atlas-mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.5.0-m02 -Dcheckstyle.failOnViolation=true -DskipITs=true
 }
 
 __capture_at_since() {
