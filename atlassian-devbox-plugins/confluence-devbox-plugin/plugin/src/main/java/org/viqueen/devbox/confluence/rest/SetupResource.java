@@ -17,6 +17,7 @@ import com.atlassian.mail.MailException;
 import com.atlassian.mail.MailProtocol;
 import com.atlassian.mail.server.MailServerManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.sal.api.permission.PermissionEnforcer;
 import com.atlassian.user.impl.DefaultUser;
 import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
@@ -47,6 +48,7 @@ public class SetupResource {
     private final SettingsManager settingsManager;
     private final SpaceService spaceService;
     private final ContentService contentService;
+    private final PermissionEnforcer permissionEnforcer;
     private final FakerService fakerService;
 
     public SetupResource(
@@ -55,6 +57,7 @@ public class SetupResource {
             @ComponentImport final SettingsManager settingsManager,
             @ComponentImport final SpaceService spaceService,
             @ComponentImport final ContentService contentService,
+            @ComponentImport final PermissionEnforcer permissionEnforcer,
             final FakerService fakerService
     ) {
         this.mailServerManager = mailServerManager;
@@ -62,12 +65,14 @@ public class SetupResource {
         this.settingsManager = settingsManager;
         this.spaceService = spaceService;
         this.contentService = contentService;
+        this.permissionEnforcer = permissionEnforcer;
         this.fakerService = fakerService;
     }
 
     @GET
     @Path("/ping")
     public Response ping() {
+        permissionEnforcer.enforceSystemAdmin();
         return Response.ok(
                 singletonMap(
                         "components",
@@ -84,6 +89,7 @@ public class SetupResource {
     @Path("/admin")
     @XsrfProtectionExcluded
     public Response admin() {
+        permissionEnforcer.enforceSystemAdmin();
         ConfluenceUser admin = userAccessor.getUserByName("admin");
         DefaultUser user = new DefaultUser(admin);
         user.setEmail("admin@localhost.test");
@@ -103,7 +109,7 @@ public class SetupResource {
             @DefaultValue("[local]") @QueryParam("prefix") final String prefix,
             @DefaultValue("confluence") @QueryParam("username") final String username
     ) throws MailException {
-
+        permissionEnforcer.enforceSystemAdmin();
         if (mailServerManager.getMailServer(name) != null) {
             return Response.noContent().build();
         }
@@ -133,6 +139,7 @@ public class SetupResource {
             @DefaultValue("confluence") @QueryParam("username") final String username,
             @DefaultValue("confluence@localhost.test") @QueryParam("to") final String toAddress
     ) throws MailException {
+        permissionEnforcer.enforceSystemAdmin();
         if (mailServerManager.getMailServer(name) != null) {
             return Response.noContent().build();
         }
@@ -154,7 +161,7 @@ public class SetupResource {
             @DefaultValue("1") @QueryParam("start") final int start,
             @DefaultValue("20") @QueryParam("count") final int count
     ) {
-
+        permissionEnforcer.enforceSystemAdmin();
         final Map<String, Map<String, String>> users = new HashMap<>();
 
         IntStream.rangeClosed(start, start + count)
@@ -193,6 +200,7 @@ public class SetupResource {
             @DefaultValue("3") @QueryParam("width") final int width,
             @DefaultValue("3") @QueryParam("depth") final int depth
     ) {
+        permissionEnforcer.enforceSystemAdmin();
         final Map<String, String> spaces = new HashMap<>();
         IntStream.rangeClosed(start, start + count)
                 .forEach(index -> {
