@@ -185,6 +185,40 @@ function diff() {
     | xargs -I X git grep -E "<.*${property}.*[0-9]+" X pom.xml
 }
 
+BACK_STAGE=()
+
+_back_stage() {
+  while read -r -a data
+  do
+    local lib_version="${data[0]}"
+    local product_version="${data[1]}"
+    local found=""
+    for version in "${BACK_STAGE[@]}"; do
+      if [[ "${lib_version}" == "${version}" ]]; then
+        found=${version}
+      fi
+    done
+
+    if [ -z "${found}" ]; then
+      echo "${product_version}: ${lib_version}"
+      BACK_STAGE+=("${lib_version}")
+    fi
+  done
+}
+
+# @COMMAND stage [version] [property]
+function stage() {
+  _with_arguments 2 "$@"
+  pattern=$(_version_pattern "${1}")
+  property=${2}
+
+  git tag --sort=version:refname \
+    | grep -Z -e "${pattern}" \
+    | xargs -I X git grep -E "<.*${property}.*[0-9]+" X pom.xml \
+    | sed 's/.*\([0-9].[0-9].[0-9]\).*\([0-9].[0-9].[0-9]\).*/\2 \1/' \
+    | _back_stage
+}
+
 eval "$@"
 
 if [[ -z $1 ]]; then
