@@ -160,7 +160,32 @@ function heros() {
     | grep --color -E "[0-9]+.*${me}.*|$"
 }
 
-eval $@
+_version_pattern() {
+  _with_arguments 1 "$@"
+  version=${1}
+  if [[ ${version} =~ ^([0-9]+)(\.([0-9]+)(\.([0-9]+))?)?$ ]]; then
+     major_version=${BASH_REMATCH[1]}
+     minor_version=${BASH_REMATCH[3]}
+     patch_version=${BASH_REMATCH[5]}
+  else
+    echo "invalid version: ${version}"
+    exit 1
+  fi
+  echo "${major_version}\.${minor_version:-[0-9]*}\.${patch_version:-[0-9]*}$"
+}
+
+# @COMMAND diff [version] [property]            display version history of a property across releases
+function diff() {
+  _with_arguments 2 "$@"
+  pattern=$(_version_pattern "${1}")
+  property=${2}
+
+  git tag --sort=version:refname \
+    | grep -Z -e "${pattern}" \
+    | xargs -I X git grep -E "<.*${property}.*[0-9]+" X pom.xml
+}
+
+eval "$@"
 
 if [[ -z $1 ]]; then
     $0 -h
