@@ -27,7 +27,10 @@ source atlassian-product.sh
 
 _start_cmd() {
     _run_with_jvm_args \
-        "-Datlassian.dev.mode=false -Xmx2048m -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
+        "-Xmx2048
+            -Datlassian.dev.mode=false
+            -Dpdf.export.sandbox.disable=${SANDBOX:-false}
+            -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
         $(_product_definition "$@")
 }
 
@@ -39,6 +42,7 @@ _debug_cmd() {
             -Datlassian.webresource.disable.minification=true
             -Dconfluence.context.batching.disable=true
             -Dplugin.webresource.batching.off=true
+            -Dpdf.export.sandbox.disable=${SANDBOX:-false}
             -Xdebug
             -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT:-5005},server=y,suspend=n
             -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
