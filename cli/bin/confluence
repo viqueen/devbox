@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 _product_definition() {
-    _with_arguments 1 $@
+    _with_arguments 1 "$@"
     version=${1}
     echo "--product confluence
           --version ${version}
@@ -28,7 +28,7 @@ source atlassian-product.sh
 _start_cmd() {
     _run_with_jvm_args \
         "-Datlassian.dev.mode=false -Xmx2048m -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
-        $(_product_definition $@)
+        $(_product_definition "$@")
 }
 
 _debug_cmd() {
@@ -40,12 +40,12 @@ _debug_cmd() {
             -Dconfluence.context.batching.disable=true
             -Dplugin.webresource.batching.off=true
             -Xdebug
-            -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n
+            -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT:-5005},server=y,suspend=n
             -Dsynchrony.port=${SYNCHRONY_PORT:-9091}" \
-        $(_product_definition $@)
+        $(_product_definition "$@")
 }
 
-eval $@
+eval "$@"
 
 if [[ -z $1 ]]; then
     $0 -h
