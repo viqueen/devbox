@@ -219,6 +219,14 @@ function stage() {
     | _back_stage
 }
 
+# @COMMAND get [version]        checkout the corresponding tag
+function get() {
+  _with_arguments 1 "$@"
+  version=$(_replace "${1}" "." "\.")
+  tag=$(git tag | grep "${version}$")
+  git checkout ${tag}
+}
+
 eval "$@"
 
 if [[ -z $1 ]]; then
