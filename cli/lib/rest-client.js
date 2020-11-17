@@ -1,6 +1,7 @@
 "use strict";
 
 const http = require("http");
+const https = require("https");
 const queryString = require("query-string");
 const program = require("commander");
 const prettyJson = require("prettyjson");
@@ -52,9 +53,16 @@ class RestClient {
     this.auth = options.auth;
     this.query = options.query || {};
     this.instance = options.instance;
-    this.host = options.host || "localhost";
-    this.port = options.port || "8080";
+    // TODO : add validation
+    this.host = options.host;
+    this.port = options.port;
     this.context = options.context || "";
+    this.client = options.ssl ? https : http;
+    this.handler =
+      options.handler ||
+      function (json) {
+        console.log(prettyJson.render(json, jsonOptions));
+      };
   }
 
   program() {
@@ -140,21 +148,25 @@ class RestClient {
           );
           const context = program.context === "/" ? "" : program.context;
 
+          const headers = {
+            "User-Agent": "devbox-rest-client",
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          };
+          if (authorization) {
+            headers["Authorization"] = authorization;
+          }
           const settings = {
             host: program.host,
-            port: program.port,
             path: `${context}${base.apiUrl}/${parts.join(
               "/"
             )}?${queryString.stringify(query)}`,
-            headers: {
-              "User-Agent": "devbox-rest-client",
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: authorization,
-            },
+            headers: headers,
             method: method,
           };
-
+          if (program.port) {
+            settings["port"] = program.port;
+          }
           const callback = (response) => {
             console.debug(
               `--------- ${response.statusCode}\n${prettyJson.render(
@@ -168,14 +180,12 @@ class RestClient {
             });
             response.on("end", () => {
               if (buffer !== "") {
-                console.log(
-                  prettyJson.render(JSON.parse(buffer.toString()), jsonOptions)
-                );
+                this.handler(JSON.parse(buffer.toString()));
               }
             });
           };
 
-          const request = http.request(settings, callback);
+          const request = this.client.request(settings, callback);
           request.write(JSON.stringify(data));
           request.end();
         });

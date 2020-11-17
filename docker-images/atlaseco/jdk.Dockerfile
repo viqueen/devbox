@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk8:${JDK_VERSION}
+FROM openjdk:${JDK_VERSION}
 
 ARG MAVEN_VERSION=3.6.3
 

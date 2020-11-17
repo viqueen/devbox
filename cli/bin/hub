@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+
+"use strict";
+
+const RestClient = require("../lib/rest-client");
+
+const restClient = new RestClient({
+    name: "Docker Hub",
+    host: "hub.docker.com",
+    apiUrl: "/v2/repositories/library",
+    json: true,
+    ssl: true,
+    context: "/",
+    handler: function (json) {
+        const data = json.results
+            .map(item => item.name);
+        console.log(data);
+    }
+});
+
+const program = restClient.program();
+program.version("1.0.0");
+program.parse(process.argv);
