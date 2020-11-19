@@ -65,14 +65,14 @@ pi() {
 
 # @COMMAND style                runs maven checkstyle using confluence code-style rules
 style() {
-  atlas-mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.5.0-m02 -Dcheckstyle.failOnViolation=true -DskipITs=true
+  atlas-mvn -e verify -Pcheckstyle -Datlassian.codestyle=confluence-codestyle:3.5.0-m02 -Dcheckstyle.failOnViolation=true -DskipTests=true -DskipITs=true
 }
 
 __capture_at_since() {
   while read line;
   do
     if [[ ${line} =~ ^(.*)(Must contain)(.*)$ ]]; then
-      if [[ ${line} =~ ^(.*/)([a-zA-Z]+.java)(.*)RegexpSinglelineJava(.*)$ ]]; then
+      if [[ ${line} =~ ^(.*/)([a-zA-Z]+.java)(.*)atsince(.*)$ ]]; then
         echo "<suppress id=\"atsince\" files=\"${BASH_REMATCH[2]}\"/>"
       fi
     fi
@@ -93,7 +93,7 @@ commit() {
 
 # @COMMAND suppress_atsince     because I am lazy and I choose the suppress atSince checkstyle violations
 suppress_atsince() {
-  atlas-mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:1.0.0-m08 | __capture_at_since
+  atlas-mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:3.5.0-m02 | __capture_at_since
 }
 
 # @COMMAND products             list installed atlassian products
