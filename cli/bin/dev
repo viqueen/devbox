@@ -116,12 +116,13 @@ fetch() {
 
 # @COMMAND recent                           recent git branches
 recent() {
-    git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
+    git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)' \
+      | egrep -v "(^\*|master|release|future)"
 }
 
 # @COMMAND merged                           list merged branches
 merged() {
-  git branch --merged | egrep -v "(^\*|master|release|renovate)"
+  git branch --merged | egrep -v "(^\*|master|release|renovate|future)"
 }
 
 # @COMMAND branch                           displays current branch name
