@@ -9,5 +9,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: devbox
       MYSQL_DATABASE: devbox
-      MYSQL_USER: devbox
+      MYSQL_USER: root
       MYSQL_PASSWORD: devbox
