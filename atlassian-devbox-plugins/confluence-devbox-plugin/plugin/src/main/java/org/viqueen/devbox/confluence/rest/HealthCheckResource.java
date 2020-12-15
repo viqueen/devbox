@@ -1,5 +1,6 @@
 package org.viqueen.devbox.confluence.rest;
 
+import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.viqueen.devbox.confluence.services.SampleCommunityService;
@@ -47,6 +48,21 @@ public class HealthCheckResource {
         String name = ManagementFactory.getRuntimeMXBean().getName();
         return Response.ok(singletonMap(
                 "pid", name.split("@")[0]
+        )).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/report")
+    public Response report() {
+        Runtime instance = Runtime.getRuntime();
+        long mB = 1024L * 1024L;
+        return Response.ok(singletonMap(
+                "memoryStats", ImmutableMap.of(
+                        "totalMemory", instance.totalMemory() / mB,
+                        "freeMemory", instance.freeMemory() / mB,
+                        "maxMemory", instance.maxMemory() / mB
+                )
         )).build();
     }
 }
