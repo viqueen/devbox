@@ -1,0 +1,17 @@
+#! /usr/bin/env node
+
+"use strict"
+
+const RestClient = require("../lib/rest-client");
+
+const restClient = new RestClient({
+    name: "Bitbucket Cloud API",
+    apiUrl: "/2.0",
+    json: true,
+    host: "api.bitbucket.org",
+    ssl: true
+});
+
+const program = restClient.program();
+program.version("1.0.0");
+program.parse(process.argv);
