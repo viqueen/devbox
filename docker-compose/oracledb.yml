@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  oracledb:
+    image: ${ORACLE_DB_IMAGE}:19.3.0-se2-1.2.0-warm-1.1.1
+    restart: always
+    ports:
+      - 11521:11521
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: JIRADB
+      ORACLE_PWD: oracle
+      ORACLE_CHARACTERSET: AL32UTF8
