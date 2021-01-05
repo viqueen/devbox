@@ -4,7 +4,8 @@ services:
     image: ${ORACLE_DB_IMAGE}:19.3.0-se2-1.2.0-warm-1.1.1
     restart: always
     ports:
-      - 11521:11521
+      - 1521:1521
+      - 5500:5500
     environment:
       ORACLE_SID: ORCLCDB
       ORACLE_PDB: JIRADB
