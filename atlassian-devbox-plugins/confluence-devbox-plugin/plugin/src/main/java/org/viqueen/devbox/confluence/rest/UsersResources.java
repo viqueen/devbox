@@ -7,8 +7,10 @@ import com.atlassian.user.User;
 import com.atlassian.user.search.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import java.util.Map;
@@ -31,10 +33,13 @@ public class UsersResources {
 
     @GET
     @Path("/initials")
-    public Response getInitials() {
+    public Response getInitials(
+            @QueryParam("count") @DefaultValue("0") final int count
+    ) {
         final Pager<User> users = userAccessor.getUsers();
         final Map<String, String> initials = users.getCurrentPage()
                 .stream()
+                .limit(count == 0 ? Long.MAX_VALUE : count)
                 .collect(toMap(
                         Entity::getName,
                         u -> {
