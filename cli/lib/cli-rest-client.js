@@ -89,6 +89,7 @@ class RestClient {
     );
     program.option("-h, --host [host]", "target host", this.host);
     program.option("-p, --port [port]", "target port", this.port);
+    program.option("-r, --raw", "display raw output");
 
     const base = this;
 
@@ -168,19 +169,25 @@ class RestClient {
             settings["port"] = program.port;
           }
           const callback = (response) => {
-            console.debug(
-              `--------- ${response.statusCode}\n${prettyJson.render(
-                response.headers,
-                jsonOptions
-              )}\n-------\n`
-            );
+            if (!program.raw) {
+              console.debug(
+                `--------- ${response.statusCode}\n${prettyJson.render(
+                  response.headers,
+                  jsonOptions
+                )}\n-------\n`
+              );
+            }
             let buffer = "";
             response.on("data", (chunk) => {
               buffer += chunk;
             });
             response.on("end", () => {
               if (buffer !== "") {
-                this.handler(JSON.parse(buffer.toString()));
+                if (program.raw) {
+                  console.log(buffer.toString());
+                } else {
+                  this.handler(JSON.parse(buffer.toString()));
+                }
               }
             });
           };

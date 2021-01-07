@@ -2,9 +2,9 @@
 
 "use strict";
 
-const RestClient = require("../lib/rest-client");
+const CliRestClient = require("../lib/rest-client");
 
-const restClient = new RestClient({
+const restClient = new CliRestClient({
     name: "Docker Hub",
     host: "hub.docker.com",
     apiUrl: "/v2/repositories/library",

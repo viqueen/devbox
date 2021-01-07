@@ -4,7 +4,7 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const minimist = require("minimist");
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require("swagger-ui-express");
 const argv = minimist(process.argv.slice(2));
 
 // noinspection JSUnresolvedVariable

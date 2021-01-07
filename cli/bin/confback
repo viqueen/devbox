@@ -4,9 +4,9 @@
 
 "use strict";
 
-const RestClient = require("../lib/rest-client");
+const CliRestClient = require("../lib/cli-rest-client");
 
-const restClient = new RestClient({
+const restClient = new CliRestClient({
   name: "Confluence Backdoor API",
   apiUrl: "/rest/backdoor",
   json: true,
