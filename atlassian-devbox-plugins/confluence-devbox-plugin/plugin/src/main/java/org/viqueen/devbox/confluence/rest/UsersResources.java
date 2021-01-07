@@ -2,9 +2,11 @@ package org.viqueen.devbox.confluence.rest;
 
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.user.Entity;
 import com.atlassian.user.User;
 import com.atlassian.user.search.page.Pager;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.DefaultValue;
@@ -37,17 +39,23 @@ public class UsersResources {
             @QueryParam("count") @DefaultValue("0") final int count
     ) {
         final Pager<User> users = userAccessor.getUsers();
-        final Map<String, String> initials = users.getCurrentPage()
+        final Map<String, Object> initials = users.getCurrentPage()
                 .stream()
                 .limit(count == 0 ? Long.MAX_VALUE : count)
+                .map(user -> userAccessor.getUserByName(user.getName()))
                 .collect(toMap(
                         Entity::getName,
                         u -> {
+                            UserKey key = u.getKey();
                             String fullName = u.getFullName();
                             String[] userInitials = stream(fullName.split(" "))
                                     .map(name -> String.valueOf(name.charAt(0)))
                                     .toArray(String[]::new);
-                            return String.join("", userInitials);
+
+                            return ImmutableMap.of(
+                                    "key", key.getStringValue(),
+                                    "initials", String.join("", userInitials)
+                            );
                         }
                 ));
         return Response.ok(initials).build();

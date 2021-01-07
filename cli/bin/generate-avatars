@@ -12,9 +12,6 @@ function hasUnicode(s) {
 }
 
 function handleUserAvatar(initials) {
-    if (hasUnicode(initials)) {
-        return;
-    }
     const imagePath = path.resolve(__dirname, `../../.avatars/${initials}.png`);
     if (fs.existsSync(imagePath)) {
         return;
@@ -41,8 +38,13 @@ process.stdin.pipe(
             return;
         }
         const users = JSON.parse(buffer.toString());
-        for (let [,initials] of Object.entries(users)) {
-            handleUserAvatar(initials);
+        for (let [,user] of Object.entries(users)) {
+            // noinspection JSUnresolvedVariable
+            if (hasUnicode(user.initials)) {
+                continue;
+            }
+            // noinspection JSUnresolvedVariable
+            handleUserAvatar(user.initials);
         }
     })
 );

@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+
+"use strict"
+
+const fs = require("fs");
+const path = require("path");
+const concatStream = require("concat-stream");
+const datauri = require("datauri");
+const http = require("http");
+
+function hasUnicode(s) {
+    return /[^\u0000-\u00ff]/.test(s);
+}
+
+function handleUserAvatar(userName, user) {
+    // noinspection JSUnresolvedVariable
+    const imagePath = path.resolve(__dirname, `../../.avatars/${user.initials}.png`);
+    if (!fs.existsSync(imagePath)) {
+        return;
+    }
+    datauri(imagePath)
+        .then(data => {
+            const avatar = {
+                avatarDataURI: data
+            };
+            const pass = userName === "admin" ? "admin" : "user";
+            const settings = {
+                host: "localhost",
+                port: "8080",
+                path: `/confluence/rest/user-profile/1.0/${user.key}/avatar/upload`,
+                headers: {
+                    'Authorization': `Basic ${Buffer.from(userName + ":" + pass).toString("base64")}`,
+                    'Content-Type': 'application/json'
+                },
+                method: "POST"
+            }
+
+            const request = http.request(settings, (response) => {
+                response.on('data', (d) => {
+                    process.stdout.write(d)
+                });
+                response.on('end', () => {
+                    process.stdout.write("\n");
+                });
+            });
+
+            request.on('error', (error) => {
+                console.error(error)
+            })
+
+            request.write(JSON.stringify(avatar));
+            request.end();
+        });
+}
+
+process.stdin.pipe(
+    concatStream(function (buffer) {
+        if (buffer.length <= 0) {
+            return;
+        }
+        const users = JSON.parse(buffer.toString());
+        for (let [userName,user] of Object.entries(users)) {
+            // noinspection JSUnresolvedVariable
+            if (hasUnicode(user.initials)) {
+                continue;
+            }
+            handleUserAvatar(userName, user);
+        }
+    })
+);
