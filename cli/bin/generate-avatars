@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const gm = require('gm').subClass({ imageMagick: true });
+const fs = require("fs");
+const path = require("path");
+const concatStream = require("concat-stream");
+
+function hasUnicode(s) {
+    return /[^\u0000-\u00ff]/.test(s);
+}
+
+function handleUserAvatar(initials) {
+    if (hasUnicode(initials)) {
+        return;
+    }
+    const imagePath = path.resolve(__dirname, `../../.avatars/${initials}.png`);
+    if (fs.existsSync(imagePath)) {
+        return;
+    }
+    console.log(`generate avatar for ${initials}`);
+    const options = {
+        size: 84,
+        bgColor: "#de350b",
+        fgColor: "#FFFFFF"
+    };
+    const output = fs.createWriteStream(imagePath, { flags : 'a' });
+    gm(options.size, options.size, options.bgColor)
+        .stroke(options.fgColor)
+        .fill(options.fgColor)
+        .fontSize(60)
+        .drawText(0, 0, initials, 'Center')
+        .stream('png')
+        .pipe(output);
+}
+
+process.stdin.pipe(
+    concatStream(function (buffer) {
+        if (buffer.length <= 0) {
+            return;
+        }
+        const users = JSON.parse(buffer.toString());
+        for (let [,initials] of Object.entries(users)) {
+            handleUserAvatar(initials);
+        }
+    })
+);
