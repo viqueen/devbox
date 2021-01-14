@@ -21,6 +21,7 @@ import com.atlassian.sal.api.permission.PermissionEnforcer;
 import com.atlassian.user.impl.DefaultUser;
 import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
+import org.apache.commons.lang3.StringUtils;
 import org.viqueen.devbox.confluence.services.FakerService;
 
 import javax.ws.rs.DefaultValue;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
+import static com.atlassian.user.security.password.Credential.unencrypted;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Arrays.asList;
@@ -159,10 +161,13 @@ public class SetupResource {
     @XsrfProtectionExcluded
     public Response createUsers(
             @DefaultValue("1") @QueryParam("start") final int start,
-            @DefaultValue("20") @QueryParam("count") final int count
+            @DefaultValue("20") @QueryParam("count") final int count,
+            @DefaultValue("") @QueryParam("prefix") final String prefix,
+            @DefaultValue("user") @QueryParam("pass") final String pass
     ) {
         permissionEnforcer.enforceSystemAdmin();
         final Map<String, Map<String, String>> users = new HashMap<>();
+        final boolean hasPrefix = StringUtils.isNotBlank(prefix);
 
         IntStream.rangeClosed(start, start + count)
                 .forEach(index -> {
@@ -170,14 +175,19 @@ public class SetupResource {
                     final String firstName = faker.name().firstName();
                     final String lastName = faker.name().lastName();
                     final String email = format("user%d@localhost.test", index);
-                    final String userName = format("user%s%d", (index % 2) == 0 ? "-" : " ", index);
+                    final String userName = hasPrefix
+                            ? format("%s%d", prefix, index)
+                            : format("user%s%d", (index % 2) == 0 ? "-" : " ", index);
 
                     final DefaultUser defaultUser = new DefaultUser();
                     defaultUser.setFullName(format("%s %s", firstName, lastName));
                     defaultUser.setEmail(email);
                     defaultUser.setName(userName);
 
-                    final ConfluenceUser confluenceUser = userAccessor.createUser(defaultUser, Credential.unencrypted("user"));
+                    final ConfluenceUser confluenceUser = userAccessor.createUser(
+                            defaultUser,
+                            unencrypted(pass)
+                    );
 
                     userAccessor.addMembership(settingsManager.getGlobalSettings().getDefaultUsersGroup(), userName);
 
