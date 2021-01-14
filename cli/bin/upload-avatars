@@ -7,6 +7,9 @@ const path = require("path");
 const concatStream = require("concat-stream");
 const datauri = require("datauri");
 const http = require("http");
+const TaskExecutor = require("../lib/task-executor");
+
+const executor = new TaskExecutor({});
 
 function hasUnicode(s) {
     return /[^\u0000-\u00ff]/.test(s);
@@ -18,8 +21,7 @@ function handleUserAvatar(userName, user) {
     if (!fs.existsSync(imagePath)) {
         return;
     }
-    datauri(imagePath)
-        .then(data => {
+    return datauri(imagePath).then(data => {
             const avatar = {
                 avatarDataURI: data
             };
@@ -64,7 +66,7 @@ process.stdin.pipe(
             if (hasUnicode(user.initials)) {
                 continue;
             }
-            handleUserAvatar(userName, user);
+            executor.submit(() => handleUserAvatar(userName, user))
         }
     })
 );
