@@ -193,6 +193,15 @@ issue() {
     fi
 }
 
+# @COMMAND start                            start a development branch
+start() {
+  _with_arguments 2 $@
+  ticket=${1}
+  shift;
+  slug=$(_join "\055" $@)
+  git checkout -b "issue/${ticket}-${slug}"
+}
+
 #######
 # MAVEN
 #######
