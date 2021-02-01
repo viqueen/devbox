@@ -154,6 +154,7 @@ function snaps() {
   filter=${1:-*}
   git branch -r --list origin/release/${filter} \
     | grep -Eo 'origin/release/[0-9]+.[0-9]+' \
+    | sort --version-sort \
     | xargs -I R git grep SNAPSHOT R pom.xml
 }
 
