@@ -8,7 +8,9 @@ _product_definition() {
           --http-port ${HTTP_PORT:-8080}
           --context-path ${CONTEXT_PATH:-"/confluence"}
           --server localhost
-          --ajp-port ${AJP_PORT:-8009}"
+          --ajp-port ${AJP_PORT:-8009}
+          --plugins com.atlassian.confluence.plugins:confluence-functestrpc-plugin:${version},com.atlassian.confluence.plugins:confluence-scriptsfinished-plugin:${version},com.atlassian.confluence.plugins:confluence-functest-rest-plugin:${version}
+          "
 }
 
 _product_name() {
