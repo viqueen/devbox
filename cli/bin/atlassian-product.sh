@@ -115,6 +115,7 @@ function wars() {
 function purge() {
     _list_wars \
       | grep -E "SNAPSHOT|-m|-beta|-rc" \
+      | xargs dirname \
       | xargs rm -r -v
 }
 
