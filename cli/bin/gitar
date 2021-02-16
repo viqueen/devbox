@@ -112,7 +112,7 @@ function show() {
     version=$(_replace ${2} "." "\.")
     tag=$(git tag | grep "${version}$")
   fi
-  git grep "${property}" ${tag} pom.xml
+  git grep -E "<.*${property}.*[0-9]+" ${tag} pom.xml
 }
 
 # @COMMAND band [count?]                        displays authors of recent commits
