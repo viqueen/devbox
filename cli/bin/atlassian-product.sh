@@ -95,15 +95,27 @@ function view() {
     vim ${ATLASSIAN_PRODUCTS_HOME}/amps-standalone-${product}-${version}/target/${product}-LATEST.log
 }
 
+_list_wars() {
+  product=$(_product_name)
+  target_dir=$(_replace $(_product_group_id) "\." "/")
+  webapp=$(_product_webapp_name)
+  find ~/.m2/repository/${target_dir} -name "${webapp}-*war"
+}
+
 # @COMMAND wars                                     lists available versions in local maven repo
 function wars() {
-    product=$(_product_name)
-    target_dir=$(_replace $(_product_group_id) "\." "/")
     webapp=$(_product_webapp_name)
-    find ~/.m2/repository/${target_dir} -name "${webapp}-*.war" \
+    _list_wars \
         | awk -F "/" '{print $NF}' \
         | sed "s/${webapp}-\(.*\).war/\1/" \
         | sort -u
+}
+
+# @COMMAND purge                                   purge available versions in local maven repo
+function purge() {
+    _list_wars \
+      | grep -E "SNAPSHOT|-m|-beta|-rc" \
+      | xargs rm -r -v
 }
 
 # @COMMAND home                                     manage atlassian product home for development
