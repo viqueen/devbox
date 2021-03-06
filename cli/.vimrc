@@ -13,11 +13,12 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'elzr/vim-json'
-Plugin 'mushanyoung/vim-windflower'
 Plugin 'kien/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'sainnhe/edge'
 Plugin 'edkolev/promptline.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'ryanoasis/vim-devicons'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -31,6 +32,8 @@ au BufNewFile,BufRead .solicitoriorc set filetype=json
 
 autocmd BufWritePre * :%s/\s\+$//e
 
+set encoding=UTF-8
+set lcs+=space:·
 set termguicolors
 
 " Display the colorscheme
@@ -88,6 +91,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeShowHidden=1
 nmap <LEADER>r :NERDTreeFind<CR>
 
 " NERDTress File highlighting

@@ -69,7 +69,7 @@ vimr () {
 
 # @COMMAND vimrc                            vim config
 vimrc() {
-  vim ${VIQUEEN_DEVBOX_HOME}/.vimrc
+  vim ${VIQUEEN_DEVBOX_HOME}/cli/.vimrc
 }
 
 #####
