@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const CliRestClient = require('../lib/cli-rest-client');
+
+const restClient = new CliRestClient({
+  name: 'Crowd Devbox',
+  apiUrl: '/rest/devbox/latest',
+  json: true,
+  auth: {
+    user: 'admin',
+    pass: 'admin'
+  },
+  context: '/crowd',
+  host: 'localhost',
+  port: '4990'
+});
+
+const program = restClient.program();
+program.version('1.0.0');
+program.parse(process.argv);

@@ -18,16 +18,16 @@
         <name>viqueen</name>
     </organization>
 
+    <modules>
+      <module>plugin</module>
+      <module>integration-tests</module>
+    </modules>
+
     <properties>
-        <amps.version>8.1.1</amps.version>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
-        <atlassian.spring.scanner.version>2.2.0</atlassian.spring.scanner.version>
 
         <confluence.version>7.4.0</confluence.version>
         <confluence.data.version>${confluence.version}</confluence.data.version>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
 
         <atlassian.dev.mode>false</atlassian.dev.mode>
         <containerId>tomcat9x</containerId>
@@ -37,9 +37,4 @@
         <xvfb.enable>false</xvfb.enable>
         <xvfb.display>:0</xvfb.display>
     </properties>
-
-    <modules>
-      <module>plugin</module>
-      <module>integration-tests</module>
-    </modules>
 </project>
