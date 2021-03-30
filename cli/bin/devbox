@@ -10,13 +10,11 @@ function install() {
             cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
             atlas build
             atlas pi $@
-            break
         ;;
         crowd)
             cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/crowd-devbox-plugin
             atlas build
             atlas pi crowd 4990 $@
-            break
         ;;
         *)
             echo "oops we need to setup the other products"
