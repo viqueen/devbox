@@ -19,19 +19,18 @@ import com.atlassian.mail.server.MailServerManager;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.permission.PermissionEnforcer;
 import com.atlassian.user.impl.DefaultUser;
-import com.atlassian.user.security.password.Credential;
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.StringUtils;
 import org.viqueen.devbox.confluence.services.FakerService;
 
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -39,8 +38,6 @@ import java.util.stream.IntStream;
 import static com.atlassian.user.security.password.Credential.unencrypted;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
 
 @Path("/setup")
 public class SetupResource {
@@ -69,22 +66,6 @@ public class SetupResource {
         this.contentService = contentService;
         this.permissionEnforcer = permissionEnforcer;
         this.fakerService = fakerService;
-    }
-
-    @GET
-    @Path("/ping")
-    public Response ping() {
-        permissionEnforcer.enforceSystemAdmin();
-        return Response.ok(
-                singletonMap(
-                        "components",
-                        asList(
-                                mailServerManager.toString(),
-                                userAccessor.toString(),
-                                settingsManager.toString()
-                        )
-                )
-        ).build();
     }
 
     @POST
