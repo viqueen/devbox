@@ -42,4 +42,15 @@ function setup() {
     esac
 }
 
+# @COMMAND avatars <product>        configure user avatars
+function avatars() {
+    product=${1:-confluence}
+    case "${product}" in
+        confluence)
+            confdev get users initials --raw | generate-avatars
+            confdev get users initials --raw | upload-avatars
+        ;;
+    esac
+}
+
 eval $@
