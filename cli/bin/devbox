@@ -33,10 +33,8 @@ function setup() {
             confdev post setup users -q count=10
             confdev post setup spaces -q count=10
             confdev post logging WARN com.atlassian.confluence.plugins.synchrony.bootstrap.LoggingOutputHandler
-            break
         ;;
         crowd)
-            break
         ;;
         *)
             echo "oops we need to setup the other products"
