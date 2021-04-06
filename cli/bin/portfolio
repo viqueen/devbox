@@ -4,10 +4,10 @@ source selfedit.sh
 
 ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 
-# @COMMAND start            starts a jira software instance with servicedesk support
+# @COMMAND start            starts a jira software instance with portfolio support
 function start() {
   cd "${VIQUEEN_DEVBOX_HOME}"
-  mvn jira:run -P jira-servicedesk -pl :atlassian-devbox-plugins
+  mvn jira:run -P jira-portfolio -pl :atlassian-devbox-plugins
 }
 
 eval "$@"

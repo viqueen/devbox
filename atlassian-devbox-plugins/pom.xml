@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -15,8 +16,8 @@
 
     <modules>
         <module>confluence-devbox-plugin</module>
-      <module>crowd-devbox-plugin</module>
-  </modules>
+        <module>crowd-devbox-plugin</module>
+    </modules>
 
     <properties>
         <amps.version>8.1.1</amps.version>
@@ -24,5 +25,98 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <jvm.args.custom />
+        <jvm.args>-Xmx2048m ${jvm.args.custom}</jvm.args>
+
+        <jira.core.application.version>8.16.0</jira.core.application.version>
+        <jira.software.application.version>${jira.core.application.version}</jira.software.application.version>
+        <jira.servicedesk.application.version>4.13.0</jira.servicedesk.application.version>
+        <jira.portfolio.version>3.17.0</jira.portfolio.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>jira-servicedesk</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>jira-maven-plugin</artifactId>
+                        <version>${amps.version}</version>
+                        <configuration>
+                            <jvmArgs>${jvm.args}</jvmArgs>
+                            <productVersion>${jira.core.application.version}</productVersion>
+                            <productDataVersion>${jira.core.application.version}</productDataVersion>
+                            <containerId>tomcat9x</containerId>
+                            <applications>
+                                <application>
+                                    <applicationKey>jira-core</applicationKey>
+                                    <version>${jira.core.application.version}</version>
+                                </application>
+                                <application>
+                                    <applicationKey>jira-software</applicationKey>
+                                    <version>${jira.software.application.version}</version>
+                                </application>
+                                <application>
+                                    <applicationKey>jira-servicedesk</applicationKey>
+                                    <version>${jira.servicedesk.application.version}</version>
+                                </application>
+                            </applications>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jira-portfolio</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>jira-maven-plugin</artifactId>
+                        <version>${amps.version}</version>
+                        <configuration>
+                            <jvmArgs>${jvm.args}</jvmArgs>
+                            <productVersion>${jira.core.application.version}</productVersion>
+                            <productDataVersion>${jira.core.application.version}</productDataVersion>
+                            <containerId>tomcat9x</containerId>
+                            <applications>
+                                <application>
+                                    <applicationKey>jira-core</applicationKey>
+                                    <version>${jira.core.application.version}</version>
+                                </application>
+                                <application>
+                                    <applicationKey>jira-software</applicationKey>
+                                    <version>${jira.software.application.version}</version>
+                                </application>
+                            </applications>
+                            <pluginArtifacts>
+                                <pluginArtifact>
+                                    <groupId>com.atlassian</groupId>
+                                    <artifactId>jira-portfolio</artifactId>
+                                    <version>${jira.portfolio.version}</version>
+                                </pluginArtifact>
+                                <pluginArtifact>
+                                    <groupId>com.atlassian</groupId>
+                                    <artifactId>portfolio-plugin</artifactId>
+                                    <version>${jira.portfolio.version}</version>
+                                </pluginArtifact>
+                                <pluginArtifact>
+                                    <groupId>com.atlassian</groupId>
+                                    <artifactId>team-management-plugin</artifactId>
+                                    <version>${jira.portfolio.version}</version>
+                                </pluginArtifact>
+                                <pluginArtifact>
+                                    <groupId>com.atlassian.querydsl.plugins</groupId>
+                                    <artifactId>querydsl-4.0.7-provider-plugin</artifactId>
+                                    <version>1.2</version>
+                                </pluginArtifact>
+                            </pluginArtifacts>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
