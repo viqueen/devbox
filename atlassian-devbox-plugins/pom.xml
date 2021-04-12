@@ -32,7 +32,6 @@
         <jira.core.application.version>8.16.0</jira.core.application.version>
         <jira.software.application.version>${jira.core.application.version}</jira.software.application.version>
         <jira.servicedesk.application.version>4.13.0</jira.servicedesk.application.version>
-        <jira.portfolio.version>3.17.0</jira.portfolio.version>
     </properties>
 
     <profiles>
@@ -63,56 +62,6 @@
                                     <version>${jira.servicedesk.application.version}</version>
                                 </application>
                             </applications>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>jira-portfolio</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.atlassian.maven.plugins</groupId>
-                        <artifactId>jira-maven-plugin</artifactId>
-                        <version>${amps.version}</version>
-                        <configuration>
-                            <jvmArgs>${jvm.args}</jvmArgs>
-                            <productVersion>${jira.core.application.version}</productVersion>
-                            <productDataVersion>${jira.core.application.version}</productDataVersion>
-                            <containerId>tomcat9x</containerId>
-                            <applications>
-                                <application>
-                                    <applicationKey>jira-core</applicationKey>
-                                    <version>${jira.core.application.version}</version>
-                                </application>
-                                <application>
-                                    <applicationKey>jira-software</applicationKey>
-                                    <version>${jira.software.application.version}</version>
-                                </application>
-                            </applications>
-                            <pluginArtifacts>
-                                <pluginArtifact>
-                                    <groupId>com.atlassian</groupId>
-                                    <artifactId>jira-portfolio</artifactId>
-                                    <version>${jira.portfolio.version}</version>
-                                </pluginArtifact>
-                                <pluginArtifact>
-                                    <groupId>com.atlassian</groupId>
-                                    <artifactId>portfolio-plugin</artifactId>
-                                    <version>${jira.portfolio.version}</version>
-                                </pluginArtifact>
-                                <pluginArtifact>
-                                    <groupId>com.atlassian</groupId>
-                                    <artifactId>team-management-plugin</artifactId>
-                                    <version>${jira.portfolio.version}</version>
-                                </pluginArtifact>
-                                <pluginArtifact>
-                                    <groupId>com.atlassian.querydsl.plugins</groupId>
-                                    <artifactId>querydsl-4.0.7-provider-plugin</artifactId>
-                                    <version>1.2</version>
-                                </pluginArtifact>
-                            </pluginArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>
