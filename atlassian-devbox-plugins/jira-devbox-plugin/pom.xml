@@ -3,32 +3,41 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <groupId>org.viqueen.devbox</groupId>
-    <artifactId>atlassian-devbox-plugins</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
+        <groupId>org.viqueen.devbox</groupId>
+        <artifactId>atlassian-devbox-plugins</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
 
-    <artifactId>crowd-devbox-plugin</artifactId>
+    <artifactId>jira-devbox-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>atlassian-plugin</packaging>
 
-    <name>crowd-devbox-plugin</name>
-    <description>This is the org.viqueen.devbox:crowd-devbox-plugin plugin for Atlassian Crowd.</description>
+    <name>Jira Devbox Plugin</name>
+    <description>This is the org.viqueen.devbox:jira-devbox-plugin plugin for Atlassian JIRA.</description>
 
     <properties>
-        <crowd.version>4.2.2</crowd.version>
-        <crowd.data.version>4.2.2</crowd.data.version>
+        <jira.version>7.13.0</jira.version>
         <plugin.testrunner.version>2.0.2</plugin.testrunner.version>
-
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+        <!-- TestKit version 6.x for JIRA 6.x -->
+        <testkit.version>6.3.11</testkit.version>
+        <platform.version>5.0.0</platform.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.atlassian.crowd</groupId>
-                <artifactId>atlassian-crowd</artifactId>
-                <version>${crowd.version}</version>
+                <groupId>com.atlassian.platform</groupId>
+                <artifactId>platform</artifactId>
+                <version>${platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.platform</groupId>
+                <artifactId>third-party</artifactId>
+                <version>${platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -36,55 +45,20 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>com.atlassian.crowd</groupId>
-            <artifactId>crowd-core</artifactId>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-api</artifactId>
+            <version>${jira.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.atlassian.sal</groupId>
-            <artifactId>sal-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.atlassian.sal</groupId>
-            <artifactId>sal-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
+            <artifactId>javax.ws.rs-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
-            <version>${atlassian.spring.scanner.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>0.14</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -92,12 +66,22 @@
         <plugins>
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>crowd-maven-plugin</artifactId>
+                <artifactId>jira-maven-plugin</artifactId>
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <productVersion>${crowd.version}</productVersion>
-                    <productDataVersion>${crowd.data.version}</productDataVersion>
+                    <productVersion>${jira.version}</productVersion>
+                    <productDataVersion>${jira.version}</productDataVersion>
+                    <!-- Uncomment to install TestKit backdoor in JIRA. -->
+                    <!--
+                    <pluginArtifacts>
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira.tests</groupId>
+                            <artifactId>jira-testkit-plugin</artifactId>
+                            <version>${testkit.version}</version>
+                        </pluginArtifact>
+                    </pluginArtifacts>
+                    -->
                     <enableQuickReload>true</enableQuickReload>
 
                     <!-- See here for an explanation of default instructions: -->
@@ -106,11 +90,10 @@
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
 
                         <!-- Add package to export here -->
-                        <Export-Package></Export-Package>
+                        <Export-Package>org.viqueen.devbox.jira.api,</Export-Package>
 
                         <!-- Add package import here -->
-                        <Import-Package>
-                            org.springframework.osgi.*;resolution:="optional",
+                        <Import-Package>org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
                             *
                         </Import-Package>

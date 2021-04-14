@@ -1,0 +1,14 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <rest key="jira-devbox-rest-resources"
+          name="Jira Devbox Rest Resources"
+          path="/devbox"
+          version="1.0">
+        <package>org.viqueen.devbox.jira.rest</package>
+    </rest>
+</atlassian-plugin>

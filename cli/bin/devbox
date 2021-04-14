@@ -7,14 +7,19 @@ function install() {
     product=${1:-confluence}
     case "${product}" in
         confluence)
-            cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin
+            cd "${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/confluence-devbox-plugin/plugin" || exit
             atlas build
-            atlas pi $@
+            atlas pi "$@"
         ;;
         crowd)
-            cd ${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/crowd-devbox-plugin
+            cd "${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/crowd-devbox-plugin" || exit
             atlas build
-            atlas pi crowd 4990 $@
+            atlas pi crowd 4990 "$@"
+        ;;
+        jira)
+            cd "${VIQUEEN_DEVBOX_HOME}/atlassian-devbox-plugins/jira-devbox-plugin" || exit
+            atlas build
+            atlas pi jira 2990 "$@"
         ;;
         *)
             echo "oops we need to setup the other products"
