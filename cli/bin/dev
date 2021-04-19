@@ -210,10 +210,11 @@ start() {
 build() {
     pom_file=$(pwd)/pom.xml
     gradle_file=$(pwd)/build.gradle
+    gradle_kts_file=$(pwd)/build.gradle.kts
 
     if [[ -f "${pom_file}" ]]; then
         mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
-    elif [[ -f "${gradle_file}" ]]; then
+    elif [[ -f "${gradle_file}" || -f "${gradle_kts_file}" ]]; then
         ./gradlew build
     fi
 }
