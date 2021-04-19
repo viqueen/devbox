@@ -13,7 +13,8 @@ _product_definition() {
           --context-path ${CONTEXT_PATH:-"/bamboo"}
           --ajp-port ${AJP_PORT:-6009}
           --server 127.0.0.1
-          --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}"
+          --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}
+          -Datlassian.darkfeature.bamboo.experimental.rest.admin.enabled=true"
 }
 
 _product_group_id() {
