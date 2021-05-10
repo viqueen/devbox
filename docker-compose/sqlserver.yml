@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  mssql:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     restart: always
     ports:
