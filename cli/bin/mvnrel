@@ -4,13 +4,6 @@ source selfedit.sh
 
 # @COMMAND milestone            create a milestone maven release of the project
 function milestone() {
-  timestamp=$(date '+%Y%m%d')
-  hash=$(git rev-parse --short HEAD)
-  branch_name="milestone/${timestamp}-${hash}"
-
-  git checkout -b "${branch_name}"
-  git push origin "${branch_name}"
-
   # shellcheck disable=SC2016
   project_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
 
@@ -23,6 +16,13 @@ function milestone() {
       echo invalid snapshot version
       exit 1
   fi
+
+  timestamp=$(date '+%Y%m%d')
+  hash=$(git rev-parse --short HEAD)
+  branch_name="milestone/${timestamp}-${hash}"
+
+  git checkout -b "${branch_name}"
+  git push origin "${branch_name}"
 
   milestone_version="${major_version}.${minor_version}.${patch_version}-${timestamp}.${hash}"
 
