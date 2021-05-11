@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: Devbox123!
+      ACCEPT_EULA: Y
+      MSSQL_COLLATION: "SQL_Latin1_General_CP1_CS_AS"
+      READ_COMMITTED_SNAPSHOT: "ON"
+    command: >
+      /bin/sh -c "(/opt/mssql/bin/sqlservr &)
+      && sleep 10s && /opt/mssql-tools/bin/sqlcmd
+      -S localhost -U sa -P Devbox123!
+      -d master
+      -Q 'CREATE DATABASE [devbox]; ALTER DATABASE [devbox] SET READ_COMMITTED_SNAPSHOT ON WITH ROLLBACK IMMEDIATE;'
+      && sleep infinity"
