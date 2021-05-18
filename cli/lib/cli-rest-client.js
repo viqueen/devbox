@@ -16,17 +16,22 @@ function collect(val, memo) {
   return memo;
 }
 
+const paramRegex = /(?<key>[a-zA-Z]+)=(?<value>.*)/;
+
 function extractParameters(parameters) {
   const query = {};
-  parameters.forEach((value) => {
-    const parts = value.split("=");
-    const right = parts[1];
-    if (right === "true") {
-      query[parts[0]] = true;
-    } else if (right === "false") {
-      query[parts[0]] = false;
-    } else {
-      query[parts[0]] = right;
+  parameters.forEach((parameter) => {
+    const matcher = parameter.match(paramRegex);
+    if (matcher) {
+      const key = matcher.groups["key"];
+      const value = matcher.groups["value"];
+      if (value === "true") {
+        query[key] = true;
+      } else if (value === "false") {
+        query[key] = false;
+      } else {
+        query[key] = encodeURI(value);
+      }
     }
   });
   return query;
