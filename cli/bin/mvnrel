@@ -2,12 +2,11 @@
 
 source selfedit.sh
 
-# @COMMAND milestone            create a milestone maven release of the project
-function milestone() {
+__milestone_version() {
   # shellcheck disable=SC2016
   project_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
 
-  if [[ ${project_version} =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-(atlassian-[0-9]+-)?SNAPSHOT$ ]];
+  if [[ ${project_version} =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-(atlassian-[0-9]+-|m[0-9]+-)?SNAPSHOT$ ]];
   then
       major_version=${BASH_REMATCH[1]}
       minor_version=${BASH_REMATCH[2]}
@@ -19,15 +18,26 @@ function milestone() {
   fi
 
   timestamp=$(date '+%Y%m%d')
-  hash=$(git rev-parse --short HEAD)
-  branch_name="milestone/${timestamp}-${hash}"
+  count=${1}
+  if [[ -z ${count} ]]; then
+    hash=$(git rev-parse --short HEAD)
+  else
+    hash=$(git rev-parse --short HEAD~${count})
+  fi
+
+  echo "${major_version}.${minor_version}.${patch_version}-${version_suffix}${timestamp}.${hash}"
+}
+
+# @COMMAND milestone            create a milestone maven release of the project
+function milestone() {
+  milestone_version =$(__milestone_version)
+
+  branch_name="milestone/${milestone_version}"
 
   git checkout -b "${branch_name}"
   git push origin "${branch_name}"
 
-  milestone_version="${major_version}.${minor_version}.${patch_version}-${version_suffix}${timestamp}.${hash}"
-
-  mvn verify \
+  mvn -B \
     release:clean \
     release:prepare \
     release:perform \
@@ -38,6 +48,22 @@ function milestone() {
     -DscmCommentPrefix="[skip ci][maven-release]"
 }
 
+# @COMMAND cleanup              cleanup broken release files and tags and branches
+function cleanup() {
+  git checkout -
+  find . -name *.releaseBackup | xargs rm -v
+  rm -v release.properties
+
+  milestone_version=$(__milestone_version)
+  git_tag=$(git tag --sort=-creatordate | grep "${milestone_version}")
+  branch_name="milestone/${milestone_version}"
+
+  echo ${milestone_version}
+  echo ${git_tag}
+
+  git push origin -d ${branch_name}
+  git push origin -d ${git_tag}
+}
 
 # @COMMAND final                create a final maven release of the project
 function final() {
