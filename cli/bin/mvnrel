@@ -30,7 +30,7 @@ __milestone_version() {
 
 # @COMMAND milestone            create a milestone maven release of the project
 function milestone() {
-  milestone_version =$(__milestone_version)
+  milestone_version=$(__milestone_version)
 
   branch_name="milestone/${milestone_version}"
 
