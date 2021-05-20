@@ -61,7 +61,10 @@ function cleanup() {
   echo ${milestone_version}
   echo ${git_tag}
 
+  git branch -d ${branch_name}
   git push origin -d ${branch_name}
+
+  git tag -d ${git_tag}
   git push origin -d ${git_tag}
 }
 
