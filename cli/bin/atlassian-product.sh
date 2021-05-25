@@ -113,10 +113,23 @@ function wars() {
 
 # @COMMAND purge                                   purge available versions in local maven repo
 function purge() {
-    _list_wars \
-      | grep -E "SNAPSHOT|-m|-beta|-rc" \
-      | xargs -I{} dirname {} \
-      | xargs rm -r -v
+    type=${1:-internal}
+    case ${type} in
+      internal)
+        _list_wars \
+          | grep -E "SNAPSHOT|-m|-beta|-rc" \
+          | xargs -I{} dirname {} \
+          | xargs rm -r -v
+        ;;
+      all)
+        _list_wars \
+          | xargs -I{} dirname {} \
+          | xargs rm -r -v
+        ;;
+      *)
+        echo 'supports internal|all'
+        ;;
+    esac
 }
 
 # @COMMAND home                                     manage atlassian product home for development
