@@ -16,8 +16,7 @@
     <description>This is the org.viqueen.devbox:jira-devbox-plugin plugin for Atlassian JIRA.</description>
 
     <properties>
-        <jira.version>7.13.0</jira.version>
-        <plugin.testrunner.version>2.0.2</plugin.testrunner.version>
+        <jira.version>8.16.0</jira.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <!-- TestKit version 6.x for JIRA 6.x -->
