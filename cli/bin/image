@@ -34,6 +34,9 @@ function build() {
     if [[ -f "${target}/ubuntu.Dockerfile" ]]; then
         sed "s/\${UBUNTU_VERSION}/${baseVersion}/g" "${target}"/ubuntu.Dockerfile > "${target}"/Dockerfile
     fi
+    if [[ -f "${target}/node.Dockerfile" ]]; then
+      sed "s/\${NODE_VERSION}/${baseVersion}/g" "${target}"/node.Dockerfile > "${target}"/Dockerfile
+    fi
 
     shift
     shift
