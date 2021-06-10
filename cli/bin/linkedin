@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const CliRestClient = require("../lib/cli-rest-client");
+
+const restClient = new CliRestClient({
+    name: "LinkedIn API",
+    host: 'api.linkedin.com',
+    apiUrl: '/v2',
+    json: true,
+    ssl: true,
+    context: "/"
+});
+
+const program = restClient.program();
+program.version("1.0.0");
+program.parse(process.argv);
