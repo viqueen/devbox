@@ -8,7 +8,7 @@ ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 
 _run_with_jvm_args() {
     jvm_args="${1}"; shift
-    echo "atlas-run-standalone --jvmargs \"${jvm_args}\" $@"
+    echo "mvn com.atlassian.maven.plugins:amps-maven-plugin:8.2.0:run-standalone -Djvmargs='${jvm_args}' $@"
 }
 
 _start_cmd() {

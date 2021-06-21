@@ -6,12 +6,12 @@ _product_name() {
 
 _product_definition() {
     _with_arguments 1 $@
-    echo "--product fecru
-          --version ${version}
-          --http-port ${HTTP_PORT:-3990}
-          --context-path ${CONTEXT_PATH:-"/fecru"}
-          --ajp-port ${AJP_PORT:-3009}
-          --server 127.0.0.1"
+    echo "-Dproduct=fecru
+          -Dproduct.version=${version}
+          -Dhttp.port=${HTTP_PORT:-3990}
+          -Dcontext.path=${CONTEXT_PATH:-"/fecru"}
+          -Dajp.port=${AJP_PORT:-3009}
+          -Dserver=127.0.0.1"
 }
 
 source atlassian-product.sh

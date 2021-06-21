@@ -7,13 +7,13 @@ _product_name() {
 _product_definition() {
     _with_arguments 1 $@
     version=${1}
-    echo "--product bamboo
-          --version ${version}
-          --http-port ${HTTP_PORT:-6990}
-          --context-path ${CONTEXT_PATH:-"/bamboo"}
-          --ajp-port ${AJP_PORT:-6009}
-          --server 127.0.0.1
-          --plugins com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}
+    echo "-Dproduct=bamboo
+          -Dproduct.version=${version}
+          -Dhttp.port=${HTTP_PORT:-6990}
+          -Dcontext.path=${CONTEXT_PATH:-"/bamboo"}
+          -Dajp.port=${AJP_PORT:-6009}
+          -Dserver=127.0.0.1
+          -Dplugins=com.atlassian.bamboo.plugins:atlassian-bamboo-plugin-test-utils:${version}
           -Datlassian.darkfeature.bamboo.experimental.rest.admin.enabled=true"
 }
 

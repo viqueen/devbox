@@ -3,11 +3,11 @@
 _product_definition() {
   _with_arguments 1 "$@"
   version=${1}
-  echo "--product ctk-server
-        --version ${version}
-        --http-port ${HTTP_PORT:-8990}
-        --ajp-port ${AJP_PORT:-18990}
-        --server localhost"
+  echo "-Dproduct=ctk-server
+        -Dproduct.version=${version}
+        -Dhttp.port=${HTTP_PORT:-8990}
+        -Dajp.port=${AJP_PORT:-18990}
+        -Dserver=localhost"
 }
 
 _product_name() {

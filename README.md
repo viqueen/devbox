@@ -108,13 +108,6 @@ brew install awscli
 <p>
 
 ```bash
-# atlassian
-brew tap atlassian/tap
-brew install atlassian/tap/atlassian-plugin-sdk
-echo "export ATLAS_MVN=$(which mvn)" >> ~/.profile
-```
-
-```bash
 brew install scala
 brew install kotlin
 ```
@@ -187,24 +180,7 @@ saymyname       # finds the longest java class name in a directory , I was bored
 
 ### Atlassian scripts
 
-> :warning: these are wrappers around the atlassian-sdk
-> so please make sure you have it installed
-
-<details>
-<summary>install_atlassian_sdk</summary>
-<p>
-
-- mac OS
-
-```bash
-brew tap atlassian/tap
-brew install atlassian/tap/atlassian-plugin-sdk
-```
-
-- for other platforms, please take a look at https://developer.atlassian.com/server/framework/atlassian-sdk/downloads/
-
-</p>
-</details>
+> :warning: these are wrappers around Atlassian Maven Plugin Suite
 
 It comes with the following enterprise product scripts that behave exactly the same
 
