@@ -11,7 +11,7 @@ _product_definition() {
           -Dproduct.version=${version}
           -Dhttp.port=${HTTP_PORT:-7990}
           -Dcontext.path=${CONTEXT_PATH:-"/bitbucket"}
-          -Dajp.port ${AJP_PORT:-7009}
+          -Dajp.port=${AJP_PORT:-7009}
           -Dserver=127.0.0.1"
 }
 
