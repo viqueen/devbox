@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const CliRestClient = require("../lib/cli-rest-client");
+const dotenv = require('dotenv');
+
+const config = dotenv.config().parsed;
+
+const restClient = new CliRestClient({
+    name: "Notion API",
+    host: 'api.notion.com',
+    apiUrl: `/v1/databases/${config.NOTION_DATABASE_ID}`,
+    json: true,
+    ssl: true,
+    context: "/",
+    auth: {
+        token: config.NOTION_KEY
+    },
+    headers: {
+        'Notion-Version': '2021-05-13'
+    }
+});
+
+const program = restClient.program();
+program.version("1.0.0");
+program.parse(process.argv);

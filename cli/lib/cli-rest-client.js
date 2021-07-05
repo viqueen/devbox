@@ -63,6 +63,7 @@ class RestClient {
     this.port = options.port;
     this.context = options.context || "";
     this.client = options.ssl ? https : http;
+    this.headers = options.headers || {};
     this.handler =
       options.handler ||
       function (json) {
@@ -154,11 +155,11 @@ class RestClient {
           );
           const context = program.context === "/" ? "" : program.context;
 
-          const headers = {
+          const headers = Object.assign({}, this.headers, {
             "User-Agent": "devbox-rest-client",
             "Content-Type": "application/json",
             Accept: "application/json",
-          };
+          });
           if (authorization) {
             headers["Authorization"] = authorization;
           }
