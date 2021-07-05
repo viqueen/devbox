@@ -13,7 +13,7 @@ const config = dotenv.config({
 const restClient = new CliRestClient({
     name: "Notion API",
     host: 'api.notion.com',
-    apiUrl: `/v1`,
+    apiUrl: `/v1/databases/${config.NOTION_DATABASE_ID}`,
     json: true,
     ssl: true,
     context: "/",
