@@ -25,7 +25,6 @@ git clone --recursive https://github.com/viqueen/devbox.git
 
 # required
 ./setup.sh config_box
-npm link
 
 # optional, to setup the prompt line
 ./setup.sh config_prompt
@@ -69,10 +68,15 @@ echo "fortune | cowsay" >> ~/.profile
 - [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
 
 ```bash
+ln -sfvn ~/.bashrc ~/.profile
+ln -sfvn ~/.bashrc ~/.bash_profile
+
 # java
+curl -s "https://get.sdkman.io" | bash
+
 brew install jenv
-echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
-echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(jenv init -)"' >> ~/.bashrc
 
 # maven
 brew install mvnvm
@@ -84,7 +88,7 @@ nvm install node
 
 # ruby
 brew install rbenv
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 # other build tools
 brew install ant
@@ -180,45 +184,11 @@ saymyname       # finds the longest java class name in a directory , I was bored
 
 ### Atlassian scripts
 
-> :warning: these are wrappers around Atlassian Maven Plugin Suite
-
-It comes with the following enterprise product scripts that behave exactly the same
+- extracted to [atlassian-devbox](https://github.com/viqueen/atlassian-devbox)
 
 ```bash
-atlas -h        # mainframe
-
-# running and debugging atlassian server instances
-confluence -h
-jira -h
-bitbucket -h
-bamboo -h
-fecru -h
-crowd -h
+npm install -g atlassian-devbox
 ```
-
-Each of them comes with the following functions
-
-```
-start [version]                          starts product
-debug [version]                          starts product with debug port
-clean [version-pattern]                  cleans product directory for given version pattern
-versions                                 lists installed product versions
-cmd [action] [version]                   displays resolved command
-get [version]                           cd to product's installed version
-view [version]                           view product logs
-wars                                     lists available versions in local maven repo
-```
-
-So in the case of Confluence, I usually kick off my dev by launching the version I am interested in
-
-- start the instance
-  `confluence start 6.15.4`
-- monitor the logs
-  `confluence logs 6.15.4`
-- list the version I have already installed
-  `confluence versions`
-
-The instances are installed under `.atlassian-products` directory
 
 ### Atlassian Devbox Plugins
 

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "viqueen devbox",
   "scripts": {
-    "pretty:check": "prettier --check .",
-    "pretty": "prettier --check --write ."
+    "format:check": "prettier --check .",
+    "format": "prettier --check --write ."
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretty:check"
+      "pre-commit": "npm run format:check"
     }
   }
 }

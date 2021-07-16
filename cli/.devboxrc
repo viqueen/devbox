@@ -11,6 +11,7 @@ alias maven=mvn
 export PS1='\u@\h\w'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # maven
 export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"
@@ -19,9 +20,6 @@ export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize
 git config \
     --global alias.lg \
     "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-# atlas sdk
-export ATLAS_MVN=$(which mvn)
 
 nvm alias default node
 nvm use default
