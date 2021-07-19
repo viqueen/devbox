@@ -13,7 +13,7 @@ source selfedit.sh
 
 # @COMMAND addkey                           adds ssh key
 addkey() {
-    ssh-add -K ~/.ssh/id_rsa
+  ssh-add -K ~/.ssh/id_ed25519
 }
 
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
