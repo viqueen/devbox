@@ -85,6 +85,17 @@ gl (){
             --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
 }
 
+# @COMMAND gc                               silly git commit
+gc() {
+  message=${@}
+  git commit -m "${message}"
+}
+
+# @COMMAND show
+show() {
+  git show HEAD
+}
+
 # @COMMAND commit                           triggers a commit with jira issue prefix extracted from branch name
 commit() {
   message=${@}
