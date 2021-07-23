@@ -85,8 +85,8 @@ gl (){
             --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%x1b[35m%ad %x1b[0m%s %x1b[35m(%aE)""]]]]]]"
 }
 
-# @COMMAND gc                               silly git commit
-gc() {
+# @COMMAND commit                           simple git commit, I cant unlearn dev commit
+commit() {
   message=${@}
   git commit -m "${message}"
 }
@@ -96,8 +96,8 @@ show() {
   git show HEAD
 }
 
-# @COMMAND commit                           triggers a commit with jira issue prefix extracted from branch name
-commit() {
+# @COMMAND jc                           triggers a commit with jira issue prefix extracted from branch name
+jc() {
   message=${@}
   branch_name=$(git rev-parse --abbrev-ref HEAD)
   prefix="noissue"
