@@ -2,6 +2,7 @@
 .elastic-products/
 .idea/
 .vim/
+.localstack/
 
 node_modules/
 target/

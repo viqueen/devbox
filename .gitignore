@@ -73,3 +73,5 @@ typings/
 
 *.swp
 docker-images/**/Dockerfile
+
+.localstack
