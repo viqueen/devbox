@@ -220,11 +220,15 @@ start() {
 # @COMMAND build                            runs threaded maven build with skipping tests
 build() {
     pom_file=$(pwd)/pom.xml
+    mvn_settings_file=$(pwd)/mvn_settings.xml
     gradle_file=$(pwd)/build.gradle
     gradle_kts_file=$(pwd)/build.gradle.kts
 
     if [[ -f "${pom_file}" ]]; then
-        mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true $@
+        if [[ -f "${mvn_settings_file}" ]]; then
+          with_settings_file="-s ${mvn_settings_file}"
+        fi
+        mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true ${with_settings_file} $@
     elif [[ -f "${gradle_file}" || -f "${gradle_kts_file}" ]]; then
         ./gradlew build $@
     fi
