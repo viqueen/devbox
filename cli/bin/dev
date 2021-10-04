@@ -58,6 +58,11 @@ list() {
   ls -la ${VIQUEEN_DEVBOX_HOME}/cli/bin
 }
 
+# @COMMAND timestamp                        print timestamp
+timestamp() {
+  date +"%Y%m%d%H%M%S"
+}
+
 #######
 # VIM
 #######
