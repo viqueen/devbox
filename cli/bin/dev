@@ -328,8 +328,6 @@ afix() {
   yarn_lock=$(pwd)/yarn.lock
   pkg_lock=$(pwd)/package-lock.json
 
-  nvm use
-
   if [[ -f "${pkg_lock}" ]]; then
     npm audit fix
   else
