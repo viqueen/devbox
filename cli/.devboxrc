@@ -15,7 +15,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # maven
-export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m -XX:MaxPermSize=384m"
+export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m"
 
 # git
 git config \
