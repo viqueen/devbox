@@ -15,8 +15,6 @@
 
     <modules>
         <module>confluence-devbox-plugin</module>
-        <module>crowd-devbox-plugin</module>
-        <module>jira-devbox-plugin</module>
     </modules>
 
     <properties>
