@@ -8,11 +8,7 @@
     <packaging>pom</packaging>
 
     <name>Devbox</name>
-
-    <modules>
-        <module>atlassian-devbox-plugins</module>
-    </modules>
-
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
