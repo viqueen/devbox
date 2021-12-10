@@ -37,7 +37,7 @@
     "prettier": "^2.0.5",
     "prettyjson": "^1.2.1",
     "query-string": "^6.11.1",
-    "swagger-ui-express": "^4.1.5",
+    "swagger-ui-express": "^3.0.10",
     "xml-formatter": "^1.2.0"
   },
   "husky": {
