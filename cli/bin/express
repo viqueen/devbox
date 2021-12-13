@@ -4,6 +4,8 @@ const express = require("express");
 const prettyJson = require("prettyjson");
 const minimist = require("minimist");
 const morgan = require("morgan");
+const path = require('path');
+const os = require('os');
 
 const argv = minimist(process.argv.slice(2));
 
@@ -11,14 +13,15 @@ const app = express();
 // noinspection JSUnresolvedVariable
 const port = argv.port || 3000;
 
-morgan.token("body", (request, response) => {
+morgan.token("body", (request) => {
   return prettyJson.render(request.body);
 });
-morgan.token("headers", (request, response) => {
+morgan.token("headers", (request) => {
   return prettyJson.render(request.headers);
 });
 
 app.use(express.json());
+// noinspection JSCheckFunctionSignatures
 app.use(
   morgan(
     ":remote-addr - " +
@@ -28,6 +31,9 @@ app.use(
       "\n:headers\n***\n:body\n------------------------"
   )
 );
+
+const directory = path.resolve(os.homedir(), '.public');
+app.use('/public', express.static(directory));
 
 function register(code) {
   // noinspection JSUnresolvedFunction
