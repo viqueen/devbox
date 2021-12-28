@@ -13,7 +13,18 @@ source selfedit.sh
 
 # @COMMAND addkey                           adds ssh key
 addkey() {
-  ssh-add -K ~/.ssh/id_ed25519
+  id_rsa="${HOME}/.ssh/id_rsa"
+  id_ed25519="${HOME}/.ssh/id_ed25519"
+  if [[ -f "${id_rsa}" ]]; then
+    key_file=${id_rsa}
+  elif [[ -f "${id_ed25519}" ]]; then
+    key_file=${id_ed25519}
+  else
+    echo "key file not defined"
+    exit 1
+  fi
+
+  ssh-add -K ${key_file}
 }
 
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
