@@ -13,4 +13,9 @@ edit() {
     chmod +x ${script}
 }
 
+# @COMMAND list                             lists available internal scripts
+list() {
+    ls -la ~/bin
+}
+
 eval $@
