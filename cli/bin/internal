@@ -19,3 +19,8 @@ list() {
 }
 
 eval $@
+
+if [[ -z $1 ]];
+then
+    cd ~/bin
+fi

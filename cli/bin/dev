@@ -161,7 +161,7 @@ branch() {
 contains() {
   _with_arguments 1 $@
   hash=${1}; shift
-  git branch -r --contains ${hash} --list 'origin/release/*'
+  git branch -r --contains ${hash} --list 'origin/main' --list 'origin/production'
 }
 
 # @COMMAND stash [name]                     stashes with a name
