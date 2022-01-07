@@ -250,6 +250,12 @@ function get() {
   git checkout ${tag}
 }
 
+# @COMMAND oops [count?]        removes previous commit(s)
+function oops() {
+  count=${1:-1}
+  git reset --hard HEAD~${count}
+}
+
 eval "$@"
 
 if [[ -z $1 ]]; then
