@@ -1,13 +1,19 @@
 version: "3.8"
 services:
   localstack:
-    image: "localstack/localstack:0.12.16"
+    image: "localstack/localstack:0.13.3"
     container_name: localstack_service
+    network_mode: bridge
     ports:
       - "4566:4566"
     environment:
+      - DISABLE_CORS_CHECKS=1
+      - DISABLE_CUSTOM_CORS_S3=1
+      - EXTRA_CORS_ALLOWED_HEADERS=X-Requested-With
       - SERVICES=s3
       - DATA_DIR=/tmp/localstack/data
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DEBUG=1
     volumes:
       - ../.localstack:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
