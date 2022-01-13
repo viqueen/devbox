@@ -92,6 +92,11 @@ vimrc() {
 # GIT
 #####
 
+# @COMMAND prod                         diff main with production, what is in the pipeline
+prod() {
+  git log --merges origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
+}
+
 # @COMMAND gl                               pretty git log
 gl (){
     git log --graph \
@@ -149,7 +154,7 @@ recent() {
 
 # @COMMAND merged                           list merged branches
 merged() {
-  git branch --merged | egrep -v "(^\*|master|release|renovate|future)"
+  git branch --merged | egrep -v "(^\*|master|main|development|production|release|renovate|future)"
 }
 
 # @COMMAND branch                           displays current branch name
