@@ -2,7 +2,7 @@
 
 source selfedit.sh
 
-
+# @COMMAND path [url] [directory] <?branch>       clones git repo checking out given path only
 function path() {
   _with_arguments 2 "$@"
   connection=${1}
