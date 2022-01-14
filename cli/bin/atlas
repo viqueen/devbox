@@ -6,7 +6,6 @@
 #
 source selfedit.sh
 
-ATLASSIAN_PRODUCTS_HOME=${VIQUEEN_DEVBOX_HOME}/.atlassian-products
 ATLAS_SOURCES=~/sources/ATLAS
 ATLAS_GO_SOURCES=~/sources/ATLAS_GO
 
@@ -15,21 +14,21 @@ ATLAS_GO_SOURCES=~/sources/ATLAS_GO
 #########
 
 conf() {
-  cd ${ATLAS_SOURCES}/confluence-server
+  cd ${ATLAS_SOURCES}/confluence-server || exit
 }
 
 jra() {
-  cd ${ATLAS_SOURCES}/jira-server
+  cd ${ATLAS_SOURCES}/jira-server || exit
 }
 
 # @COMMAND goo                  take it and goo
 goo() {
-  cd ${ATLAS_GO_SOURCES}/src
+  cd ${ATLAS_GO_SOURCES}/src || exit
 }
 
 # @COMMAND gclone               clone golang repo
 gclone() {
-  _with_arguments 1 $@
+  _with_arguments 1 "$@"
   git_url=${1}
 
   if [[ ${git_url} =~ ^git@([a-zA-Z\.]+):([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)\.git$ ]];
@@ -39,7 +38,7 @@ gclone() {
     module=${BASH_REMATCH[3]}
 
     mkdir -p "${ATLAS_GO_SOURCES}/src/${host}/${owner}"
-    git clone ${git_url} "${ATLAS_GO_SOURCES}/src/${host}/${owner}/${module}"
+    git clone "${git_url}" "${ATLAS_GO_SOURCES}/src/${host}/${owner}/${module}"
   else
     echo invalid git_url
     exit 1
@@ -52,15 +51,15 @@ gclone() {
 
 # @COMMAND build                runs atlas-mvn build
 build() {
-  atlas-mvn -e -T 0.75C clean install -DskipTests=true $@
+  atlas-mvn -e -T 0.75C clean install -DskipTests=true "$@"
 }
 
 # @COMMAND pi                   install atlassian plugin
 pi() {
-  product=$(_default ${1} "confluence")
-  port=$(_default ${2} "8080")
-  context=$(_default ${3} "/${product}")
-  atlas-mvn -e ${product}:install -Dhttp.port=${port} -Dcontext.path=${context}
+  product=${1:-"confluence"}
+  port=${2:-"8080"}
+  context=${3:-"/${product}"}
+  atlas-mvn -e "${product}":install -Dhttp.port="${port}" -Dcontext.path="${context}"
 }
 
 # @COMMAND style                runs maven checkstyle using confluence code-style rules
@@ -69,7 +68,7 @@ style() {
 }
 
 __capture_at_since() {
-  while read line;
+  while read -r line;
   do
     if [[ ${line} =~ ^(.*)(Must contain)(.*)$ ]]; then
       if [[ ${line} =~ ^(.*/)([a-zA-Z]+.java)(.*)atsince(.*)$ ]]; then
@@ -85,15 +84,9 @@ suppress_atsince() {
   atlas-mvn verify -Pcheckstyle -DskipTests=true -Datlassian.codestyle=confluence-codestyle:3.5.0-m02 | __capture_at_since
 }
 
-# @COMMAND products             list installed atlassian products
-products() {
-  ls -lrt ${ATLASSIAN_PRODUCTS_HOME}
-}
-
-
-eval $@
+eval "$@"
 
 if [[ -z ${1} ]];
 then
-  cd ${ATLAS_SOURCES}
+  cd ${ATLAS_SOURCES} || exit
 fi
