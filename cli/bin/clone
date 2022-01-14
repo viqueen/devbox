@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+source selfedit.sh
+
+
+function path() {
+  _with_arguments 2 "$@"
+  connection=${1}
+  directory=${2}
+  main_branch=${3:-main}
+
+  if [[ ${connection} =~ ^git@([a-zA-Z\.]+):([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)\.git$ ]];
+  then
+    module=${BASH_REMATCH[3]}
+  else
+    echo 'invalid git ssh connection url'
+    exit 1
+  fi
+
+  git clone --filter=blob:none --no-checkout "${connection}"
+  cd "${module}" || exit
+  git sparse-checkout init --cone
+  git sparse-checkout set "${directory}"
+  git checkout "${main_branch}"
+}
+
+eval "$@"
+
+if [[ -z $1 ]]; then
+    $0 -h
+fi
