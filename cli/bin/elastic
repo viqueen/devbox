@@ -4,34 +4,36 @@ source elastic-product.sh
 
 # @COMMAND list                 list elastic products installed
 list() {
-    ls -lrt ${ELASTIC_PRODUCTS_HOME}
+    ls -lrt "${ELASTIC_PRODUCTS_HOME}"
 }
 
 # @COMMAND purge                purge the elastic products home
 purge() {
-    rm -rf ${ELASTIC_PRODUCTS_HOME}/*
+    if [ -d "${ELASTIC_PRODUCT_HOME}" ]; then
+      rm -rf "${ELASTIC_PRODUCTS_HOME:?}"/*
+    fi
 }
 
 # @COMMAND clean [version]      cleans the specific elastic product stack
 clean() {
-  _with_arguments 1 $@
+  _with_arguments 1 "$@"
   version=${1}
-  rm -rf ${ELASTIC_PRODUCTS_HOME}/*-${version}
+  rm -rf "${ELASTIC_PRODUCTS_HOME}"/*-"${version}"
 }
 
 
 # @COMMAND install [version]    install the elastic stack version
 install() {
-  _with_arguments 1 $@
+  _with_arguments 1 "$@"
   version=${1}; shift
 
-  search get ${version}
-  kibana get ${version}
-  logstash get ${version}
-  filebeat get ${version}
+  search get "${version}"
+  kibana get "${version}"
+  logstash get "${version}"
+  filebeat get "${version}"
 }
 
-eval $@
+eval "$@"
 
 if [[ -z $1 ]]; then
     $0 -h
