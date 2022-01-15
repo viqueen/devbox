@@ -28,6 +28,7 @@
     "datauri": "^4.1.0",
     "dotenv": "^12.0.3",
     "express": "^4.17.2",
+    "fs-directory": "^1.0.0",
     "gm": "^1.23.1",
     "husky": "^7.0.4",
     "labset-config-js": "^1.0.0",

@@ -3,7 +3,7 @@
 const minimist = require("minimist");
 const path = require("path");
 const fs = require('fs');
-const {listFiles} = require("../lib/files");
+const {listFiles} = require("fs-directory");
 const argv = minimist(process.argv.slice(2));
 
 if (argv._.length === 0) {
@@ -20,6 +20,9 @@ const setAsPrivate = (filename) => {
 }
 
 const directories = argv._.map(item => path.resolve(process.cwd(), item));
-const packages = directories.flatMap(directory => listFiles(directory, (file) => file.name === 'package.json'))
+const packages = directories.flatMap(directory => listFiles(directory, {
+    fileFilter: (entry) => entry.name === 'package.json',
+    directoryFilter: () => true
+}))
 
 packages.forEach(setAsPrivate);
