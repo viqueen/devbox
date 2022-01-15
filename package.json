@@ -4,7 +4,8 @@
   "description": "viqueen devbox",
   "scripts": {
     "format:check": "prettier --check .",
-    "format": "prettier --check --write ."
+    "format": "prettier --check --write .",
+    "check-updates": "npm-check-updates -u"
   },
   "repository": {
     "type": "git",
@@ -21,24 +22,25 @@
   },
   "homepage": "https://github.com/viqueen/devbox#readme",
   "devDependencies": {
-    "chalk": "^4.1.0",
-    "commander": "^5.0.0",
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0",
     "concat-stream": "^2.0.0",
-    "datauri": "^3.0.0",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "datauri": "^4.1.0",
+    "dotenv": "^12.0.3",
+    "express": "^4.17.2",
     "gm": "^1.23.1",
-    "husky": "^4.2.5",
+    "husky": "^7.0.4",
     "labset-config-js": "^1.0.0",
-    "mailparser": "^3.0.0",
+    "mailparser": "^3.4.0",
     "minimist": "^1.2.5",
-    "moment": "^2.28.0",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "prettier": "^2.0.5",
-    "prettyjson": "^1.2.1",
-    "query-string": "^6.11.1",
-    "swagger-ui-express": "^3.0.10",
-    "xml-formatter": "^1.2.0"
+    "npm-check-updates": "^12.1.0",
+    "prettier": "^2.5.1",
+    "prettyjson": "^1.2.5",
+    "query-string": "^7.1.0",
+    "swagger-ui-express": "^4.3.0",
+    "xml-formatter": "^2.6.0"
   },
   "husky": {
     "hooks": {
