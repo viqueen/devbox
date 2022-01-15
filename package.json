@@ -41,10 +41,5 @@
     "query-string": "^7.1.0",
     "swagger-ui-express": "^4.3.0",
     "xml-formatter": "^2.6.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format:check"
-    }
   }
 }
