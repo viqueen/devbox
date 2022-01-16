@@ -238,6 +238,12 @@ start() {
   git checkout -b "issue/${ticket}-${slug}"
 }
 
+patch() {
+  today=$(date '+%Y%m%d')
+  git fetch && git pull origin main
+  git checkout -b "patch_${today}"
+}
+
 #######
 # MAVEN
 #######
