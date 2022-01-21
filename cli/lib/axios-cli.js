@@ -18,12 +18,22 @@ class AxiosCli {
       commander
         .command(`${method} [parts...]`)
         .description(`${method} ${this.name} resources`)
-        .action(async (parts) => {
-          const response = await this.client.request({
-            method: method,
-            url: `/${parts.join("/")}`,
-          });
-          console.log(response.data);
+        .action((parts) => {
+          this.client
+            .request({
+              method: method,
+              url: `/${parts.join("/")}`,
+            })
+            .then((response) => console.log(response.data))
+            .catch((error) => {
+              const { status, statusText, headers, data } = error.response;
+              console.log({
+                status,
+                statusText,
+                headers,
+                data,
+              });
+            });
         });
     });
 
