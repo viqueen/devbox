@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+
+"use strict";
+
+const AxiosCli = require("../lib/axios-cli");
+const axiosCli = new AxiosCli({
+    baseURL: 'https://api.github.com',
+    name: 'GitHub API'
+});
+
+const program = axiosCli.program();
+program.version('1.0.0');
+program.parse(process.argv);

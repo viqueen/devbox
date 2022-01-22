@@ -14,7 +14,7 @@ class AxiosCli {
   program() {
     const commander = new Command();
 
-    ["get", "post", "delete"].forEach((method) => {
+    ["get", "post", "delete", "put", "head", "option"].forEach((method) => {
       commander
         .command(`${method} [parts...]`)
         .description(`${method} ${this.name} resources`)
