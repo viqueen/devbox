@@ -106,7 +106,7 @@ merges_diff() {
 
 merges() {
   count=${1:-10}
-  git log --merges --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s' | head -n +${count}
+  git log --merges --pretty=format:'%ai %C(yellow)%h %Cgreen%an %Creset- %s' | head -n +${count}
 }
 
 
