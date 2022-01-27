@@ -115,6 +115,13 @@ prod() {
   git log --merges origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
 }
 
+# @COOMAND release
+release() {
+  env=${1:-development}
+  target=${2:-HEAD}
+  git push origin ${target}:${env}
+}
+
 # @COMMAND gl                               pretty git log
 gl (){
     git log --graph \
