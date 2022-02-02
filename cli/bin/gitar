@@ -256,6 +256,16 @@ function oops() {
   git reset --hard HEAD~${count}
 }
 
+# @COMMAND merged               lists merged branches
+function merged() {
+    git branch --merged | egrep -v "(^\*|master|main|development|production|demo|website|website-preview|release|renovate|future)"
+}
+
+# @COMMAND merged_remote        lists merged remote branches
+function merged_remote() {
+    git branch -r --merged | egrep -v "(^\*|master|main|development|production|demo|website|website-preview|release|renovate|future)"
+}
+
 eval "$@"
 
 if [[ -z $1 ]]; then
