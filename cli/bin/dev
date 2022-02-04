@@ -106,13 +106,13 @@ merges_diff() {
 
 merges() {
   count=${1:-10}
-  git log --merges --pretty=format:'%ai %C(yellow)%h %Cgreen%an %Creset- %s' | head -n +${count}
+  git log --merges --first-parent --pretty=format:'%ai %C(yellow)%h %Cgreen%an %Creset- %s' | head -n +${count}
 }
 
 
 # @COMMAND prod                         diff main with production, what is in the pipeline
 prod() {
-  git log --merges origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
+  git log --merges --first-parent origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
 }
 
 # @COOMAND release
