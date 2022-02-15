@@ -115,6 +115,25 @@ prod() {
   git log --merges --first-parent origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
 }
 
+_filter_site_packages() {
+  while read -r line;
+  do
+    if [[ ${line} =~ ^([^[:space:]]+)([[:space:]])([^[:space:]]+)([[:space:]])(.*)$ ]]; then
+      parent_hash="${BASH_REMATCH[3]}"
+      folders=$(git diff-tree --name-only --pretty="" "${parent_hash}")
+      if [[ "${folders}" == *website* ]]; then
+        echo "${BASH_REMATCH[5]}"
+      fi
+    fi
+  done
+}
+
+# @COMMAND site                         diff main with website, what is in the pipeline
+site() {
+  git log --merges --first-parent origin/website..origin/main --pretty=format:'%p %h %an - %s' \
+    | _filter_site_packages
+}
+
 # @COOMAND release
 release() {
   env=${1:-development}
