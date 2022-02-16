@@ -3,7 +3,6 @@
 alias ll='ls -la'
 alias please=sudo
 alias wl='wc -l'
-alias dcompose='docker-compose down'
 alias move=mv
 alias maven=mvn
 alias awsl=awslocal
