@@ -211,7 +211,7 @@ function __promptline {
     cmd_col="$(tput sgr0)$(tput bold)"
     normal_col="$(tput sgr0)"
     trap 'echo -n "$normal_col"' DEBUG
-    PS1="$(__promptline_ps1) \[$cmd_col\]"
+    PS1="\n$(__promptline_ps1) \[$cmd_col\]"
 #    PS1="$(__promptline_ps1)"
   fi
 }
