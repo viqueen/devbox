@@ -1,0 +1,15 @@
+#! /usr/bin/env node
+
+const dotenv = require('dotenv');
+const AxiosCli = require('../lib/axios-cli');
+const axiosCli = new AxiosCli({
+    baseURL: 'https://api.sendgrid.com',
+    name: 'SendGrid API',
+    auth: {
+        bearerToken: dotenv.config().parsed?.SENDGRID_TOKEN
+    }
+});
+
+const program = axiosCli.program();
+program.version('1.0.0');
+program.parse(process.argv);
