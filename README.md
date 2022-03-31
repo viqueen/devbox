@@ -190,55 +190,6 @@ saymyname       # finds the longest java class name in a directory , I was bored
 npm install -g atlassian-devbox
 ```
 
-### Atlassian Devbox Plugins
-
-These are development helper plugins I use in all my feature/bug-fix endeavours
-
-#### confluence
-
-```bash
-# build it
-cd atlassian-devbox-plugins/confluence-devbox-plugin
-atlas build
-# update the following to match your context path and port
-atlas pi confluence 8080
-
-# setup an smtp server
-confdev post setup smtp-server
-# create multiple users
-confdev post setup users
-```
-
-> :information_source: `confdev` script is available under `cli/bin` , this is just a rest client to interact with
-> confluence-devbox-plugin rest resources.
->
-> Note that these are just the basics, but I trust you can poke around the repo to find out how to tune
-> the options so the scripts are interacting correctly with the confluence instance you are running (in terms of port, context path, user creds)
-
-The following is a set of scripts that I use to configure my confluence instance with data
-
-- devbox scripts
-
-```bash
-# build and install the build on my instance
-devbox install
-
-# setup some users and configure few things
-devbox setup
-```
-
-- managing users
-
-```bash
-# create a set of users
-confdev post setup users -q count=<> -q start=<>
-
-# generate avatars based on user full name
-# requires `imagemagick`
-# >> brew install imagemagick
-confdev get users initials --raw | generate-avatars
-```
-
 ### Elastic scripts
 
 It comes with the following enterprise product scripts that behave exactly the same
