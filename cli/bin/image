@@ -43,6 +43,12 @@ function build() {
     docker build -t "${image}" "${target}"/ "$@"
 }
 
+# @COMMAND scan [name] [tag]        scans a docker image in viqueen namespace
+function scan() {
+  image=$(_image "$@")
+  docker scan "${image}"
+}
+
 # @COMMAND push [name] [tag]        pushes a docker image to viqueen namespace on docker hub
 function push() {
     image=$(_image "$@")
@@ -66,8 +72,9 @@ _run_cmd() {
 
 # @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
 function run() {
-    # shellcheck disable=SC2046
-    eval $(_run_cmd "$@")
+    cmd=$(_run_cmd "$@")
+    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    eval "${cmd}"
 }
 
 _mount_cmd() {
@@ -84,8 +91,9 @@ _mount_cmd() {
 
 # @COMMAND mount [name] [tag]         mounts current working directory as volume onto image
 function mount() {
-    # shellcheck disable=SC2046
-    eval $(_mount_cmd "$@")
+    cmd=$(_mount_cmd "$@")
+    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    eval "${cmd}"
 }
 
 # @COMMAND dismount                   cleans up current working directory as volume
@@ -103,8 +111,9 @@ _start_cmd() {
 
 # @COMMAND start <container>           starts existing docker container
 function start() {
-  # shellcheck disable=SC2046
-  eval $(_start_cmd "$@")
+    cmd=$(_start_cmd "$@")
+    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    eval "${cmd}"
 }
 
 # @COMMAND session <container>            opens terminal session on docker container
