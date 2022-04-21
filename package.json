@@ -35,7 +35,7 @@
     "labset-config-js": "^1.0.0",
     "mailparser": "^3.4.0",
     "minimist": "^1.2.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "morgan": "^1.10.0",
     "npm-check-updates": "^12.2.1",
     "prettier": "^2.5.1",
