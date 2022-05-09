@@ -4,5 +4,8 @@ const minimist = require("minimist");
 const ops = minimist(process.argv.slice(2));
 
 const [value] = ops._;
-const date = new Date(value).toLocaleDateString('AU');
-console.info({date});
+const jsDate = new Date(value);
+const date = jsDate.toLocaleDateString('AU');
+const time = jsDate.toLocaleTimeString('AU');
+
+console.info({date, time});
