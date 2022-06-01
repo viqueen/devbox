@@ -1,0 +1,45 @@
+#! /usr/bin/env node
+
+const SftpClient = require('ssh2-sftp-client');
+const Command = require('commander').Command;
+const dotenv = require('dotenv');
+const path = require("path");
+
+const config = dotenv.config({
+    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+}).parsed;
+
+const program = new Command();
+
+const client = () => new SftpClient();
+const connect = async (client) => {
+    return client.connect({
+        host: config.SFTP_HOST,
+        username: config.SFTP_USERNAME,
+        password: config.SFTP_PASSWORD
+    });
+}
+
+program
+    .command('list [directory]')
+    .action(async (directory) => {
+        const sftp = client();
+        await connect(sftp);
+        const output = await sftp.list(directory || '/');
+        console.table(output);
+        await sftp.end();
+    });
+
+program
+    .command('get <filename>')
+    .action(async (filename) => {
+        const sftp = client();
+        await connect(sftp);
+        const output = await sftp.get(filename);
+        console.info(output.toString('utf8'));
+        await sftp.end();
+    })
+
+
+program.version('1.0.0')
+program.parse(process.argv);

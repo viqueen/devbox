@@ -41,6 +41,7 @@
     "prettier": "^2.6.2",
     "prettyjson": "^1.2.5",
     "query-string": "^7.1.1",
+    "ssh2-sftp-client": "^8.1.0",
     "swagger-ui-express": "^4.4.0",
     "xml-formatter": "^2.6.1"
   }
