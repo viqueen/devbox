@@ -1,0 +1,16 @@
+#! /usr/bin/env node
+
+const express = require("express");
+const minimist = require("minimist");
+const argv = minimist(process.argv.slice(2));
+
+const port = argv.port || 7000;
+
+const app = express();
+const cwd = process.cwd();
+
+app.use('/static', express.static(cwd));
+app.listen(port, () => {
+    console.log(`⚡️ static server started at http://localhost:${port}/static`);
+});
+
