@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+
+const program = require('commander');
+const Chance = require('chance');
+
+const chance = new Chance();
+
+const text = ['paragraph', 'text', 'sentence']
+const include = [...text];
+const actions = Object.keys(Chance.prototype).filter(v => include.includes(v));
+
+actions.forEach((action) => {
+    program
+        .command(action)
+        .description(`get random ${action}`)
+        .action(() => {
+            console.info(chance[action]());
+        })
+});
+
+program.version('1.0.0');
+program.parse(process.argv);
+
