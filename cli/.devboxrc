@@ -6,6 +6,7 @@ alias wl='wc -l'
 alias move=mv
 alias maven=mvn
 alias awsl=awslocal
+alias cats='pygmentize -g'
 
 # overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
 export PS1='\u@\h\w'
