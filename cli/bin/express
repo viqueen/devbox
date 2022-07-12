@@ -36,17 +36,20 @@ const directory = path.resolve(os.homedir(), '.public');
 app.use('/public', express.static(directory));
 
 function register(code) {
-  // noinspection JSUnresolvedFunction
-  app.post(`/${code}`, (request, response) => {
-    response.sendStatus(code);
-  });
-  // noinspection JSUnresolvedFunction
-  app.post(`/${code}-delay`, (request, response) => {
-    const ms = request.query.ms;
-    const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
-    setTimeout(() => {
+  ['get', 'post'].forEach((method) => {
+    app[method](`/${code}`, (request, response) => {
       response.sendStatus(code);
-    }, msDelay);
+    })
+  });
+
+  ['get','post'].forEach((method) => {
+    app[method](`/${code}-delay`, (request, response) => {
+      const ms = request.query.ms;
+      const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
+      setTimeout(() => {
+        response.sendStatus(code)
+      }, msDelay)
+    });
   });
 }
 
