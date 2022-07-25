@@ -33,6 +33,7 @@
     "fs-directory": "^1.0.0",
     "gm": "^1.23.1",
     "husky": "^8.0.1",
+    "jsonpath": "^1.1.1",
     "labset-config-js": "^1.0.0",
     "mailparser": "^3.5.0",
     "minimist": "^1.2.6",
