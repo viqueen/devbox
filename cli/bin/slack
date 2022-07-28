@@ -8,7 +8,7 @@ const axiosCli = new AxiosCli({
     baseURL: 'https://slack.com/api',
     name: 'Slack API',
     auth: {
-        bearerToken: dotenv.config().parsed?.SLACK_TOKEN
+        bearerToken: async () => dotenv.config().parsed?.SLACK_TOKEN
     }
 });
 

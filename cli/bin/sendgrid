@@ -6,7 +6,7 @@ const axiosCli = new AxiosCli({
     baseURL: 'https://api.sendgrid.com',
     name: 'SendGrid API',
     auth: {
-        bearerToken: dotenv.config().parsed?.SENDGRID_TOKEN
+        bearerToken: async () => dotenv.config().parsed?.SENDGRID_TOKEN
     }
 });
 

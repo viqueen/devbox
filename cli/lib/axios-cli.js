@@ -9,7 +9,7 @@ class AxiosCli {
       baseURL: options.baseURL,
     });
     this.name = options.name;
-    this.auth = options.auth || { bearerToken: undefined };
+    this.auth = options.auth || { bearerToken: async () => undefined };
   }
 
   program() {
@@ -19,10 +19,9 @@ class AxiosCli {
       commander
         .command(`${method} [parts...]`)
         .description(`${method} ${this.name} resources`)
-        .action((parts) => {
-          const headers = this.auth.bearerToken
-            ? { Authorization: `Bearer ${this.auth.bearerToken}` }
-            : {};
+        .action(async (parts) => {
+          const token = await this.auth.bearerToken();
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
           this.client
             .request({
               method: method,
