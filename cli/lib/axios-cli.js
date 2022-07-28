@@ -28,7 +28,7 @@ class AxiosCli {
               url: `/${parts.join("/")}`,
               headers,
             })
-            .then((response) => console.log(response.data))
+            .then(({ data }) => console.log(JSON.stringify(data)))
             .catch((error) => {
               const { status, statusText, headers, data } = error.response;
               console.log({

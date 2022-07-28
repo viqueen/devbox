@@ -1,0 +1,36 @@
+#! /usr/bin/env node
+
+const dotenv = require('dotenv');
+const AxiosCli = require('../lib/axios-cli');
+const AxiosOauthClient = require("../lib/axios-oauth-client");
+
+const oauthClient = new AxiosOauthClient({
+    name: 'spotify',
+    authorizeUrl: 'https://accounts.spotify.com/authorize',
+    grantUrl: 'https://accounts.spotify.com/api/token',
+    clientId: dotenv.config().parsed?.SPOTIFY_CLIENT_ID,
+    clientSecret: dotenv.config().parsed?.SPOTIFY_CLIENT_SECRET,
+    scopes: [
+        'user-read-recently-played'
+    ]
+})
+
+const axiosCli = new AxiosCli({
+    baseURL: `https://api.spotify.com/v1/me`,
+    name: 'Spotify API / ME',
+    auth: {
+        bearerToken: async () => oauthClient.accessToken()
+    }
+});
+
+const program = axiosCli.program();
+
+program.command('login')
+    .description('oauth login flow')
+    .action(async () => {
+        await oauthClient.login();
+        process.exit();
+    })
+
+program.version('1.0.0');
+program.parse(process.argv);
