@@ -39,12 +39,12 @@
     "minimist": "^1.2.6",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
-    "npm-check-updates": "^16.0.0",
+    "npm-check-updates": "^16.0.5",
     "open": "^8.4.0",
     "prettier": "^2.7.1",
     "prettyjson": "^1.2.5",
     "query-string": "^7.1.1",
-    "ssh2-sftp-client": "^9.0.2",
+    "ssh2-sftp-client": "^9.0.3",
     "swagger-ui-express": "^4.5.0",
     "xml-formatter": "^2.6.1"
   }
