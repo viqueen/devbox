@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  javazone:
+    image: viqueen/javazone-2022:workshop
+    entrypoint: /bin/bash
+    stdin_open: true
+    tty: true
+    volumes:
+      - ~/sources/viqueen/jdk:/sources/jdk
+      - ~/sources/viqueen/javazone-2022:/sources/javazone-2022
