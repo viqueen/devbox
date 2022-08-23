@@ -73,7 +73,7 @@ _run_cmd() {
 # @COMMAND run [name] [tag]         runs a docker image from viqueen namespace
 function run() {
     cmd=$(_run_cmd "$@")
-    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    echo -e "${GREEN}Execute ${cmd}${COLOR_OFF}"
     eval "${cmd}"
 }
 
@@ -92,7 +92,7 @@ _mount_cmd() {
 # @COMMAND mount [name] [tag]         mounts current working directory as volume onto image
 function mount() {
     cmd=$(_mount_cmd "$@")
-    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    echo -e "${GREEN}Execute ${cmd}${COLOR_OFF}"
     eval "${cmd}"
 }
 
@@ -112,7 +112,7 @@ _start_cmd() {
 # @COMMAND start <container>           starts existing docker container
 function start() {
     cmd=$(_start_cmd "$@")
-    echo "${GREEN}Execute ${cmd}${COLOR_OFF}"
+    echo -e "${GREEN}Execute ${cmd}${COLOR_OFF}"
     eval "${cmd}"
 }
 
