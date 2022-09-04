@@ -6,7 +6,8 @@ RUN apt-get update \
     && apt-get install -y libxrender-dev libxrandr-dev libxtst-dev libxt-dev
 
 
-RUN apt-get install -y git \
+RUN apt-get install -y git ant \
+    && echo 'export ANT_HOME=/usr/share/ant' >> ~/.bashrc \
     && git clone https://github.com/jenv/jenv.git ~/.jenv \
     && echo 'export PATH="${HOME}/.jenv/bin:${PATH}"' >> ~/.bashrc \
     && echo 'eval "$(jenv init -)"' >> ~/.bashrc
