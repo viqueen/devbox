@@ -39,7 +39,7 @@
     "minimist": "^1.2.6",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
-    "npm-check-updates": "^16.2.1",
+    "npm-check-updates": "^16.3.2",
     "open": "^8.4.0",
     "prettier": "^2.7.1",
     "prettyjson": "^1.2.5",
