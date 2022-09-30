@@ -305,7 +305,7 @@ build() {
         if [[ -f "${mvn_settings_file}" ]]; then
           with_settings_file="-s ${mvn_settings_file}"
         fi
-        mvn -e -T 0.75C clean install -DskipTests=true -DskipITs=true ${with_settings_file} $@
+        ./mvnw -e -T 0.75C clean install -DskipTests=true -DskipITs=true ${with_settings_file} $@
     elif [[ -f "${gradle_file}" || -f "${gradle_kts_file}" ]]; then
         ./gradlew build $@
     fi
