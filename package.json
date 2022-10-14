@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/viqueen/devbox#readme",
   "devDependencies": {
+    "@types/inquirer": "^8.2.4",
     "axios": "^1.1.2",
     "chalk": "^5.1.2",
     "chance": "^1.1.8",
@@ -33,6 +34,7 @@
     "fs-directory": "^1.0.0",
     "gm": "^1.25.0",
     "husky": "^8.0.1",
+    "inquirer": "^8.2.4",
     "jsonpath": "^1.1.1",
     "labset-config-js": "^1.0.0",
     "mailparser": "^3.5.0",
@@ -44,6 +46,7 @@
     "prettier": "^2.7.1",
     "prettyjson": "^1.2.5",
     "query-string": "^7.1.1",
+    "simple-git": "^3.14.1",
     "ssh2-sftp-client": "^9.0.4",
     "swagger-ui-express": "^4.5.0",
     "xml-formatter": "^2.6.1"
