@@ -5,14 +5,14 @@
 - ubuntu
 
 ```bash
-# comes with openjdk 11
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:jdk-11.0.8_10-slim
+# comes with node 18.12.1
+docker run -it --entrypoint=/bin/bash viqueen/teknologi:18.12.1-slim
 
 # mount it
 docker run --name <name_it> --volume <target_dir>:/sources/<target_dir> \
     -it --entrypoint=/bin/bash \
     -w=/sources/<target_dir>  \
-    viqueen/teknologi:jdk-11.0.8_10-slim
+    viqueen/teknologi:18.12.1-slim
 ```
 
 ## Setup and Configure
@@ -63,17 +63,18 @@ echo "fortune | cowsay" >> ~/.profile
 <summary>init_dev_tools</summary>
 <p>
 
-#### Requirements
-
-- [java](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
-
 ```bash
+
 ln -sfvn ~/.bashrc ~/.profile
 ln -sfvn ~/.bashrc ~/.bash_profile
 
-# java
+# sdkman
 curl -s "https://get.sdkman.io" | bash
 
+sdk list java
+sdk install java <>
+
+# jenv (requires Java to be installed)
 brew install jenv
 echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(jenv init -)"' >> ~/.bashrc
@@ -82,8 +83,8 @@ echo 'eval "$(jenv init -)"' >> ~/.bashrc
 brew install mvnvm
 mvn --version
 
-# node (TODO: provide through brew)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+# node
+brew install nvm
 nvm install node
 
 # ruby
@@ -185,6 +186,14 @@ saymyname       # finds the longest java class name in a directory , I was bored
 ### Atlassian scripts
 
 - extracted to [atlassian-devbox](https://github.com/viqueen/atlassian-devbox)
+- install using homebrew
+
+```bash
+brew tap viqueen/atlassian-devbox
+brew install atlassian-devbox
+```
+
+- or install using npm
 
 ```bash
 npm install -g atlassian-devbox
