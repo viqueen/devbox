@@ -4,7 +4,7 @@ services:
     image: postgres:10.1
     restart: always
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_DB: confluence
       POSTGRES_USER: confluence
@@ -17,6 +17,6 @@ services:
     volumes:
       - ${PWD}:/sources
     ports:
-      - 8090:8090
+      - "8090:8090"
     links:
       - "postgres"

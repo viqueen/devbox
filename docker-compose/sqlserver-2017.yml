@@ -4,7 +4,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2017-latest
     restart: always
     ports:
-      - 1433:1433
+      - "1433:1433"
     environment:
       SA_PASSWORD: Devbox123!
       ACCEPT_EULA: Y

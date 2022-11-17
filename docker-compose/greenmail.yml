@@ -4,12 +4,12 @@ services:
     image: greenmail/standalone:1.6.11
     restart: always
     ports:
-      - 3025:3025 # SMTP
-      - 3110:3110 # POP3
-      - 3143:3143 # IMAP
-      - 3465:3465 # SMTPS
-      - 3993:3993 # IMAPS
-      - 3995:3995 # POP3S
+      - "3025:3025" # SMTP
+      - "3110:3110" # POP3
+      - "3143:3143" # IMAP
+      - "3465:3465" # SMTPS
+      - "3993:3993" # IMAPS
+      - "3995:3995" # POP3S
     environment:
       GREENMAIL_OPTS: "-Dgreenmail.setup.test.all
         -Dgreenmail.hostname=0.0.0.0

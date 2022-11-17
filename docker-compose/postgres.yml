@@ -4,7 +4,7 @@ services:
     image: postgres:11.0
     restart: always
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_DB: devbox
       POSTGRES_USER: devbox
