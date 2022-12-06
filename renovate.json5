@@ -1,0 +1,26 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:base"],
+  dependencyDashboard: true,
+  enabledManagers: ["npm"],
+  rangeStrategy: "update-lockfile",
+  labels: ["dependencies"],
+  packageRules: [
+    {
+      groupName: "all patch dependencies",
+      matchUpdateTypes: ["patch"],
+      groupSlug: "all-patch",
+      addLabels: ["patch"],
+      commitMessagePrefix: "[patch-upgrades]",
+    },
+  ],
+  major: {
+    bumpVersion: "major",
+  },
+  minor: {
+    bumpVersion: "minor",
+  },
+  patch: {
+    bumpVersion: "patch",
+  },
+}
