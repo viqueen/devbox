@@ -19,5 +19,5 @@ _join (){
 
 _with_arguments 1 "$@"
 repo=$(_join '-' "$@")
-location=$(cnav list -w viqueen -s "${repo}" -dl)
+location=$(git workspace -w viqueen -s "${repo}" -dl)
 cd "${location}"
