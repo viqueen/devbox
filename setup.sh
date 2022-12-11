@@ -18,8 +18,8 @@ function config_vim() {
 }
 
 function config_prompt() {
-    ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.shell_prompt.sh ~/.shell_prompt.sh
-    echo "source ~/.shell_prompt.sh" >> ~/.bashrc
+    ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.promptline.sh ~/.promptline.sh
+    echo "source ~/.promptline.sh" >> ~/.bashrc
 }
 
 # shellcheck disable=SC2068
