@@ -58,11 +58,20 @@ function __promptline_vcs_branch {
   # git
   if hash git 2>/dev/null; then
     if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
-      branch=${branch##*/}
+      branch=${branch/refs\/heads\//}
       printf "%s" "${branch_symbol}${branch:-unknown}"
       return
     fi
   fi
+
+  # mercurial
+  if hash hg 2>/dev/null; then
+    if branch=$(hg branch 2>/dev/null); then
+      printf "%s" "${branch_symbol}${branch:-unknown}"
+      return
+    fi
+  fi
+
   return 1
 }
 function __promptline_cwd {
