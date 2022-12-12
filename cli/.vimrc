@@ -19,12 +19,15 @@ Plugin 'sainnhe/edge'
 Plugin 'edkolev/promptline.vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 set autoread
+
+autocmd VimEnter * NERDTree
 
 au BufNewFile,BufRead .eslintrc set filetype=json
 au BufNewFile,BufRead .babelrc set filetype=json
