@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "format:check": "prettier --check .",
@@ -43,7 +43,7 @@
     "open": "^8.4.0",
     "prettier": "^2.7.1",
     "prettyjson": "^1.2.5",
-    "query-string": "^7.1.1",
+    "query-string": "^8.0.0",
     "ssh2-sftp-client": "^9.0.4",
     "swagger-ui-express": "^4.5.0",
     "xml-formatter": "^2.6.1"
