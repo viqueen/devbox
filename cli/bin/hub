@@ -2,22 +2,13 @@
 
 "use strict";
 
-const CliRestClient = require("../lib/cli-rest-client");
-
-const restClient = new CliRestClient({
-    name: "Docker Hub",
-    host: "hub.docker.com",
-    apiUrl: "/v2/repositories",
-    json: true,
-    ssl: true,
-    context: "/",
-    handler: function (json) {
-        const data = json.results
-            .map(item => item.name);
-        console.log(data);
-    }
+const AxiosCli = require("../lib/axios-cli");
+const dotenv = require("dotenv");
+const axiosCli = new AxiosCli({
+    baseURL: 'https://hub.docker.com/v2/repositories',
+    name: 'Docker Hub API',
 });
 
-const program = restClient.program();
-program.version("1.0.0");
+const program = axiosCli.program();
+program.version('1.0.0');
 program.parse(process.argv);
