@@ -26,8 +26,6 @@ filetype plugin indent on    " required
 
 set autoread
 
-autocmd VimEnter * NERDTree
-
 au BufNewFile,BufRead .eslintrc set filetype=json
 au BufNewFile,BufRead .babelrc set filetype=json
 au BufNewFile,BufRead .solicitoriorc set filetype=json
