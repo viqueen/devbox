@@ -6,19 +6,19 @@
 #
 
 __version_number() {
-    echo $(grep "^# @VERSION " $0 | cut -c 11-)
+    grep "^# @VERSION " "$0" | cut -c 11-
 }
 
 __version() {
-    echo " Version: `basename $0` $(__version_number)"
+    echo " Version: $(basename "$0") $(__version_number)"
 }
 
 __sourced_commands() {
-    eval SOURCES=($(printf "%q\n" "${BASH_SOURCE[@]}" | sort -u))
-    for item in ${SOURCES[@]}
+    SOURCES=($(printf "%q\n" "${BASH_SOURCE[@]}" | sort -u))
+    for item in "${SOURCES[@]}"
     do
         echo "** SOURCE : $item"
-        echo "$(grep "^# @COMMAND " ${item} | cut -c 11-)"
+        grep "^# @COMMAND " ${item} | cut -c 11-
         echo ""
     done
 }
@@ -26,7 +26,7 @@ __sourced_commands() {
 __help() {
     __version
     echo ""
-    echo " Usage: `basename $0` [options] [commands]"
+    echo " Usage: $(basename $0) [options] [commands]"
     echo ""
     echo " Commands:"
     echo ""
@@ -44,6 +44,8 @@ while getopts "Vh-" opt; do
         V)
             __version
             exit 0
+        ;;
+        *)
         ;;
     esac
 done
