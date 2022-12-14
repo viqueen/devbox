@@ -162,6 +162,42 @@ function __promptline {
   else
     local noprint='\[' end_noprint='\]'
   fi
+
+  # viqueen
+  local DARK_ORANGE_BG="48;5;166"
+  local DARK_ORANGE_FG="38;5;166"
+  local LIGHT_ORANGE_FG="38;5;220"
+
+  # pynhq
+  local DARK_PURPLE_BG="48;5;55"
+  local DARK_PURPLE_FG="38;5;55"
+  local LIGHT_PURPLE_FG="38;5;135"
+
+  local DARK_GREEN_BG="48;5;35"
+  local DARK_GREEN_FG="38;5;35"
+  local LIGHT_GREEN_FG="38;5;231"
+
+  # default
+  local a_host_bg=${DARK_GREEN_BG}
+  local a_host_fg=${LIGHT_GREEN_FG}
+  local a_host_sep=${DARK_GREEN_FG}
+
+  local workspaces_root=$(git config devbox.workspaces.root)
+  if [[ -n ${workspaces_root} ]]; then
+    local current_dir=$(pwd)
+    # viqueen workspace
+    if [[ ${current_dir} =~ ^(${workspaces_root}/viqueen/?(.*))$ ]]; then
+      local a_host_bg=${DARK_ORANGE_BG}
+      local a_host_fg=${LIGHT_ORANGE_FG}
+      local a_host_sep=${DARK_ORANGE_FG}
+    # pynhq workspace
+    elif [[ ${current_dir} =~ ^(${workspaces_root}/pynhq/?(.*))$ ]]; then
+      local a_host_bg=${DARK_PURPLE_BG}
+      local a_host_fg=${LIGHT_PURPLE_FG}
+      local a_host_sep=${DARK_PURPLE_FG}
+    fi
+  fi
+
   local wrap="$noprint$esc" end_wrap="$end_esc$end_noprint"
   local space=" "
   local sep=""
@@ -171,9 +207,9 @@ function __promptline {
   local reset="${wrap}0${end_wrap}"
   local reset_bg="${wrap}49${end_wrap}"
   local green_fg="${wrap}33;0;32${end_wrap}"
-  local a_fg="${wrap}38;5;220${end_wrap}"
-  local a_bg="${wrap}48;5;166${end_wrap}"
-  local a_sep_fg="${wrap}38;5;166${end_wrap}"
+  local a_fg="${wrap}${a_host_fg}${end_wrap}"
+  local a_bg="${wrap}${a_host_bg}${end_wrap}"
+  local a_sep_fg="${wrap}${a_host_sep}${end_wrap}"
   local b_fg="${wrap}38;5;231${end_wrap}"
   local b_bg="${wrap}48;5;31${end_wrap}"
   local b_sep_fg="${wrap}38;5;31${end_wrap}"

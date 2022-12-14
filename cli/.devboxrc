@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+function cd_workspace() {
+  cd "$@" && source ~/.promptline.sh
+}
+
 alias ll='ls -la'
 alias please=sudo
 alias wl='wc -l'
@@ -7,6 +11,7 @@ alias move=mv
 alias maven=mvn
 alias awsl=awslocal
 alias cats='pygmentize -g'
+alias cd='cd_workspace'
 
 # overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
 export PS1='\u@\h\w'
