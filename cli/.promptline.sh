@@ -173,16 +173,30 @@ function __promptline {
   local DARK_PURPLE_FG="38;5;55"
   local LIGHT_PURPLE_FG="38;5;135"
 
+  # home - safe
   local DARK_GREEN_BG="48;5;35"
   local DARK_GREEN_FG="38;5;35"
   local LIGHT_GREEN_FG="38;5;231"
 
+  # where are you ? not safe ... no rm -rf please
+  local DARK_RED_BG="48;5;124"
+  local DARK_RED_FG="38;5;124"
+  local LIGHT_RED_FG="38;5;231"
+
   # default
-  local a_host_bg=${DARK_GREEN_BG}
-  local a_host_fg=${LIGHT_GREEN_FG}
-  local a_host_sep=${DARK_GREEN_FG}
+  local a_host_bg=${DARK_RED_BG}
+  local a_host_fg=${LIGHT_RED_FG}
+  local a_host_sep=${DARK_RED_FG}
 
   local workspaces_root=$(git config devbox.workspaces.root)
+  local current_dir=$(pwd)
+
+  if [[ ${current_dir} =~ ^(${HOME}/?(.*))$ ]]; then
+    local a_host_bg=${DARK_GREEN_BG}
+    local a_host_fg=${LIGHT_GREEN_FG}
+    local a_host_sep=${DARK_GREEN_FG}
+  fi
+
   if [[ -n ${workspaces_root} ]]; then
     local current_dir=$(pwd)
     # viqueen workspace
