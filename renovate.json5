@@ -13,6 +13,11 @@
       addLabels: ["patch"],
       commitMessagePrefix: "[patch-upgrades]",
     },
+    {
+      // converted to modules, do not migrate to it yet
+      matchPackageNames: ["query-string"],
+      allowedVersions: "<8.0.0"
+    }
   ],
   major: {
     bumpVersion: "major",
