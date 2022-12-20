@@ -1,9 +1,0 @@
-version: "3.8"
-services:
-  localstack:
-    image: "adobe/s3mock:2.1.36"
-    container_name: adobe_s3mock
-    ports:
-      - "9090:9090"
-    environment:
-      - initialBuckets=local-dev
