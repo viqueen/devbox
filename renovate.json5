@@ -16,8 +16,8 @@
     {
       // converted to modules, do not migrate to it yet
       matchPackageNames: ["query-string"],
-      allowedVersions: "<8.0.0"
-    }
+      allowedVersions: "<8.0.0",
+    },
   ],
   major: {
     bumpVersion: "major",
