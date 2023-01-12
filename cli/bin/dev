@@ -29,8 +29,8 @@ addkey() {
 
 # @COMMAND audit [size?]                    checks for folders larger than 500MB in the current directory
 audit() {
-    max=$(_default '500000')
-    du -k * | awk "\$1 > $max" | sort -nr
+  max=${1:-"500000"}
+  du -k * | awk "\$1 > $max" | sort -nr
 }
 
 # @COMMAND portid [port]                    displays process listening on target port
