@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/viqueen/devbox#readme",
   "devDependencies": {
-    "axios": "^1.1.3",
+    "axios": "^1.3.0",
     "chalk": "^5.1.2",
     "chance": "^1.1.8",
     "commander": "^10.0.0",
