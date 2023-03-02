@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+location=$(git workspace -w pynhq -s "pyn" -dl)
+cd "${location}" || exit
