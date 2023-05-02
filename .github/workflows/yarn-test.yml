@@ -9,12 +9,12 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 17
-      - run: npm ci
-      - run: npm run format:check
+          node-version: 18
+      - run: yarn
+      - run: yarn format:check
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
