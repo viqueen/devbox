@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import axios, { AxiosInstance } from 'axios';
-import * as queryString from 'query-string';
+import * as queryString from 'querystring';
 
 const collect = (value: string, data: string[]) => {
     data.push(value);
