@@ -2,11 +2,6 @@ import { Command } from 'commander';
 import axios, { AxiosInstance } from 'axios';
 import * as queryString from 'query-string';
 
-interface AxiosCliProps {
-    name: string;
-    baseURL: string;
-}
-
 const collect = (value: string, data: string[]) => {
     data.push(value);
     return data;
@@ -39,6 +34,14 @@ const makeDataObject = (
     return Object.assign({}, fromBase, extractParameters(fromOptions));
 };
 
+interface AxiosCliProps {
+    name: string;
+    baseURL: string;
+    auth: {
+        bearerToken: () => Promise<string | undefined>;
+    };
+}
+
 class AxiosCli {
     private readonly client: AxiosInstance;
     constructor(private readonly props: AxiosCliProps) {
@@ -61,12 +64,17 @@ class AxiosCli {
                 )
                 .action(async (parts, options) => {
                     const query = makeDataObject({}, options.query);
+                    const token = await this.props.auth.bearerToken();
+                    const authHeaders = token
+                        ? { Authorization: `Bearer ${token}` }
+                        : {};
                     this.client
                         .request({
                             method,
                             url: `${parts.join('/')}?${queryString.stringify(
                                 query
-                            )}`
+                            )}`,
+                            headers: authHeaders
                         })
                         .then(({ data }) => console.info(JSON.stringify(data)))
                         .catch((error) => {
