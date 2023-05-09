@@ -1,21 +1,15 @@
-#! /usr/bin/env node
-
-'use strict'
-
-const AxiosOauthClient = require("../lib/axios-oauth-client");
-const dotenv = require("dotenv");
-const axios = require("axios");
-const qs = require("querystring");
+import { AxiosOauthClient } from '../clients/axios-oauth-client';
+import { envConfig } from '../clients/env-config';
+import axios from 'axios';
+import * as queryString from 'querystring';
 
 const oauthClient = new AxiosOauthClient({
     name: 'spotify',
     authorizeUrl: 'https://accounts.spotify.com/authorize',
     grantUrl: 'https://accounts.spotify.com/api/token',
-    clientId: dotenv.config().parsed?.SPOTIFY_CLIENT_ID,
-    clientSecret: dotenv.config().parsed?.SPOTIFY_CLIENT_SECRET,
-    scopes: [
-        'user-read-recently-played'
-    ]
+    clientId: envConfig.SPOTIFY_CLIENT_ID,
+    clientSecret: envConfig.SPOTIFY_CLIENT_SECRET,
+    scopes: ['user-read-recently-played']
 });
 
 const recentlyPlayed = async () => {
@@ -28,7 +22,7 @@ const recentlyPlayed = async () => {
     });
     const query = { limit: 50 };
     const { data } = await client.request({
-        url: `/me/player/recently-played?${qs.stringify(query)}`,
+        url: `/me/player/recently-played?${queryString.stringify(query)}`,
         method: 'GET'
     });
 
@@ -39,12 +33,10 @@ const recentlyPlayed = async () => {
         const time = jsDate.toLocaleTimeString('AU');
         return {
             trackName: item.track.name,
-            artists: item.track.artists.map(a => a.name),
+            artists: item.track.artists.map((a) => a.name),
             playedAt: { date, time }
-        }
+        };
     });
-}
+};
 
 recentlyPlayed().then(console.table).catch(console.error);
-
-

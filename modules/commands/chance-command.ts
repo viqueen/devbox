@@ -1,13 +1,14 @@
-#! /usr/bin/env node
+import { Command } from 'commander';
+import Chance from 'chance';
 
-const program = require('commander');
-const Chance = require('chance');
-
+const program = new Command();
 const chance = new Chance();
 
-const text = ['paragraph', 'text', 'sentence']
+const text = ['paragraph', 'text', 'sentence'];
 const include = [...text];
-const actions = Object.keys(Chance.prototype).filter(v => include.includes(v));
+const actions = Object.keys(Chance.prototype).filter((v) =>
+    include.includes(v)
+);
 
 actions.forEach((action) => {
     program
@@ -15,9 +16,8 @@ actions.forEach((action) => {
         .description(`get random ${action}`)
         .action(() => {
             console.info(chance[action]());
-        })
+        });
 });
 
 program.version('1.0.0');
 program.parse(process.argv);
-
