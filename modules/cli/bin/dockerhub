@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
 
 "${VIQUEEN_DEVBOX_HOME}"/node_modules/.bin/ts-node \
-  "${VIQUEEN_DEVBOX_HOME}"/modules/commands/github-command.ts \
+  "${VIQUEEN_DEVBOX_HOME}"/modules/commands/docker-hub-command.ts \
   "$@"
