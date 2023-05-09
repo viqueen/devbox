@@ -29,7 +29,8 @@ const spotifyCommand = new AxiosCli({
             });
             return response.data.access_token;
         }
-    }
+    },
+    headers: {}
 });
 const program = spotifyCommand.program();
 program.version('1.0.0');

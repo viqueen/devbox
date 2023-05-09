@@ -3,7 +3,8 @@ import { AxiosCli } from '../clients/axios-cli';
 const githubCommand = new AxiosCli({
     baseURL: 'https://api.github.com',
     name: 'GitHub API',
-    auth: { bearerToken: async () => undefined }
+    auth: { bearerToken: async () => undefined },
+    headers: {}
 });
 
 const program = githubCommand.program();

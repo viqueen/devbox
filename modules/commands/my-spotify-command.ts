@@ -16,7 +16,8 @@ const mySpotifyCommand = new AxiosCli({
     baseURL: 'https://api.spotify.com/v1/me',
     auth: {
         bearerToken: async () => oauthClient.accessToken()
-    }
+    },
+    headers: {}
 });
 
 const program = mySpotifyCommand.program();

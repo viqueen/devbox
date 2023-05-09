@@ -6,7 +6,8 @@ const sendgridCommand = new AxiosCli({
     baseURL: 'https://api.sendgrid.com',
     auth: {
         bearerToken: async () => envConfig.SENDGRID_TOKEN
-    }
+    },
+    headers: {}
 });
 
 const program = sendgridCommand.program();

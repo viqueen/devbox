@@ -41,6 +41,7 @@ interface AxiosCliProps {
     auth: {
         bearerToken: () => Promise<string | undefined>;
     };
+    headers: Record<string, string>;
 }
 
 class AxiosCli {
@@ -75,7 +76,7 @@ class AxiosCli {
                             url: `${parts.join('/')}?${queryString.stringify(
                                 query
                             )}`,
-                            headers: authHeaders
+                            headers: { ...authHeaders, ...this.props.headers }
                         })
                         .then(({ data }) => console.info(JSON.stringify(data)))
                         .catch((error) => {

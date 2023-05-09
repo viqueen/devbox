@@ -6,7 +6,8 @@ const slackCommand = new AxiosCli({
     baseURL: 'https://slack.com/api',
     auth: {
         bearerToken: async () => envConfig.SLACK_TOKEN
-    }
+    },
+    headers: {}
 });
 
 const program = slackCommand.program();
