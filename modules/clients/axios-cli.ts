@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import axios, { AxiosInstance } from 'axios';
 import * as queryString from 'querystring';
+import { exec } from 'child_process';
 
 const collect = (value: string, data: string[]) => {
     data.push(value);
@@ -89,6 +90,39 @@ class AxiosCli {
                         });
                 });
         });
+
+        _program
+            .command('ab [parts...]')
+            .description('runs apache benchmark on resources')
+            .option('-q, --query [value]', 'set the request query', collect, [])
+            .option('-N, --number [value]', 'set the number of requests', '100')
+            .option(
+                '-C, --concurrency [value]',
+                'set the number of concurrent requests',
+                '10'
+            )
+            .option('-M, --method [name]', 'set the request method', 'GET')
+            .action(async (parts, options) => {
+                const query = makeDataObject({}, options.query);
+                const url = `${this.props.baseURL}/${parts.join(
+                    '/'
+                )}?${queryString.stringify(query)}`;
+                const token = await this.props.auth.bearerToken();
+                const abArgs = [
+                    'ab',
+                    `-n ${options.number}`,
+                    `-c ${options.concurrency}`,
+                    `-m ${options.method}`,
+                    `-H 'Content-Type: application/json'`,
+                    `-H 'Authorization: Bearer ${token}`,
+                    `-v 5`,
+                    `'${url}'`
+                ];
+                const ab = exec(abArgs.join(' '));
+                ab.stdout?.pipe(process.stdout);
+                ab.stderr?.pipe(process.stderr);
+            });
+
         return _program;
     }
 }
