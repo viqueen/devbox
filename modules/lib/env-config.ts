@@ -8,6 +8,7 @@ interface EnvConfig {
     SLACK_TOKEN: string;
     SPOTIFY_CLIENT_ID: string;
     SPOTIFY_CLIENT_SECRET: string;
+    BITBUCKET_CLOUD_TOKEN: string;
 }
 
 const parsedConfig: unknown =

@@ -1,5 +1,5 @@
-import { AxiosCli } from '../clients/axios-cli';
-import { envConfig } from '../clients/env-config';
+import { AxiosCli } from '../lib/axios-cli';
+import { envConfig } from '../lib/env-config';
 
 const slackCommand = new AxiosCli({
     name: 'Slack API',

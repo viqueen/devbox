@@ -1,4 +1,4 @@
-import { AxiosCli } from '../clients/axios-cli';
+import { AxiosCli } from '../lib/axios-cli';
 
 const linkedinCommand = new AxiosCli({
     name: 'LinkedIn API',

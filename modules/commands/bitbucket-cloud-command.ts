@@ -1,10 +1,11 @@
-import { AxiosCli } from '../clients/axios-cli';
+import { AxiosCli } from '../lib/axios-cli';
+import { envConfig } from '../lib/env-config';
 
 const bitbucketCloudCommand = new AxiosCli({
     name: 'Bitbucket Cloud API',
     baseURL: 'https://api.bitbucket.org/2.0',
     auth: {
-        bearerToken: async () => undefined
+        bearerToken: async () => envConfig.BITBUCKET_CLOUD_TOKEN
     },
     headers: {}
 });

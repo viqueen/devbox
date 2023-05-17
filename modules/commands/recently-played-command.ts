@@ -1,5 +1,5 @@
-import { AxiosOauthClient } from '../clients/axios-oauth-client';
-import { envConfig } from '../clients/env-config';
+import { AxiosOauthClient } from '../lib/axios-oauth-client';
+import { envConfig } from '../lib/env-config';
 import axios from 'axios';
 import * as queryString from 'querystring';
 
@@ -26,14 +26,14 @@ const recentlyPlayed = async () => {
         method: 'GET'
     });
 
-    return data.items.map((item) => {
+    return data.items.map((item: any) => {
         // noinspection JSUnresolvedVariable
         const jsDate = new Date(item.played_at);
         const date = jsDate.toLocaleDateString('AU');
         const time = jsDate.toLocaleTimeString('AU');
         return {
             trackName: item.track.name,
-            artists: item.track.artists.map((a) => a.name),
+            artists: item.track.artists.map((a: any) => a.name),
             playedAt: { date, time }
         };
     });

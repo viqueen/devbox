@@ -1,6 +1,6 @@
-import { AxiosCli } from '../clients/axios-cli';
-import { AxiosOauthClient } from '../clients/axios-oauth-client';
-import { envConfig } from '../clients/env-config';
+import { AxiosCli } from '../lib/axios-cli';
+import { AxiosOauthClient } from '../lib/axios-oauth-client';
+import { envConfig } from '../lib/env-config';
 
 const oauthClient = new AxiosOauthClient({
     name: 'Spotify',

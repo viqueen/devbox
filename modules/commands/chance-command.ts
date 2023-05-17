@@ -15,7 +15,8 @@ actions.forEach((action) => {
         .command(action)
         .description(`get random ${action}`)
         .action(() => {
-            console.info(chance[action]());
+            const doit = (chance as any)[action];
+            console.info(doit.bind(chance).call());
         });
 });
 

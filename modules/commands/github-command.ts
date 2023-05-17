@@ -1,4 +1,4 @@
-import { AxiosCli } from '../clients/axios-cli';
+import { AxiosCli } from '../lib/axios-cli';
 
 const githubCommand = new AxiosCli({
     baseURL: 'https://api.github.com',

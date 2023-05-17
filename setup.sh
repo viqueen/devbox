@@ -4,7 +4,7 @@ VIQUEEN_DEVBOX_HOME=$(cd "$(dirname "$0")" && pwd -P)
 
 function config_box() {
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> ~/.bashrc
-    echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/cli/bin:~/bin" >> ~/.bashrc
+    echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/modules/cli/bin:${VIQUEEN_DEVBOX_HOME}/cli/bin:~/bin" >> ~/.bashrc
     ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.devboxrc ~/.devboxrc
     echo "source ~/.devboxrc" >> ~/.bashrc
 }

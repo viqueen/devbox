@@ -1,4 +1,4 @@
-import { AxiosCli } from '../clients/axios-cli';
+import { AxiosCli } from '../lib/axios-cli';
 
 const dockerHubCommand = new AxiosCli({
     baseURL: 'https://hub.docker.com/v2/repositories',
