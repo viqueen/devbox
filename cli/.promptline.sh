@@ -204,8 +204,8 @@ function __promptline {
       local a_host_bg=${DARK_ORANGE_BG}
       local a_host_fg=${LIGHT_ORANGE_FG}
       local a_host_sep=${DARK_ORANGE_FG}
-    # pynhq workspace
-    elif [[ ${current_dir} =~ ^(${workspaces_root}/pynhq/?(.*))$ ]]; then
+    # labset workspace
+    elif [[ ${current_dir} =~ ^(${workspaces_root}/labset/?(.*))$ ]]; then
       local a_host_bg=${DARK_PURPLE_BG}
       local a_host_fg=${LIGHT_PURPLE_FG}
       local a_host_sep=${DARK_PURPLE_FG}
