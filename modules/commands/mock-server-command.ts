@@ -18,9 +18,6 @@ import * as path from 'path';
 
 import express, { Request, Response } from 'express';
 import minimist from 'minimist';
-import morgan from 'morgan';
-import prettyJson from 'prettyjson';
-
 
 import { expressMorganLogging } from '../lib/express-morgan-logging';
 

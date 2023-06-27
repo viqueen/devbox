@@ -16,9 +16,9 @@
 import { exec } from 'child_process';
 import * as queryString from 'querystring';
 
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance } from 'axios';
 import { Command } from 'commander';
-
 
 const collect = (value: string, data: string[]) => {
     data.push(value);
