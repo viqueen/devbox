@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "chalk": "4",
+    "chalk": "5",
     "chance": "^1.1.11",
     "commander": "^11.0.0",
     "concat-stream": "^2.0.0",
