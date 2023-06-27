@@ -1,4 +1,4 @@
-name: devbox Test
+name: devbox Build and Test
 on:
   push:
     branches:
@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: "yarn"
       - run: yarn
       - run: yarn format:check
       - name: SonarCloud Scan
