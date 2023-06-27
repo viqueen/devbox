@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "format:check": "prettier --check .",
-    "format": "prettier --check --write ."
+    "format": "prettier --check --write .",
+    "lint": "eslint modules/ --ext .ts,.tsx,.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/viqueen/devbox#readme",
   "devDependencies": {
+    "@labset-eslint/eslint-plugin": "^1.3.0",
     "@types/chance": "^1.1.3",
     "@types/concat-stream": "^2.0.0",
     "@types/cors": "^2.8.13",
@@ -32,7 +34,11 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.1.7",
     "@types/prettyjson": "^0.0.30",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
     "datauri": "^4.1.0",
+    "eslint": "^8.43.0",
+    "eslint-plugin-import": "^2.27.5",
     "gm": "^1.25.0",
     "husky": "^8.0.1",
     "labset-config-js": "^1.0.0",
