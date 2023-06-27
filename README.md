@@ -6,13 +6,13 @@
 
 ```bash
 # comes with node 18.12.1
-docker run -it --entrypoint=/bin/bash viqueen/teknologi:18.12.1-slim
+docker run -it --entrypoint=/bin/bash viqueen/devbox:main
 
 # mount it
 docker run --name <name_it> --volume <target_dir>:/sources/<target_dir> \
     -it --entrypoint=/bin/bash \
     -w=/sources/<target_dir>  \
-    viqueen/teknologi:18.12.1-slim
+    viqueen/devbox:main
 ```
 
 ## Setup and Configure

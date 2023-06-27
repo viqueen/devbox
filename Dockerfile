@@ -12,6 +12,8 @@ USER nonroot
 # NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
 
+
+
 # devbox
 RUN mkdir -p ~/sources \
     && git clone --recursive https://github.com/viqueen/devbox.git ~/sources/devbox \

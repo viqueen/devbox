@@ -29,8 +29,3 @@ export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m"
 git config \
     --global alias.lg \
     "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-# node
-
-nvm alias default node
-nvm use default
