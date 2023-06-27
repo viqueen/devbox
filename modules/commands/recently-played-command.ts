@@ -20,8 +20,6 @@ import axios from 'axios';
 import { AxiosOauthClient } from '../lib/axios-oauth-client';
 import { envConfig } from '../lib/env-config';
 
-
-
 const oauthClient = new AxiosOauthClient({
     name: 'spotify',
     authorizeUrl: 'https://accounts.spotify.com/authorize',

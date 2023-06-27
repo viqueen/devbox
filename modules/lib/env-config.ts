@@ -17,7 +17,6 @@ import path from 'path';
 
 import dotenv from 'dotenv';
 
-
 interface EnvConfig {
     NOTION_TOKEN: string;
     NOTION_DATABASE_ID: string;

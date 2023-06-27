@@ -22,7 +22,6 @@ import * as queryString from 'querystring';
 import axios from 'axios';
 import express from 'express';
 
-
 interface AxiosOauthClientProps {
     name: string;
     clientId: string;

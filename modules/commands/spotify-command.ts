@@ -20,8 +20,6 @@ import axios from 'axios';
 import { AxiosCli } from '../lib/axios-cli';
 import { envConfig } from '../lib/env-config';
 
-
-
 const spotifyCommand = new AxiosCli({
     name: 'Spotify API',
     baseURL: 'https://api.spotify.com/v1',
