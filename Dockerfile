@@ -4,6 +4,11 @@ ARG NVM_VERSION=v0.39.3
 
 RUN apk add bash git vim
 
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+USER nonroot
+
 # NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
 
