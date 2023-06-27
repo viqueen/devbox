@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build-docker:
     runs-on: ubuntu-20.04
