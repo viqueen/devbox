@@ -21,4 +21,5 @@ RUN mkdir -p ~/sources \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
+    && ./setup.sh config_nvm \
     && yarn
