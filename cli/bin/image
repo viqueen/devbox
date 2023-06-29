@@ -39,6 +39,9 @@ function build() {
     if [[ -f "${target}/confluence.Dockerfile" ]]; then
       sed "s/\${CONFLUENCE_VERSION}/${baseVersion}/g" "${target}"/confluence.Dockerfile > "${target}"/Dockerfile
     fi
+    if [[ -f "${target}/golang.Dockerfile" ]]; then
+      sed "s/\${GO_VERSION}/${baseVersion}/g" "${target}"/golang.Dockerfile > "${target}"/Dockerfile
+    fi
 
     shift
     shift
