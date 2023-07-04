@@ -76,3 +76,4 @@ docker-images/**/Dockerfile
 
 .localstack
 .sftp
+.neo4j
