@@ -18,6 +18,10 @@
       matchPackageNames: ["query-string"],
       allowedVersions: "<8.0.0",
     },
+    {
+      matchPackageNames: ["chalk"],
+      allowedVersions: "<5"
+    }
   ],
   major: {
     bumpVersion: "major",
