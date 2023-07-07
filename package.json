@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -45,7 +45,7 @@
     "open": "^9.0.0",
     "prettier": "^2.8.2",
     "ssh2-sftp-client": "^9.0.4",
-    "swagger-ui-express": "^4.6.2",
+    "swagger-ui-express": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
