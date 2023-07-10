@@ -86,7 +86,7 @@ function __promptline_cwd {
   local cwd="${PWD/#$HOME/$tilde}"
 
   # get first char of the path, i.e. tilde or slash
-  [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
+  [[ -n ${ZSH_VERSION-} ]] && first_char=${cwd[1,1]} || first_char=${cwd::1}
 
   # remove leading tilde
   cwd="${cwd#\~}"
@@ -168,7 +168,7 @@ function __promptline {
   local DARK_ORANGE_FG="38;5;166"
   local LIGHT_ORANGE_FG="38;5;220"
 
-  # pynhq
+  # labset
   local DARK_PURPLE_BG="48;5;55"
   local DARK_PURPLE_FG="38;5;55"
   local LIGHT_PURPLE_FG="38;5;135"
@@ -188,7 +188,7 @@ function __promptline {
   local a_host_fg=${LIGHT_RED_FG}
   local a_host_sep=${DARK_RED_FG}
 
-  local workspaces_root=$(git config devbox.workspaces.root)
+  local workspaces_root=$(git config labset.workspaces.root)
   local current_dir=$(pwd)
 
   if [[ ${current_dir} =~ ^(${HOME}/?(.*))$ ]]; then
