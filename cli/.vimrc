@@ -19,6 +19,7 @@ Plugin 'sainnhe/edge'
 Plugin 'edkolev/promptline.vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
