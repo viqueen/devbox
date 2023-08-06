@@ -1,13 +1,10 @@
 #! /usr/bin/env bash
 
-_with_arguments (){
-    count=${1};
-    shift;
-    if [[ "$#" -lt ${count} ]]; then
-        echo "missing arguments, expected at least ${count} but received $#";
-        exit 1;
-    fi
-}
+#
+# @LICENSE  Apache-2.0
+# @AUTHOR   Hasnae R.
+# @VERSION  1.0.0
+#
 
 _join (){
     _with_arguments 1 "$@";
@@ -17,7 +14,12 @@ _join (){
     echo "${output:1}"
 }
 
-_with_arguments 1 "$@"
-repo=$(_join '-' "$@")
-location=$(git workspace -w safetyculture -s "${repo}" -dl)
-cd "${location}"
+if [[ -z $1 ]];
+then
+  sources_root=$(git config --get labset.workspaces.root)
+  cd "${sources_root}/safetyculture" || exit
+else
+  repo=$(_join '-' "$@")
+  location=$(git workspace -w safetyculture -s "${repo}" -dl)
+  cd "${location}" || exit
+fi
