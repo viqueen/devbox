@@ -1,18 +1,11 @@
 #! /usr/bin/env bash
-
 #
 # @LICENSE  Apache-2.0
 # @AUTHOR   Hasnae R.
 # @VERSION  1.0.0
 #
 
-_join (){
-    _with_arguments 1 "$@";
-    delim=$1;
-    shift;
-    output=$(printf -- "$delim%s" "${@}");
-    echo "${output:1}"
-}
+source util.sh
 
 if [[ -z $1 ]];
 then
