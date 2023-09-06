@@ -30,6 +30,7 @@ actions.forEach((action) => {
         .command(action)
         .description(`get random ${action}`)
         .action(() => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const doit = (chance as any)[action];
             console.info(doit.bind(chance).call());
         });
