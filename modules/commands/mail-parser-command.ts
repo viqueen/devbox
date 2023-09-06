@@ -15,7 +15,7 @@
  */
 import chalk from 'chalk';
 import concatStream from 'concat-stream';
-import {HeaderValue, simpleParser} from 'mailparser';
+import { HeaderValue, simpleParser } from 'mailparser';
 import moment from 'moment';
 
 const RECEIVED_PATTERN = /^(?<direction>by|from) (?<source>.*); (?<date>.*)$/;
@@ -24,9 +24,9 @@ const handleReceivedHeader = (received: HeaderValue | undefined) => {
     if (!received) return;
     let data: string[] = [];
     if (!Array.isArray(received)) {
-        data = [received as string]
+        data = [received as string];
     } else {
-        data = received as string[]
+        data = received as string[];
     }
     data.forEach((item: string) => {
         const matcher = item.match(RECEIVED_PATTERN);
