@@ -8,7 +8,7 @@ const prettyJson = require('prettyjson');
 const { exec } = require('child_process');
 
 const jsonOptions = {
-    numberColor: 'yellow',
+    numberColor: 'yellow'
 };
 
 function collect(val, memo) {
@@ -132,7 +132,7 @@ class RestClient {
                     `-H 'Authorization: ${authorization}'`,
                     // `-A '${program.username}:${program.secret}'`,
                     '-v 5',
-                    `'${url}'`,
+                    `'${url}'`
                 ];
                 const ab = exec(abArgs.join(' '));
                 ab.stdout.pipe(process.stdout);
@@ -169,7 +169,7 @@ class RestClient {
                     const headers = Object.assign({}, this.headers, {
                         'User-Agent': 'devbox-rest-client',
                         'Content-Type': 'application/json',
-                        Accept: 'application/json',
+                        Accept: 'application/json'
                     });
                     if (authorization) {
                         headers['Authorization'] = authorization;
@@ -180,7 +180,7 @@ class RestClient {
                             '/'
                         )}?${queryString.stringify(query)}`,
                         headers: headers,
-                        method: method,
+                        method: method
                     };
                     if (program.port) {
                         settings['port'] = program.port;
