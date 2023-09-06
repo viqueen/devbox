@@ -29,7 +29,7 @@ class AxiosOauthClient {
             client_id: this.clientId,
             scope: this.scopes.join(' '),
             redirect_uri: this._redirectUri(),
-            state: this.state,
+            state: this.state
         };
         return `${this.authorizeUrl}?${qs.stringify(authQuery)}`;
     }
@@ -37,18 +37,18 @@ class AxiosOauthClient {
     async _grantAccess(code) {
         const client = axios.create({
             baseURL: this.grantUrl,
-            auth: { username: this.clientId, password: this.clientSecret },
+            auth: { username: this.clientId, password: this.clientSecret }
         });
         const query = {
             grant_type: 'authorization_code',
             code,
-            redirect_uri: this._redirectUri(),
+            redirect_uri: this._redirectUri()
         };
         return await client.request({
             url: '',
             method: 'POST',
             headers: { 'content-type': 'application/x-www-form-urlencoded' },
-            data: qs.stringify(query),
+            data: qs.stringify(query)
         });
     }
 

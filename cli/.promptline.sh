@@ -5,7 +5,10 @@ function __promptline_host {
   local only_if_ssh="0"
 
   if [ $only_if_ssh -eq 0 -o -n "${SSH_CLIENT}" ]; then
-    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+    if [[ -n ${ZSH_VERSION-} ]]; then print %m;
+    elif [[ -n ${FISH_VERSION-} ]]; then hostname -s;
+    elif [[ -n ${VIQUEEN_DEVBOX_MACHINE} ]]; then printf "${VIQUEEN_DEVBOX_MACHINE}";
+    else printf "%s" \\h; fi
   fi
 }
 
@@ -169,6 +172,7 @@ function __promptline {
   local LIGHT_ORANGE_FG="38;5;220"
 
   # labset
+  local main_org=${VIQUEEN_DEVBOX_MAIN_ORG:-labset}
   local DARK_PURPLE_BG="48;5;55"
   local DARK_PURPLE_FG="38;5;55"
   local LIGHT_PURPLE_FG="38;5;135"
@@ -205,7 +209,7 @@ function __promptline {
       local a_host_fg=${LIGHT_ORANGE_FG}
       local a_host_sep=${DARK_ORANGE_FG}
     # labset workspace
-    elif [[ ${current_dir} =~ ^(${workspaces_root}/labset/?(.*))$ ]]; then
+    elif [[ ${current_dir} =~ ^(${workspaces_root}/${main_org}/?(.*))$ ]]; then
       local a_host_bg=${DARK_PURPLE_BG}
       local a_host_fg=${LIGHT_PURPLE_FG}
       local a_host_sep=${DARK_PURPLE_FG}
