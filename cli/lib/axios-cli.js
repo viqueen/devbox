@@ -37,7 +37,7 @@ function makeDataObject(fromBase, fromOptions) {
 class AxiosCli {
     constructor(options) {
         this.client = axios.create({
-            baseURL: options.baseURL,
+            baseURL: options.baseURL
         });
         this.name = options.name;
         this.auth = options.auth || { bearerToken: async () => undefined };
@@ -68,7 +68,7 @@ class AxiosCli {
                             url: `/${parts.join('/')}?${queryString.stringify(
                                 query
                             )}`,
-                            headers,
+                            headers
                         })
                         .then(({ data }) => console.log(JSON.stringify(data)))
                         .catch((error) => {
@@ -78,7 +78,7 @@ class AxiosCli {
                                 status,
                                 statusText,
                                 headers,
-                                data,
+                                data
                             });
                         });
                 });
