@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -33,7 +33,7 @@
     "@types/minimist": "^1.2.2",
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.1.7",
-    "@types/prettyjson": "^0.0.30",
+    "@types/prettyjson": "^0.0.31",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "datauri": "^4.1.0",
