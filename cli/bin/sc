@@ -16,6 +16,15 @@ get() {
   cd "${location}" || exit
 }
 
+# @COMMAND start         start a development branch
+start() {
+  _with_arguments 2 "$@"
+  ticket=${1}
+  shift;
+  slug=$(_join "\055" "$@")
+  git checkout -b "${ticket}-${slug}"
+}
+
 _jiraIssueNumber() {
     branch_name=$(git rev-parse --abbrev-ref HEAD);
     prefix="noissue";
