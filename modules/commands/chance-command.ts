@@ -33,8 +33,8 @@ actions.forEach((action) => {
         .action((opts) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const doIt = (chance as any)[action];
-            const params = opts.words ? { words: opts.words } : {};
-            const output = doIt.bind(chance).call(params);
+            const params = opts.words ? { words: parseInt(opts.words) } : {};
+            const output = doIt.bind(chance)(params);
             console.info({
                 output,
                 length: output.length
