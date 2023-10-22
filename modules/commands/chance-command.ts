@@ -19,7 +19,7 @@ import { Command } from 'commander';
 const program = new Command();
 const chance = new Chance();
 
-const text = ['paragraph', 'text', 'sentence'];
+const text = ['paragraph', 'word', 'sentence'];
 const include = [...text];
 const actions = Object.keys(Chance.prototype).filter((v) =>
     include.includes(v)
@@ -29,10 +29,16 @@ actions.forEach((action) => {
     program
         .command(action)
         .description(`get random ${action}`)
-        .action(() => {
+        .option('-w, --words <words>')
+        .action((opts) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const doit = (chance as any)[action];
-            console.info(doit.bind(chance).call());
+            const doIt = (chance as any)[action];
+            const params = opts.words ? { words: opts.words } : {};
+            const output = doIt.bind(chance).call(params);
+            console.info({
+                output,
+                length: output.length
+            })
         });
 });
 
