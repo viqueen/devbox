@@ -38,7 +38,7 @@ actions.forEach((action) => {
             console.info({
                 output,
                 length: output.length
-            })
+            });
         });
 });
 
