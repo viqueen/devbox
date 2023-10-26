@@ -19,7 +19,7 @@ import { Command } from 'commander';
 const program = new Command();
 const chance = new Chance();
 
-const text = ['paragraph', 'word', 'sentence'];
+const text = ['paragraph', 'word', 'sentence', 'guid'];
 const include = [...text];
 const actions = Object.keys(Chance.prototype).filter((v) =>
     include.includes(v)
