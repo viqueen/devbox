@@ -50,7 +50,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "chalk": "4",
     "chance": "^1.1.11",
     "commander": "^11.0.0",
