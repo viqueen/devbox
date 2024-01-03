@@ -260,10 +260,10 @@
   dependencies:
     undici-types "~5.25.1"
 
-"@types/prettyjson@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@types/prettyjson/-/prettyjson-0.0.31.tgz#62fd118c0f6e541d59fb6c098e015dd60f0dd6bf"
-  integrity sha512-ioKUYBn2fqmeoG/1X6ss1iQJdpgluZR5q3BOm1+MAlTjv2VzvVJbExc++B/h+llUINY3KdB/DPaWsifFXoHeUQ==
+"@types/prettyjson@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/prettyjson/-/prettyjson-0.0.33.tgz#5d71a5e7e3ce3d0f923123abb99266688e0f19a8"
+  integrity sha512-hHZMkavT9OXFq8p6pTCiaREtPxMRfy9NMp+Qa4PWH0RINQjyh0crOhoqUFA/cvIZncpjBpdvxkoe7nmVbyBJXw==
 
 "@types/qs@*":
   version "6.9.11"
