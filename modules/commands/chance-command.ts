@@ -35,8 +35,10 @@ actions.forEach((action) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const doIt = (chance as any)[action];
             const wordParam = opts.words ? { words: parseInt(opts.words) } : {};
-            const versionParam = opts.version ? { version: parseInt(opts.version)} : {};
-            const output = doIt.bind(chance)({...wordParam, ...versionParam});
+            const versionParam = opts.version
+                ? { version: parseInt(opts.version) }
+                : {};
+            const output = doIt.bind(chance)({ ...wordParam, ...versionParam });
             console.info({
                 output,
                 length: output.length
