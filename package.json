@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "7.0.2",
+  "version": "8.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -42,7 +42,7 @@
     "gm": "^1.25.0",
     "husky": "^8.0.1",
     "labset-config-js": "^1.0.0",
-    "open": "^9.0.0",
+    "open": "^10.0.0",
     "prettier": "^3.0.0",
     "ssh2-sftp-client": "^9.0.4",
     "swagger-ui-express": "^5.0.0",
