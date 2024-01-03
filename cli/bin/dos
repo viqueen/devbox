@@ -28,7 +28,7 @@ program
 })
 .then(response => response.json())
 .then(data => console.log(data))
-`
+`,
     );
   });
 
@@ -52,7 +52,7 @@ program
 })
 .then(response => response.json())
 .then(data => console.log(data))
-`
+`,
     );
   });
 
