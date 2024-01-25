@@ -6,67 +6,74 @@ const Chance = require("chance");
 const program = new Command();
 const chance = new Chance();
 
-program.command('raw')
-    .option("-c, --count <count>", "with count", "100")
-    .option("-h, --headers <headers>", "with headers", "")
-    .option("-v, --values <values>", "with constant values", "")
-    .action((opts) => {
-      const count = parseInt(opts.count);
-      const headers = opts.headers.trim().split(",");
-      const values = opts.values.trim().split(",");
+program
+  .command("raw")
+  .option("-c, --count <count>", "with count", "100")
+  .option("-h, --headers <headers>", "with headers", "")
+  .option("-v, --values <values>", "with constant values", "")
+  .action((opts) => {
+    const count = parseInt(opts.count);
+    const headers = opts.headers.trim().split(",");
+    const values = opts.values.trim().split(",");
 
-      const valueMap = values.reduce((map, current) => {
-        const [key, value] = current.split("=");
-        map[key] = value;
-        return map;
-      }, {});
+    const valueMap = values.reduce((map, current) => {
+      const [key, value] = current.split("=");
+      map[key] = value;
+      return map;
+    }, {});
 
-      console.info(headers.join(","));
-      for (let index = 0; index < count; index++) {
-        const row = [];
-        headers.forEach((header) => {
-          const data = valueMap[header] ?? chance.guid();
-          row.push(data);
-        });
-        console.info(row.join(","));
+    console.info(headers.join(","));
+    for (let index = 0; index < count; index++) {
+      const row = [];
+      headers.forEach((header) => {
+        const data = valueMap[header] ?? chance.guid();
+        row.push(data);
+      });
+      console.info(row.join(","));
+    }
+  });
+
+program
+  .command("users")
+  .option("-c, --count <count>", "with count", "100")
+  .action((opts) => {
+    const count = parseInt(opts.count);
+
+    console.info("email,first_name,last_name");
+    for (let index = 0; index < count; index++) {
+      const email = chance.email();
+      const firstName = chance.first();
+      const lastName = chance.last();
+      console.info(`${email},"${firstName}","${lastName}"`);
+    }
+  });
+
+program
+  .command("hierarchy")
+  .option("-c, --count <count>", "with count", "100")
+  .option(
+    "-h, --headers <headers>",
+    "with headers",
+    "country,state,region,area,site",
+  )
+  .action((opts) => {
+    const count = parseInt(opts.count);
+    const headers = opts.headers.trim().split(",");
+
+    console.info(headers.join(","));
+
+    for (let index = 0; index < count; index++) {
+      const info = [];
+      headers.forEach((header) => {
+        const data = chance.guid();
+        info.push(data);
+      });
+      for (let part = 1; part < info.length; part++) {
+        const slice = info.slice(0, part);
+        console.info(slice.join(","));
       }
-    });
-
-program.command('users')
-    .option('-c, --count <count>', "with count", "100")
-    .action((opts) => {
-      const count = parseInt(opts.count)
-
-      console.info("email,first_name,last_name")
-      for (let index = 0; index < count; index++) {
-        const email = chance.email();
-        const firstName = chance.first();
-        const lastName = chance.last();
-        console.info(`${email},"${firstName}","${lastName}"`)
-      }
-    });
-
-program.command('hierarchy')
-    .option('-c, --count <count>', 'with count', "100")
-    .option('-h, --headers <headers>', 'with headers', "country,state,region,area,site")
-    .action((opts) => {
-        const count = parseInt(opts.count);
-        const headers = opts.headers.trim().split(',');
-
-        console.info(headers.join(','));
-
-        for (let index = 0; index < count; index++) {
-            const info = [];
-            headers.forEach((header) => {
-                const data = chance.guid()
-                info.push(data)
-            });
-            for (let part = 1; part < info.length; part++) {
-                const slice = info.slice(0, part);
-                console.info(slice.join(','))
-            }
-        }
-    });
+    }
+  });
 
 program.version("1.0.0");
 program.parse(process.argv);
