@@ -171,11 +171,17 @@ function __promptline {
   local DARK_ORANGE_FG="38;5;166"
   local LIGHT_ORANGE_FG="38;5;220"
 
-  # labset
-  local main_org=${VIQUEEN_DEVBOX_MAIN_ORG:-labset}
+  # primary org
+  local primary_org=${VIQUEEN_DEVBOX_PRIMARY_ORG:-safetyculture}
   local DARK_PURPLE_BG="48;5;55"
   local DARK_PURPLE_FG="38;5;55"
   local LIGHT_PURPLE_FG="38;5;135"
+
+  # secondary org
+  local secondary_org=${VIQUEEN_DEVBOX_SECONDARY_ORG:-labset}
+  local DARK_BLUE_BG="48;5;20"
+  local DARK_BLUE_FG="38;5;20"
+  local LIGHT_BLUE_FG="38;5;110"
 
   # home - safe
   local DARK_GREEN_BG="48;5;35"
@@ -208,11 +214,15 @@ function __promptline {
       local a_host_bg=${DARK_ORANGE_BG}
       local a_host_fg=${LIGHT_ORANGE_FG}
       local a_host_sep=${DARK_ORANGE_FG}
-    # labset workspace
-    elif [[ ${current_dir} =~ ^(${workspaces_root}/${main_org}/?(.*))$ ]]; then
+    # safetyculture workspace
+    elif [[ ${current_dir} =~ ^(${workspaces_root}/${primary_org}/?(.*))$ ]]; then
       local a_host_bg=${DARK_PURPLE_BG}
       local a_host_fg=${LIGHT_PURPLE_FG}
       local a_host_sep=${DARK_PURPLE_FG}
+    elif [[ ${current_dir} =~ ^(${workspaces_root}/${secondary_org}/?(.*))$ ]]; then
+      local a_host_bg=${DARK_BLUE_BG}
+      local a_host_fg=${LIGHT_BLUE_FG}
+      local a_host_sep=${DARK_BLUE_FG}
     fi
   fi
 
