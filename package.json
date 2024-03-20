@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "7.0.2",
+  "version": "8.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -53,7 +53,7 @@
     "axios": "^1.6.6",
     "chalk": "4",
     "chance": "^1.1.11",
-    "commander": "^11.0.0",
+    "commander": "^12.0.0",
     "concat-stream": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
