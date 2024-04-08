@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "7.0.2",
+  "version": "8.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "datauri": "^4.1.0",
-    "eslint": "^8.43.0",
+    "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.27.5",
     "gm": "^1.25.0",
     "husky": "^9.0.1",
