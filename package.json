@@ -42,6 +42,7 @@
     "gm": "^1.25.0",
     "husky": "^9.0.1",
     "labset-config-js": "^1.0.0",
+    "nope-validator": "^1.0.4",
     "open": "^10.0.3",
     "prettier": "^3.2.4",
     "ssh2-sftp-client": "^10.0.3",
