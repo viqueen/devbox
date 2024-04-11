@@ -1969,9 +1969,9 @@ lru-cache@^6.0.0:
     yallist "^4.0.0"
 
 mailparser@^3.6.6:
-  version "3.6.9"
-  resolved "https://registry.yarnpkg.com/mailparser/-/mailparser-3.6.9.tgz#3f9a4bb6b122ae1876fdde44941becca9ff38dc3"
-  integrity sha512-1fIDZlgN1NnuzmTSEUxkaViquXYkw5NbQehVc+kz55QRy98QgLdTtRSKv289Jy4NrCiDchRx6zAijB4HrPsvkA==
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/mailparser/-/mailparser-3.7.0.tgz#ca947db325dc907f9f0183a72e126145b802464f"
+  integrity sha512-yFo1+4r3gHhTcazVGCv3D/uX5VJyyrx4iWkzKtJh8mujYIUm92kpG5BjKpZIJgEoKcKxbJVd4CPs+IImE1sKlQ==
   dependencies:
     encoding-japanese "2.0.0"
     he "1.2.0"
