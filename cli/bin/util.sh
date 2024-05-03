@@ -16,3 +16,13 @@ _join() {
     output=$(printf -- "$delim%s" "${@}")
     echo "${output:1}"
 }
+
+# @COMMAND _jiraIssueNumber                    extracts JIRA issue number from branch name
+_jiraIssueNumber() {
+    branch_name=$(git rev-parse --abbrev-ref HEAD);
+    prefix="noissue";
+    if [[ ${branch_name} =~ ^(.+/)?([A-Za-z]+-[0-9]+)(-(.*))?$ ]]; then
+        prefix=${BASH_REMATCH[2]};
+    fi;
+    echo "${prefix}";
+}

@@ -25,15 +25,6 @@ start() {
   git checkout -b "${ticket}-${slug}"
 }
 
-_jiraIssueNumber() {
-    branch_name=$(git rev-parse --abbrev-ref HEAD);
-    prefix="noissue";
-    if [[ ${branch_name} =~ ^(.+/)?([A-Za-z]+-[0-9]+)(-(.*))?$ ]]; then
-        prefix=${BASH_REMATCH[2]};
-    fi;
-    echo "${prefix}";
-}
-
 commit() {
   message="${*}"
   issue_number=$(_jiraIssueNumber)
