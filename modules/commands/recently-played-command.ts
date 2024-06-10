@@ -43,6 +43,7 @@ const recentlyPlayed = async () => {
         method: 'GET'
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data.items.map((item: any) => {
         // noinspection JSUnresolvedVariable
         const jsDate = new Date(item.played_at);
@@ -50,6 +51,7 @@ const recentlyPlayed = async () => {
         const time = jsDate.toLocaleTimeString('AU');
         return {
             trackName: item.track.name,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             artists: item.track.artists.map((a: any) => a.name),
             playedAt: { date, time }
         };

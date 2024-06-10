@@ -23,5 +23,5 @@ const swaggerDocument = JSON.parse(jsonString);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
-    console.log(`swagger-express server started at http://localhost:${port}`);
+    console.log(`swagger-express server started at http://localhost:${port}/api-docs`);
 });

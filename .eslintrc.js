@@ -5,19 +5,19 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
         ecmaFeatures: {
-            modules: true,
-        },
+            modules: true
+        }
     },
     plugins: ['@typescript-eslint', 'import', '@labset-eslint'],
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:import/recommended',
+        'plugin:import/recommended'
     ],
     env: {
         browser: true,
-        node: true,
+        node: true
     },
     rules: {
         '@labset-eslint/license-notice': [
@@ -25,14 +25,14 @@ module.exports = {
             {
                 license: 'Apache-2.0',
                 copyRightYear: '2023',
-                copyRightName: 'Hasnae Rehioui',
-            },
+                copyRightName: 'Hasnae Rehioui'
+            }
         ],
         '@typescript-eslint/no-unused-vars': [
             'error',
             {
-                argsIgnorePattern: '_',
-            },
+                argsIgnorePattern: '_'
+            }
         ],
         'import/order': [
             'error',
@@ -40,17 +40,17 @@ module.exports = {
                 'newlines-between': 'always',
                 alphabetize: {
                     order: 'asc',
-                    caseInsensitive: true,
+                    caseInsensitive: true
                 },
-                pathGroupsExcludedImportTypes: ['builtin'],
-            },
-        ],
+                pathGroupsExcludedImportTypes: ['builtin']
+            }
+        ]
     },
     settings: {
         'import/resolver': {
             node: {
-                extensions: ['.js', '.ts', '.tsx'],
-            },
-        },
-    },
+                extensions: ['.js', '.ts', '.tsx']
+            }
+        }
+    }
 };

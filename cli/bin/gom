@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+source selfedit.sh
+source util.sh
+
+sync() {
+  _with_arguments 1 "$@"
+  go get github.com/${GITHUB_ORG}/${1}
+}
+
+eval "$@"
