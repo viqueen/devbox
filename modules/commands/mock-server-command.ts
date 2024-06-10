@@ -40,6 +40,7 @@ function register(code: number) {
     app.post(`/${code}`, statusHandler);
 
     const delayedStatusHandler = (request: Request, response: Response) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const ms = request.query.ms as any;
         const msDelay = isNaN(ms) ? 1000 : parseInt(ms);
         setTimeout(() => {

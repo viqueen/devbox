@@ -1,0 +1,40 @@
+#! /usr/bin/env bash
+#
+# @LICENSE  Apache-2.0
+# @AUTHOR   Hasnae R.
+# @VERSION  1.0.0
+#
+
+source selfedit.sh
+source util.sh
+
+# @COMMAND get          navigates to labset repo
+get() {
+  _with_arguments 1 "$@"
+  repo=$(_join '-' "$@")
+  location=$(git workspace -w labset -s "${repo}" -dl)
+  cd "${location}" || exit
+}
+
+# @COMMAND start         start a development branch
+start() {
+  _with_arguments 2 "$@"
+  ticket=${1}
+  shift;
+  slug=$(_join "\055" "$@")
+  git checkout -b "${ticket}-${slug}"
+}
+
+commit() {
+  message="${*}"
+  issue_number=$(_jiraIssueNumber)
+  git commit -m "[${issue_number}] ${message}"
+}
+
+eval "$@"
+
+if [[ -z $1 ]];
+then
+  sources_root=$(git config --get labset.workspaces.root)
+  cd "${sources_root}/labset" || exit
+fi
