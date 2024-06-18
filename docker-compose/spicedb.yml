@@ -1,0 +1,5 @@
+services:
+  playground:
+    image: ghcr.io/authzed/spicedb-playground:latest
+    ports:
+      - "3000:3000"
