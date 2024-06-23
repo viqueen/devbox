@@ -25,7 +25,7 @@ const collect = (value: string, data: string[]) => {
     return data;
 };
 
-const paramRegex = /(?<key>[a-zA-Z]+)=(?<value>.*)/;
+const paramRegex = /(?<key>[a-zA-Z_]+)=(?<value>.*)/;
 
 const extractParameters = (parameters: string[]) => {
     const query: Record<string, string | boolean> = {};
@@ -81,20 +81,29 @@ class AxiosCli {
                     collect,
                     []
                 )
+                .option(
+                    '-d, --data [value]',
+                    'set the request data',
+                    collect,
+                    []
+                )
                 .action(async (parts, options) => {
                     const query = makeDataObject({}, options.query);
                     const token = await this.props.auth.bearerToken();
                     const authHeaders = token
                         ? { Authorization: `Bearer ${token}` }
                         : {};
+                    const data = makeDataObject({}, options.data);
+                    const requestConfig = {
+                        method,
+                        url: `${parts.join('/')}?${queryString.stringify(
+                            query
+                        )}`,
+                        headers: { ...authHeaders, ...this.props.headers },
+                        data
+                    };
                     this.client
-                        .request({
-                            method,
-                            url: `${parts.join('/')}?${queryString.stringify(
-                                query
-                            )}`,
-                            headers: { ...authHeaders, ...this.props.headers }
-                        })
+                        .request(requestConfig)
                         .then(({ data }) => console.info(JSON.stringify(data)))
                         .catch((error) => {
                             const { status, statusText, headers, data } =

@@ -25,6 +25,7 @@ interface EnvConfig {
     SPOTIFY_CLIENT_ID: string;
     SPOTIFY_CLIENT_SECRET: string;
     BITBUCKET_CLOUD_TOKEN: string;
+    GITHUB_TOKEN: string;
 }
 
 const parsedConfig: unknown =

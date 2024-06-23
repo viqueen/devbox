@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 import { AxiosCli } from '../lib/axios-cli';
+import { envConfig } from '../lib/env-config';
 
 const githubCommand = new AxiosCli({
     baseURL: 'https://api.github.com',
     name: 'GitHub API',
-    auth: { bearerToken: async () => undefined },
+    auth: { bearerToken: async () => envConfig.GITHUB_TOKEN },
     headers: {}
 });
 
