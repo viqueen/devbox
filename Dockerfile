@@ -1,8 +1,8 @@
-FROM node:18.16.1-alpine
+FROM node:20-alpine
 
 ARG NVM_VERSION=v0.39.3
 
-RUN apk add bash git vim
+RUN apk --no-cache add bash git vim
 
 # NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
