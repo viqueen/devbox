@@ -3,7 +3,8 @@ FROM openjdk:${JDK_VERSION}
 ARG MAVEN_VERSION=3.6.3
 
 RUN apt-get update \
-    && apt-get install -y curl unzip wget
+    && apt-get install -y curl unzip wget \
+    && apt-get clean
 
 # maven
 RUN mkdir -p /usr/local/bin \

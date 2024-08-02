@@ -1,9 +1,10 @@
 FROM ubuntu:${UBUNTU_VERSION}
 
-MAINTAINER viqueen
+LABEL org.opencontainers.image.authors="viqueen"
 
 RUN apt-get update \
-    && apt-get install -y git vim curl
+    && apt-get install -y git vim curl \
+    && apt-get clean
 
 # nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash

@@ -1,7 +1,8 @@
 FROM golang:${GO_VERSION}
 
 RUN apt-get update \
-    && apt-get install -y git vim
+    && apt-get install -y git vim \
+    && apt-get clean
 
 # devbox, I still want my vim and prompts configured
 RUN mkdir -p ~/sources \

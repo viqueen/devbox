@@ -3,7 +3,8 @@ FROM openjdk:${JDK_VERSION}
 ARG MAVEN_VERSION=3.6.3
 ARG NODE_VERSION=v12.16.2
 
-RUN apk add curl wget bash nodejs nodejs-npm
+RUN apk add curl wget bash nodejs nodejs-npm \
+    && apk cache clean
 
 SHELL ["/bin/bash", "-c"]
 

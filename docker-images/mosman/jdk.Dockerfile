@@ -4,7 +4,8 @@ ARG MAVEN_VERSION=3.6.3
 ARG NODE_VERSION=v12.16.2
 
 RUN apt-get update \
-    && apt-get install -y curl unzip wget nodejs npm git
+    && apt-get install -y curl unzip wget nodejs npm git \
+    && apt-get clean
 
 SHELL ["/bin/bash", "-c"]
 

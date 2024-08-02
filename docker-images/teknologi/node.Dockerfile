@@ -3,7 +3,8 @@ FROM node:${NODE_VERSION}
 ARG NVM_VERSION=v0.39.1
 
 RUN apt-get update \
-    && apt-get install -y git vim curl unzip wget ruby
+    && apt-get install -y git vim curl unzip wget ruby \
+    && apt-get clean
 
 # NVM
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
