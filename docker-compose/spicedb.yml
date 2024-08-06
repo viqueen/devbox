@@ -3,3 +3,8 @@ services:
     image: ghcr.io/authzed/spicedb-playground:latest
     ports:
       - "3000:3000"
+  authzed:
+    image: authzed/spicedb:v1.35.0
+    ports:
+      - "50051:50051"
+    command: [ "serve-testing" ]
