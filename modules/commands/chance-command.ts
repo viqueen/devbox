@@ -15,6 +15,7 @@
  */
 import Chance from 'chance';
 import { Command } from 'commander';
+import clipboard from 'clipboardy';
 
 const program = new Command();
 const chance = new Chance();
@@ -39,6 +40,7 @@ actions.forEach((action) => {
                 ? { version: parseInt(opts.version) }
                 : {};
             const output = doIt.bind(chance)({ ...wordParam, ...versionParam });
+            clipboard.writeSync(output);
             console.info({
                 output,
                 length: output.length
