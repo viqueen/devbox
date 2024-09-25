@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -66,7 +66,7 @@
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
     "prettyjson": "^1.2.5",
-    "serve-static": "^1.16.1",
+    "serve-static": "^1.16.2",
     "xml-formatter": "^3.6.3"
   }
 }
