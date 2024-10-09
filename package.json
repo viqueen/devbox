@@ -51,7 +51,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "axios": "^1.6.6",
+    "axios": "^1.7.4",
     "chalk": "4",
     "chance": "^1.1.12",
     "commander": "^12.1.0",
