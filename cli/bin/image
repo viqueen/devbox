@@ -49,6 +49,30 @@ function build() {
     docker build -t "${image}" "${target}"/ "$@"
 }
 
+# @COMMAND file [name] [tag]        generates a docker file for a given image template
+function file() {
+  image=$(_image "$@")
+  name=${1}
+  baseVersion=${2}
+  target=${DOCKER_IMAGES_HOME}/${name}/
+
+  if [[ -f "${target}/jdk.Dockerfile" ]]; then
+      sed "s/\${JDK_VERSION}/${baseVersion}/g" "${target}"/jdk.Dockerfile > "${target}"/Dockerfile
+  fi
+  if [[ -f "${target}/ubuntu.Dockerfile" ]]; then
+      sed "s/\${UBUNTU_VERSION}/${baseVersion}/g" "${target}"/ubuntu.Dockerfile > "${target}"/Dockerfile
+  fi
+  if [[ -f "${target}/node.Dockerfile" ]]; then
+    sed "s/\${NODE_VERSION}/${baseVersion}/g" "${target}"/node.Dockerfile > "${target}"/Dockerfile
+  fi
+  if [[ -f "${target}/confluence.Dockerfile" ]]; then
+    sed "s/\${CONFLUENCE_VERSION}/${baseVersion}/g" "${target}"/confluence.Dockerfile > "${target}"/Dockerfile
+  fi
+  if [[ -f "${target}/golang.Dockerfile" ]]; then
+    sed "s/\${GO_VERSION}/${baseVersion}/g" "${target}"/golang.Dockerfile > "${target}"/Dockerfile
+  fi
+}
+
 # @COMMAND scan [name] [tag]        scans a docker image in viqueen namespace
 function scan() {
   image=$(_image "$@")
