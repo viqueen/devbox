@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import Chance from 'chance';
-import { Command } from 'commander';
 import clipboard from 'clipboardy';
+import { Command } from 'commander';
 
 const program = new Command();
 const chance = new Chance();
