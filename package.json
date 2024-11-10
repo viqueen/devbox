@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -32,7 +32,7 @@
     "@types/mailparser": "^3.4.0",
     "@types/minimist": "^1.2.2",
     "@types/morgan": "^1.9.4",
-    "@types/node": "^20.11.10",
+    "@types/node": "^22.0.0",
     "@types/prettyjson": "^0.0.33",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
