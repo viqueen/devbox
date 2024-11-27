@@ -12,7 +12,6 @@ alias maven=mvn
 alias awsl=awslocal
 alias cats='pygmentize -g'
 alias cd='cd_workspace'
-alias zed='docker run --rm authzed/zed:v0.18.1'
 
 # overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
 export PS1='\u@\h\w'
