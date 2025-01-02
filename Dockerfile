@@ -1,6 +1,6 @@
-FROM node:20-alpine
+FROM node:22.12.0-alpine
 
-ARG NVM_VERSION=v0.39.3
+ARG NVM_VERSION=v0.40.1
 
 RUN apk --no-cache add bash git vim
 

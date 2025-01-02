@@ -5,7 +5,7 @@
 - ubuntu
 
 ```bash
-# comes with node 18.12.1
+# comes with node 22.12.0
 docker run -it --entrypoint=/bin/bash viqueen/devbox:main
 
 # mount it
