@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   playground:
     image: ghcr.io/authzed/spicedb-playground:latest
