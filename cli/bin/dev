@@ -156,6 +156,13 @@ commit() {
   git commit -m "${message}"
 }
 
+# @COMMAND junie                           simple git commit, with junie as ai assistant note
+junie() {
+  message=${@}
+  git commit -m "${message}"
+  git notes add -m "AI assisted : Junie"
+}
+
 # @COMMAND show
 show() {
   git show HEAD
