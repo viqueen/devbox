@@ -1,0 +1,15 @@
+#! /usr/bin/env node
+
+const AxiosCli  = require('../lib/axios-cli');
+
+const dockerHubCli = new AxiosCli({
+    name: 'Docker Hub API',
+    baseURL: 'https://hub.docker.com/v2/repositories/',
+    headers: {
+        'User-Agent': 'DockerHub-CLI/1.0'
+    }
+})
+
+const program = dockerHubCli.program();
+program.version('1.0.0')
+program.parse(process.argv);
