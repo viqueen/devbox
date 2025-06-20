@@ -2,21 +2,16 @@
 
 const SftpClient = require('ssh2-sftp-client');
 const Command = require('commander').Command;
-const dotenv = require('dotenv');
-const path = require("path");
-
-const config = dotenv.config({
-    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
-}).parsed;
+const { envConfig } = require('../lib/env-config');
 
 const program = new Command();
 
 const client = () => new SftpClient();
 const connect = async (client) => {
     return client.connect({
-        host: config.SFTP_HOST,
-        username: config.SFTP_USERNAME,
-        password: config.SFTP_PASSWORD
+        host: envConfig.SFTP_HOST,
+        username: envConfig.SFTP_USERNAME,
+        password: envConfig.SFTP_PASSWORD
     });
 }
 

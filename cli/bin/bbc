@@ -1,18 +1,13 @@
 #! /usr/bin/env node
 
 const AxiosCli = require('../lib/axios-cli');
-const dotenv = require('dotenv');
-const path = require('path');
-
-const config = dotenv.config({
-    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
-}).parsed;
+const { envConfig } = require('../lib/env-config');
 
 const bitbucketCloudCli = new AxiosCli({
     name: 'Bitbucket Cloud API',
     baseURL: 'https://api.bitbucket.org/2.0',
     auth: {
-        bearerToken: async () => config.BITBUCKET_CLOUD_TOKEN
+        bearerToken: async () => envConfig.BITBUCKET_CLOUD_TOKEN
     },
     headers: {}
 });

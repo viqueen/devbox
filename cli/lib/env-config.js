@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Hasnae Rehioui
+ * Copyright 2025 Hasnae Rehioui
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,31 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import cors from 'cors';
-import { Express } from 'express';
+const path = require('path');
 
-interface WithCors {
-    app: Express;
-    product: {
-        baseUrls: string[];
-    };
-}
+const dotenv = require('dotenv');
 
-const withCors = ({ app, product }: WithCors) => {
-    app.options(
-        `/*`,
-        cors<cors.CorsRequest>({
-            origin: [...product.baseUrls],
-            credentials: true
-        })
-    );
-    app.use(
-        `/*`,
-        cors<cors.CorsRequest>({
-            origin: [...product.baseUrls],
-            credentials: true
-        })
-    );
+const envConfig =
+    dotenv.config({
+        path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+    }).parsed || {};
+
+module.exports = {
+    envConfig
 };
-
-export { withCors };
