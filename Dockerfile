@@ -14,7 +14,7 @@ RUN mkdir -p ~/sources \
     && ./setup.sh config_box \
     && ./setup.sh config_prompt \
     && ./setup.sh config_vim \
-    && yarn
+    && npm ci
 
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot

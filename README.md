@@ -40,6 +40,13 @@ git config --global core.editor vim
 git submodule update --init --recursive
 ```
 
+> :warning: install node dependencies
+
+```bash
+nvm install
+npm ci
+```
+
 ## Optional - macOs dev setup
 
 <details>
