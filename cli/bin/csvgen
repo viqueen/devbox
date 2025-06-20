@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { Command } = require("commander");
 const Chance = require("chance");
+const { Command } = require("commander");
 
 const program = new Command();
 const chance = new Chance();
@@ -64,7 +64,7 @@ program
 
     for (let index = 0; index < count; index++) {
       const info = [];
-      headers.forEach((header) => {
+      headers.forEach(() => {
         const data = chance.guid();
         info.push(data);
       });
