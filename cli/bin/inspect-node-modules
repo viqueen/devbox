@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Copyright 2023 Hasnae Rehioui
  *
@@ -14,11 +16,10 @@
  * limitations under the License.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-
-import { listFiles } from 'fs-directory';
-import minimist from 'minimist';
+const fs = require('fs');
+const path = require('path');
+const { listFiles } = require('fs-directory');
+const minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));
 
@@ -27,7 +28,7 @@ if (argv._.length === 0) {
     process.exit(1);
 }
 
-const extractPostInstall = (filename: string) => {
+const extractPostInstall = (filename) => {
     const data = fs.readFileSync(filename).toString();
     try {
         const packageInfo = JSON.parse(data);
