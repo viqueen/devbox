@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+
+const concatStream = require('concat-stream');
+const prettyJson = require('prettyjson');
+
+process.stdin.pipe(
+    concatStream((buffer) => {
+        if (buffer.length > 0) {
+            const json = JSON.parse(buffer.toString());
+            console.info(prettyJson.render(json));
+        }
+    })
+);
