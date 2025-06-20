@@ -1,0 +1,49 @@
+#! /usr/bin/env node
+
+const AxiosOauthClient = require('../lib/axios-oauth-client');
+const dotenv = require('dotenv');
+const path = require('path');
+const axios = require('axios');
+const queryString = require('querystring');
+
+const config = dotenv.config({
+    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+}).parsed;
+
+const oauthClient = new AxiosOauthClient({
+    name: 'Spotify',
+    authorizeUrl: 'https://accounts.spotify.com/authorize',
+    grantUrl: 'https://accounts.spotify.com/api/token',
+    clientId: config.SPOTIFY_CLIENT_ID,
+    clientSecret: config.SPOTIFY_CLIENT_SECRET,
+    scopes: ['user-read-recently-played']
+});
+
+const recentlyPlayed = async () => {
+    const accessToken = await oauthClient.accessToken();
+    const client = axios.create({
+        baseURL: 'https://api.spotify.com/v1',
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+    const query = { limit: 50 };
+    const { data } = await client.request({
+        url: `/me/player/recently-played?${queryString.stringify(query)}`,
+        method: 'GET'
+    });
+
+    return data.items.map((item) => {
+        // noinspection JSUnresolvedVariable
+        const jsDate = new Date(item.played_at);
+        const date = jsDate.toLocaleDateString('AU');
+        const time = jsDate.toLocaleTimeString('AU');
+        return {
+            trackName: item.track.name,
+            artists: item.track.artists.map((a) => a.name),
+            playedAt: { date, time }
+        };
+    });
+}
+
+recentlyPlayed().then(console.table).catch(console.error);
