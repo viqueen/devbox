@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Express, Request } from 'express';
-import morgan from 'morgan';
-import prettyJson from 'prettyjson';
+const morgan = require('morgan');
+const prettyJson = require('prettyjson');
 
-const expressMorganLogging = (app: Express) => {
-    morgan.token<Request>('body', (request) => {
+const expressMorganLogging = (app) => {
+    morgan.token('body', (request) => {
         return prettyJson.render(request.body);
     });
-    morgan.token<Request>('headers', (request) => {
+    morgan.token('headers', (request) => {
         return prettyJson.render(request.headers);
     });
     app.use(
@@ -35,4 +34,4 @@ const expressMorganLogging = (app: Express) => {
     );
 };
 
-export { expressMorganLogging };
+module.exports = { expressMorganLogging };
