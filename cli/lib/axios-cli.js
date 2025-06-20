@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Command = require('commander').Command;
 const axios = require('axios');
+const { Command } = require('commander');
 
 const paramRegex = /(?<key>[a-zA-Z)_]+)=(?<value>.*)/;
 

@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
+const { Command } = require('commander');
 const SftpClient = require('ssh2-sftp-client');
-const Command = require('commander').Command;
 
 const { envConfig } = require('../lib/env-config');
 
