@@ -1,0 +1,22 @@
+#! /usr/bin/env node
+
+const AxiosCli = require('../lib/axios-cli');
+const dotenv = require('dotenv');
+const path = require('path');
+
+const config = dotenv.config({
+    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+}).parsed;
+
+const sendgridCli = new AxiosCli({
+    name: 'SendGrid API',
+    baseURL: 'https://api.sendgrid.com',
+    auth: {
+        bearerToken: async () => config.SENDGRID_TOKEN
+    },
+    headers: {}
+});
+
+const program = sendgridCli.program();
+program.version('1.0.0');
+program.parse(process.argv);
