@@ -1,7 +1,8 @@
 #! /usr/bin/env node
 
-const AxiosCli = require('../lib/axios-cli');
 const axios = require('axios');
+
+const AxiosCli = require('../lib/axios-cli');
 const { envConfig } = require('../lib/env-config');
 
 const spotifyCli = new AxiosCli({

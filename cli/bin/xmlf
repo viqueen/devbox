@@ -2,8 +2,8 @@
 
 "use strict";
 
-const prettyXml = require("xml-formatter");
 const concatStream = require("concat-stream");
+const prettyXml = require("xml-formatter");
 
 process.stdin.pipe(
   concatStream(function (buffer) {

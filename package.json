@@ -6,7 +6,8 @@
     "build": "tsc",
     "format:check": "prettier --check .",
     "format": "prettier --check --write .",
-    "lint": "./build.sh lint"
+    "lint": "./build.sh lint",
+    "lint:fix": "./build.sh lint_fix"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,10 @@
 #! /usr/bin/env node
 
-const AxiosOauthClient = require('../lib/axios-oauth-client');
-const axios = require('axios');
 const queryString = require('querystring');
+
+const axios = require('axios');
+
+const AxiosOauthClient = require('../lib/axios-oauth-client');
 const { envConfig } = require('../lib/env-config');
 
 const oauthClient = new AxiosOauthClient({

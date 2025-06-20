@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { Command } = require("commander");
 const Chance = require("chance");
 const clipboard = require("clipboardy");
+const { Command } = require("commander");
 
 const program = new Command();
 const chance = new Chance();
