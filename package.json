@@ -29,7 +29,6 @@
     "depcheck": "^1.4.7",
     "eslint": "^8.43.0",
     "eslint-plugin-import": "^2.27.5",
-    "gm": "^1.25.0",
     "husky": "^9.0.1",
     "labset-config-js": "^1.0.0",
     "open": "^10.0.3",
