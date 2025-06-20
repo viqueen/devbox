@@ -1,5 +1,0 @@
-#! /usr/bin/env bash
-
-"${VIQUEEN_DEVBOX_HOME}"/node_modules/.bin/ts-node \
-  "${VIQUEEN_DEVBOX_HOME}"/modules/commands/spotify-command.ts \
-  "$@"

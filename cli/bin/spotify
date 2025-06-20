@@ -1,0 +1,42 @@
+#! /usr/bin/env node
+
+const AxiosCli = require('../lib/axios-cli');
+const dotenv = require('dotenv');
+const path = require('path');
+
+const axios = require('axios');
+
+const config = dotenv.config({
+    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+}).parsed;
+
+const spotifyCli = new AxiosCli({
+    name: 'Spotify API',
+    baseURL: 'https://api.spotify.com/v1',
+    auth: {
+        bearerToken: async () => {
+            const clientId = config.SPOTIFY_CLIENT_ID;
+            const clientSecret = config.SPOTIFY_CLIENT_SECRET;
+            const client = axios.create({
+                baseURL: 'https://accounts.spotify.com',
+                auth: {
+                    username: clientId,
+                    password: clientSecret
+                }
+            });
+            const response = await client.post('/api/token', null, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                params: {
+                    grant_type: 'client_credentials'
+                }
+            });
+            return response.data.access_token;
+        }
+    }
+})
+
+const program = spotifyCli.program();
+program.version('1.0.0');
+program.parse(process.argv);
