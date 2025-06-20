@@ -1,34 +1,21 @@
-/**
- * Copyright 2023 Hasnae Rehioui
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-import chalk from 'chalk';
-import concatStream from 'concat-stream';
-import { HeaderValue, simpleParser } from 'mailparser';
-import moment from 'moment';
+#! /usr/bin/env node
+
+const chalk = require('chalk');
+const concatStream = require('concat-stream');
+const { simpleParser } = require('mailparser');
+const moment = require('moment');
 
 const RECEIVED_PATTERN = /^(?<direction>by|from) (?<source>.*); (?<date>.*)$/;
 
-const handleReceivedHeader = (received: HeaderValue | undefined) => {
+const handleReceivedHeader = (received) => {
     if (!received) return;
-    let data: string[] = [];
+    let data = [];
     if (!Array.isArray(received)) {
-        data = [received as string];
+        data = [received];
     } else {
-        data = received as string[];
+        data = received;
     }
-    data.forEach((item: string) => {
+    data.forEach((item) => {
         const matcher = item.match(RECEIVED_PATTERN);
         if (matcher) {
             const date = moment(matcher.groups?.['date']).toString();
@@ -50,7 +37,7 @@ process.stdin.pipe(
 
                     console.info('-------- date header \\');
                     const date = moment(
-                        parsed.headers.get('date') as string
+                        parsed.headers.get('date')
                     ).toString();
                     console.info(chalk.red(date));
 
