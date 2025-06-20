@@ -6,7 +6,7 @@
     "build": "tsc",
     "format:check": "prettier --check .",
     "format": "prettier --check --write .",
-    "lint": "eslint modules/ --ext .ts,.tsx,.js"
+    "lint": "./build.sh lint"
   },
   "repository": {
     "type": "git",
