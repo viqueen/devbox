@@ -1,0 +1,16 @@
+#! /usr/bin/env node
+
+const AxiosCli = require('../lib/axios-cli');
+
+const linkedinCli = new AxiosCli({
+    name: 'LinkedIn API',
+    baseURL: 'https://api.linkedin.com',
+    auth: {
+        bearerToken: async () => undefined
+    },
+    headers: {}
+});
+
+const program = linkedinCli.program();
+program.version('1.0.0');
+program.parse(process.argv);

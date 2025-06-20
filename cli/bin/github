@@ -1,0 +1,22 @@
+#! /usr/bin/env node
+
+const AxiosCli = require('../lib/axios-cli');
+const dotenv = require('dotenv');
+const path = require('path');
+
+const config = dotenv.config({
+    path: path.resolve(process.env.VIQUEEN_DEVBOX_HOME, '.env')
+}).parsed;
+
+const githubCli = new AxiosCli({
+    name: 'GitHub API',
+    baseURL: 'https://api.github.com',
+    auth: {
+        bearerToken: async () => config.GITHUB_TOKEN
+    },
+    headers: {}
+});
+
+const program = githubCli.program();
+program.version('1.0.0');
+program.parse(process.argv);
