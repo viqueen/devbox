@@ -1,10 +1,22 @@
-'use strict';
-
+/**
+ * Copyright 2025 Hasnae Rehioui
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 const Command = require('commander').Command;
 const axios = require('axios');
-const queryString = require('query-string');
 
-const paramRegex = /(?<key>[a-zA-Z]+)=(?<value>.*)/;
+const paramRegex = /(?<key>[a-zA-Z)_]+)=(?<value>.*)/;
 
 function collect(val, memo) {
     memo.push(val);
@@ -41,14 +53,14 @@ class AxiosCli {
         });
         this.name = options.name;
         this.auth = options.auth || { bearerToken: async () => undefined };
+        this.headers = options.headers || {};
     }
 
     program() {
-        const commander = new Command();
+        const cli = new Command();
 
         ['get', 'post', 'delete', 'put', 'head', 'option'].forEach((method) => {
-            commander
-                .command(`${method} [parts...]`)
+            cli.command(`${method} [parts...]`)
                 .description(`${method} ${this.name} resources`)
                 .option(
                     '-q, --query [value]',
@@ -56,20 +68,31 @@ class AxiosCli {
                     collect,
                     []
                 )
+                .option(
+                    '-d, --data [value]',
+                    'set the request data',
+                    collect,
+                    []
+                )
                 .action(async (parts, options) => {
                     const query = makeDataObject({}, options.query);
                     const token = await this.auth.bearerToken();
-                    const headers = token
+                    const authHeader = token
                         ? { Authorization: `Bearer ${token}` }
                         : {};
+                    const headers = {
+                        ...this.headers,
+                        ...authHeader
+                    };
+                    const requestConfig = {
+                        method: method,
+                        url: `/${parts.join('/')}`,
+                        headers: headers,
+                        params: query,
+                        data: makeDataObject({}, options.data)
+                    };
                     this.client
-                        .request({
-                            method: method,
-                            url: `/${parts.join('/')}?${queryString.stringify(
-                                query
-                            )}`,
-                            headers
-                        })
+                        .request(requestConfig)
                         .then(({ data }) => console.log(JSON.stringify(data)))
                         .catch((error) => {
                             const { status, statusText, headers, data } =
@@ -84,7 +107,7 @@ class AxiosCli {
                 });
         });
 
-        return commander;
+        return cli;
     }
 }
 
