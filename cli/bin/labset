@@ -25,10 +25,18 @@ start() {
   git checkout -b "${ticket}-${slug}"
 }
 
+# @COMMAND commit       commit changes with a message
 commit() {
   message="${*}"
   issue_number=$(_jiraIssueNumber)
   git commit -m "[${issue_number}] ${message}"
+}
+
+
+# @COMMAND author       set the git author name and email
+author() {
+  git config user.name "${LABSET_AUTHOR_NAME:-$(git config user.name)}"
+  git config user.email "${LABSET_AUTHOR_EMAIL:-$(git config user.email)}"
 }
 
 eval "$@"
