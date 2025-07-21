@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "build": "tsc",
@@ -51,7 +51,7 @@
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
     "prettyjson": "^1.2.5",
-    "serve-static": "^1.16.1",
+    "serve-static": "^2.0.0",
     "ssh2-sftp-client": "^10.0.3",
     "swagger-ui-express": "^5.0.1",
     "xml-formatter": "^3.6.3"
