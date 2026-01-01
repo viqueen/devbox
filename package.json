@@ -43,7 +43,7 @@
     "concat-stream": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
-    "express": "^4.21.0",
+    "express": "^4.22.1",
     "fs-directory": "^1.0.0",
     "jsonpath": "^1.1.1",
     "mailparser": "^3.7.1",
