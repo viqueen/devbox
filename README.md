@@ -1,8 +1,8 @@
 # devbox
 
-## Playground - try it before you buy it
+## Playground
 
-- ubuntu
+Try it before you buy it
 
 ```bash
 # comes with node 22.12.0

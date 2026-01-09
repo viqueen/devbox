@@ -1,4 +1,4 @@
-FROM node:22.12.0-alpine
+FROM node:24.12.0-alpine
 
 ARG NVM_VERSION=v0.40.1
 
