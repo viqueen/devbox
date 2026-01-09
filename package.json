@@ -1,6 +1,6 @@
 {
   "name": "devbox",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "viqueen devbox",
   "scripts": {
     "claude": "claude",
@@ -33,7 +33,7 @@
     "eslint-plugin-import": "^2.27.5",
     "husky": "^9.0.1",
     "labset-config-js": "^1.0.0",
-    "open": "^10.0.3",
+    "open": "^11.0.0",
     "prettier": "^3.2.4"
   },
   "dependencies": {
