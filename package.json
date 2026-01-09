@@ -8,7 +8,8 @@
     "format": "prettier --check --write .",
     "lint": "./build.sh lint",
     "lint:fix": "./build.sh lint_fix",
-    "depcheck": "depcheck"
+    "depcheck": "depcheck",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
