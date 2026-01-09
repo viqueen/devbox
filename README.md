@@ -1,6 +1,6 @@
 # devbox
 
-## Playground 
+## Playground
 
 Try it before you buy it
 
