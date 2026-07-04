@@ -34,11 +34,6 @@ function config_prompt() {
     echo "source ${HOME}/.promptline.sh" >> "${rc_file}"
 }
 
-function config_nvm() {
-    local -r rc_file=$(_shell_rc)
-    ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.nodevmrc "${HOME}/.nodevmrc"
-    echo "source ${HOME}/.nodevmrc" >> "${rc_file}"
-}
 
 # shellcheck disable=SC2068
 eval $@
