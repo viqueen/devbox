@@ -38,7 +38,7 @@
     "chance": "^1.1.12",
     "clipboardy": "5",
     "commander": "^13.0.0",
-    "express": "^4.21.0",
+    "express": "^4.22.2",
     "swagger-ui-express": "^5.0.1",
     "xml-formatter": "^3.6.3"
   }
