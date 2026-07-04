@@ -1,16 +1,17 @@
 #! /usr/bin/env node
 
-const concatStream = require('concat-stream');
-const jp = require('jsonpath');
-const minimist = require('minimist');
+const { parseArgs } = require("node:util");
 
-const ops = minimist(process.argv.slice(2));
+const jp = require("jsonpath");
 
-process.stdin.pipe(
-    concatStream((buffer) => {
-        if (buffer.length > 0) {
-            const json = JSON.parse(buffer.toString());
-            console.log(jp.query(json, ops._[0]));
-        }
-    })
-);
+const { positionals } = parseArgs({ allowPositionals: true });
+
+const chunks = [];
+process.stdin.on('data', (chunk) => chunks.push(chunk));
+process.stdin.on('end', () => {
+    const buffer = Buffer.concat(chunks);
+    if (buffer.length > 0) {
+        const json = JSON.parse(buffer.toString());
+        console.log(jp.query(json, positionals[0]));
+    }
+});
