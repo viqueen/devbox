@@ -1,14 +1,12 @@
 #! /usr/bin/env node
 
 const fs = require('fs');
+const { parseArgs } = require('node:util');
 const path = require('path');
 
-const { listFiles } = require('fs-directory');
-const minimist = require('minimist');
+const { positionals } = parseArgs({ allowPositionals: true });
 
-const argv = minimist(process.argv.slice(2));
-
-if (argv._.length === 0) {
+if (positionals.length === 0) {
     console.log('needs explicit directories, will not run on cwd');
     process.exit(1);
 }
@@ -21,12 +19,14 @@ const setAsPrivate = (filename) => {
     fs.writeFileSync(filename, JSON.stringify(packageInfo, null, 2));
 };
 
-const directories = argv._.map((item) => path.resolve(process.cwd(), item));
-const packages = directories.flatMap((directory) =>
-    listFiles(directory, {
-        fileFilter: (entry) => entry.name === 'package.json',
-        directoryFilter: () => true
-    })
-);
+const directories = positionals.map((item) => path.resolve(process.cwd(), item));
 
-packages.forEach(setAsPrivate);
+for (const directory of directories) {
+    if (!fs.existsSync(directory)) continue;
+    const entries = fs.readdirSync(directory, { recursive: true });
+    for (const entry of entries) {
+        if (path.basename(entry) === 'package.json') {
+            setAsPrivate(path.join(directory, entry));
+        }
+    }
+}

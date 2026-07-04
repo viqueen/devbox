@@ -2,16 +2,17 @@
 
 "use strict";
 
-const program = require("commander");
-const moment = require("moment");
+const { parseArgs } = require("node:util");
 
-program
-  .command("backdate <spaceKey> <publishDate> <title>")
-  .description("backdates a blog")
-  .action((spaceKey, publishDate, title) => {
-    const date = moment(publishDate, "DD/MM/YYYY");
-    console.log(
-      `fetch("/wiki/rest/api/content", {
+const { positionals } = parseArgs({ allowPositionals: true });
+const [command, ...args] = positionals;
+
+if (command === "backdate") {
+  const [spaceKey, publishDate, title] = args;
+  const [day, month, year] = publishDate.split("/");
+  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  console.log(
+    `fetch("/wiki/rest/api/content", {
     method: "POST",
     headers: {
         'Accept': 'application/json',
@@ -29,15 +30,11 @@ program
 .then(response => response.json())
 .then(data => console.log(data))
 `,
-    );
-  });
-
-program
-  .command("restore <id> <version>")
-  .description("restore content from trash")
-  .action((id, version) => {
-    console.log(
-      `fetch("/confluence/rest/api/content/${id}", {
+  );
+} else if (command === "restore") {
+  const [id, version] = args;
+  console.log(
+    `fetch("/confluence/rest/api/content/${id}", {
     method: "PUT",
     headers: {
         'Accept': 'application/json',
@@ -53,8 +50,8 @@ program
 .then(response => response.json())
 .then(data => console.log(data))
 `,
-    );
-  });
-
-program.version("1.0.0");
-program.parse(process.argv);
+  );
+} else {
+  console.log("Usage: dos <backdate|restore> [args...]");
+  process.exit(1);
+}

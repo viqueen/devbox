@@ -2,14 +2,14 @@
 
 "use strict";
 
-const concatStream = require("concat-stream");
 const prettyXml = require("xml-formatter");
 
-process.stdin.pipe(
-  concatStream(function (buffer) {
-    if (buffer.length > 0) {
-      const xml = buffer.toString();
-      console.log(prettyXml(xml, {}));
-    }
-  }),
-);
+const chunks = [];
+process.stdin.on("data", (chunk) => chunks.push(chunk));
+process.stdin.on("end", () => {
+  const buffer = Buffer.concat(chunks);
+  if (buffer.length > 0) {
+    const xml = buffer.toString();
+    console.log(prettyXml(xml, {}));
+  }
+});

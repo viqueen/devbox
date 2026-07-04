@@ -1,10 +1,11 @@
 #! /usr/bin/env node
 
-const minimist = require("minimist");
-const ops = minimist(process.argv.slice(2));
+const { parseArgs } = require("node:util");
 
-const [value] = ops._;
-const jsDate = new Date(value);
+const { positionals } = parseArgs({ allowPositionals: true });
+
+const [value] = positionals;
+const jsDate = new Date(/^\d+$/.test(value) ? parseInt(value) : value);
 const date = jsDate.toLocaleDateString('AU');
 const time = jsDate.toLocaleTimeString('AU');
 

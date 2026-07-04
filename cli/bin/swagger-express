@@ -1,17 +1,21 @@
 #! /usr/bin/env node
 
 const fs = require('fs');
+const { parseArgs } = require('node:util');
 
 const express = require('express');
 const app = express();
-const minimist = require("minimist");
 const swaggerUi = require("swagger-ui-express");
-const argv = minimist(process.argv.slice(2));
 
-// noinspection JSUnresolvedVariable
-const port = argv.port || 3000;
-// noinspection JSUnresolvedVariable
-const filename = argv.filename;
+const { values } = parseArgs({
+    options: {
+        port: { type: 'string', default: '3000' },
+        filename: { type: 'string' }
+    }
+});
+
+const port = parseInt(values.port);
+const filename = values.filename;
 
 if (!filename) {
     console.log('oopsy , start server as `swagger-express --filename <>`');
