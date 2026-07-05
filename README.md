@@ -25,92 +25,21 @@ git config --global core.editor vim
 git submodule update --init --recursive
 ```
 
-> :warning: install node dependencies
+> :warning: install dependencies
 
 ```bash
-nvm install
-npm ci
+mise install
+pnpm install
 ```
 
 ## Optional - macOs dev setup
 
-<details>
-<summary>init_mac</summary>
-<p>
+Install [mise](https://mise.jdx.dev/) for managing tool versions (node, java, python, etc.):
 
 ```bash
-# home_brew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-# terminal wisdom
-brew install cowsay
-brew install fortune
-echo "fortune | cowsay" >> ~/.profile
+curl https://mise.run | sh
+mise install
 ```
-
-</p>
-</details>
-
-<details>
-<summary>init_dev_tools</summary>
-<p>
-
-```bash
-
-ln -sfvn ~/.bashrc ~/.profile
-ln -sfvn ~/.bashrc ~/.bash_profile
-
-# sdkman
-curl -s "https://get.sdkman.io" | bash
-
-sdk list java
-sdk install java <>
-
-# jenv (requires Java to be installed)
-brew install jenv
-echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(jenv init -)"' >> ~/.bashrc
-
-# maven
-brew install mvnvm
-mvn --version
-
-# node
-brew install nvm
-nvm install node
-
-# ruby
-brew install rbenv
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-
-# other build tools
-brew install ant
-brew install gradle
-brew install sbt
-
-brew tap bazelbuild/tap
-brew tap-pin bazelbuild/tap
-brew install bazel
-
-
-# aws
-brew install awscli
-```
-
-</p>
-</details>
-
-<details>
-<summary>init_languages and init_sdks</summary>
-<p>
-
-```bash
-brew install scala
-brew install kotlin
-```
-
-</p>
-</details>
 
 ## Scripts and Binaries
 
