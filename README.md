@@ -205,31 +205,3 @@ brew install atlassian-devbox
 ```bash
 npm install -g atlassian-devbox
 ```
-
-### Elastic scripts
-
-It comes with the following enterprise product scripts that behave exactly the same
-
-```bash
-search -h
-entsearch -h
-kibana -h
-logstash -h
-filebeat -h
-```
-
-While I sort out a smooth easy to start elastic stack locally with one script, I navigate to the elastic products
-I want by running the following
-
-```bash
-. search get 7.5.0
-. entsearch get 7.5.0
-. kibana get 7.5.0
-. logstash get 7.5.0
-. filebeat get 7.5.0
-```
-
-The above commands also take care of downloading the artifacts
-
-> :warning: please notice the `_distro() { echo "darwin-x86_64" }` in `elastic-product.sh`, you
-> probably want to adjust that to whatever distro you need for your platform.
