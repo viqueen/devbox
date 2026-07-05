@@ -37,7 +37,7 @@ pnpm install
 Install [mise](https://mise.jdx.dev/) for managing tool versions (node, java, python, etc.):
 
 ```bash
-curl https://mise.run | sh
+brew install mise
 mise install
 ```
 
