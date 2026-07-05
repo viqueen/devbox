@@ -1,0 +1,68 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+format = """
+${custom.ws_viqueen}\
+${custom.ws_primary}\
+${custom.ws_secondary}\
+${custom.ws_home}\
+${custom.ws_default}\
+$username\
+$directory\
+$git_branch\
+$status\
+$line_break\
+$character"""
+
+# workspace host segments — mutually exclusive via DEVBOX_WORKSPACE env var
+# colors match the original promptline workspace palette
+
+[custom.ws_viqueen]
+command = 'echo "${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"'
+when = '[ "$DEVBOX_WORKSPACE" = "viqueen" ]'
+format = "[ $output ](fg:220 bg:166)[](fg:166 bg:31)"
+
+[custom.ws_primary]
+command = 'echo "${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"'
+when = '[ "$DEVBOX_WORKSPACE" = "primary" ]'
+format = "[ $output ](fg:135 bg:55)[](fg:55 bg:31)"
+
+[custom.ws_secondary]
+command = 'echo "${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"'
+when = '[ "$DEVBOX_WORKSPACE" = "secondary" ]'
+format = "[ $output ](fg:110 bg:20)[](fg:20 bg:31)"
+
+[custom.ws_home]
+command = 'echo "${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"'
+when = '[ "$DEVBOX_WORKSPACE" = "home" ]'
+format = "[ $output ](fg:231 bg:35)[](fg:35 bg:31)"
+
+[custom.ws_default]
+command = 'echo "${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"'
+when = '[ "$DEVBOX_WORKSPACE" = "default" ] || [ -z "$DEVBOX_WORKSPACE" ]'
+format = "[ $output ](fg:231 bg:124)[](fg:124 bg:31)"
+
+[username]
+show_always = true
+style_user = "fg:231 bg:31"
+style_root = "fg:231 bg:31"
+format = "[ $user ]($style)[](fg:31 bg:240)"
+
+[directory]
+style = "fg:250 bg:240"
+format = "[ $path ]($style)[](fg:240 bg:236)"
+truncation_length = 3
+truncation_symbol = "⋯/"
+
+[git_branch]
+style = "fg:250 bg:236"
+symbol = " "
+format = "[ $symbol$branch ]($style)[](fg:236)"
+
+[status]
+disabled = false
+style = "bold red"
+format = " [$status]($style)"
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
