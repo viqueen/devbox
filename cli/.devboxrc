@@ -11,6 +11,8 @@ alias move=mv
 alias maven=mvn
 alias awsl=awslocal
 alias cats='pygmentize -g'
+alias vim='NVIM_APPNAME=devbox nvim'
+alias nvim='NVIM_APPNAME=devbox nvim'
 alias cd='cd_workspace'
 
 # overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
@@ -20,7 +22,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew
-export HOMEBREW_EDITOR="vim"
+export HOMEBREW_EDITOR="nvim"
 
 # maven
 export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m"

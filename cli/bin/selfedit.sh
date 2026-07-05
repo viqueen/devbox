@@ -32,7 +32,7 @@ edit() {
     then
         script=${0}
     fi
-    vim "${script}"
+    nvim "${script}"
     chmod +x "${script}"
 }
 

@@ -21,11 +21,10 @@ function config_box() {
 }
 
 function config_vim() {
-  # setup vim
-  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.vimrc "${HOME}/.vimrc"
-  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/.vim  "${HOME}/.vim"
-  git config --global core.editor "vim"
-  vim +PluginInstall +qall
+  mkdir -p "${HOME}/.config/devbox"
+  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/nvim "${HOME}/.config/devbox/nvim"
+  git config --global core.editor "nvim"
+  NVIM_APPNAME=devbox nvim --headless "+Lazy! sync" +qa
 }
 
 function config_prompt() {
@@ -33,7 +32,6 @@ function config_prompt() {
     ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.promptline.sh "${HOME}/.promptline.sh"
     echo "source ${HOME}/.promptline.sh" >> "${rc_file}"
 }
-
 
 # shellcheck disable=SC2068
 eval $@

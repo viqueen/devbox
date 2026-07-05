@@ -32,7 +32,7 @@ function stop() {
 function profile() {
   _with_arguments 1 "$@"
   profile=${1}
-  vim "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml
+  nvim "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml
 }
 
 # @COMMAND list                           lists available compose profiles
