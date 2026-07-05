@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["config:base"],
   dependencyDashboard: true,
-  enabledManagers: ["npm"],
+  enabledManagers: ["pnpm"],
   rangeStrategy: "update-lockfile",
   labels: ["dependencies"],
   packageRules: [

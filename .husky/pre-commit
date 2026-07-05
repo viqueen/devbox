@@ -1,1 +1,1 @@
-npm run format:check
+pnpm run format:check
