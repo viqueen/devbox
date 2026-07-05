@@ -1,20 +1,5 @@
 # devbox
 
-## Playground
-
-Try it before you buy it
-
-```bash
-# comes with node 22.12.0
-docker run -it --entrypoint=/bin/bash viqueen/devbox:main
-
-# mount it
-docker run --name <name_it> --volume <target_dir>:/sources/<target_dir> \
-    -it --entrypoint=/bin/bash \
-    -w=/sources/<target_dir>  \
-    viqueen/devbox:main
-```
-
 ## Setup and Configure
 
 > :warning: this is heavily tailored towards bash, so may not work out of the (dev)box
