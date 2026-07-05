@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-docker run --rm authzed/zed:v0.27.0 $@

@@ -3,7 +3,6 @@
   "version": "11.0.0",
   "description": "viqueen devbox",
   "scripts": {
-    "claude": "claude",
     "format:check": "prettier --check .",
     "format": "prettier --check --write .",
     "lint": "./build.sh lint",
