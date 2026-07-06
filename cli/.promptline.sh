@@ -20,6 +20,7 @@ __devbox_detect_workspace() {
   else
     export DEVBOX_WORKSPACE="default"
   fi
+  return 0
 }
 
 # cache workspaces root
