@@ -52,7 +52,7 @@ lc() {
 
 # @COMMAND rc                               opens .devboxrc file for edit
 rc() {
-  vim ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
+  nvim ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
   source ${VIQUEEN_DEVBOX_HOME}/cli/.devboxrc
 }
 
@@ -82,14 +82,14 @@ licenses() {
 # VIM
 #######
 
-# @COMMAND vimr                             vim refresh
+# @COMMAND vimr                             nvim plugin sync
 vimr () {
-  vim +PluginInstall +qall
+  NVIM_APPNAME=devbox nvim --headless "+Lazy! sync" +qa
 }
 
-# @COMMAND vimrc                            vim config
+# @COMMAND vimrc                            nvim config
 vimrc() {
-  vim ${VIQUEEN_DEVBOX_HOME}/cli/.vimrc
+  nvim ${VIQUEEN_DEVBOX_HOME}/cli/nvim/init.lua
 }
 
 #####

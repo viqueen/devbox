@@ -1,87 +1,99 @@
 # devbox
 
-## Setup and Configure
+## Prerequisites
 
-> :warning: this is heavily tailored towards bash, so may not work out of the (dev)box
-> for zsh (zush) and friends
-
-```bash
-git clone --recursive https://github.com/viqueen/devbox.git
-
-# required
-./setup.sh config_box
-
-# optional, to setup the prompt line
-./setup.sh config_prompt
-
-# optional, to setup vim
-./setup.sh config_vim
-git config --global core.editor vim
-```
-
-> :warning: to update the submodules
-
-```bash
-git submodule update --init --recursive
-```
-
-> :warning: install dependencies
-
-```bash
-mise install
-pnpm install
-```
-
-## Optional - macOs dev setup
-
-Install [mise](https://mise.jdx.dev/) for managing tool versions (node, java, python, etc.):
+Install [mise](https://mise.jdx.dev/) for managing tool versions:
 
 ```bash
 brew install mise
+```
+
+## Setup
+
+```bash
+git clone https://github.com/viqueen/devbox.git
+cd devbox
+
+# install tools (node, pnpm, neovim, starship)
 mise install
+
+# install dependencies
+pnpm install
+
+# configure shell (exports, PATH, aliases, mise config symlink)
+./setup.sh config_box
+
+# optional: workspace-aware prompt (starship)
+./setup.sh config_prompt
+
+# optional: neovim with lazy.nvim
+./setup.sh config_vim
 ```
 
-## Scripts and Binaries
+## What's Included
 
-### tricks up this sleeve : from anywhere
+### Tools (via mise)
 
-- navigate to where devbox is installed
+Defined in `.mise.toml` and symlinked to `~/.mise.toml` by `config_box`:
+
+| Tool     | Purpose         |
+| -------- | --------------- |
+| node     | Node.js runtime |
+| pnpm     | Package manager |
+| neovim   | Editor          |
+| starship | Shell prompt    |
+
+### Prompt
+
+A workspace-aware [starship](https://starship.rs/) prompt that color-codes the hostname segment
+based on which workspace you're in:
+
+| Workspace                      | Color  |
+| ------------------------------ | ------ |
+| `workspaces/viqueen/*`         | orange |
+| `workspaces/{primary_org}/*`   | purple |
+| `workspaces/{secondary_org}/*` | blue   |
+| `~/`                           | green  |
+| elsewhere                      | red    |
+
+Configure orgs via env vars: `VIQUEEN_DEVBOX_PRIMARY_ORG`, `VIQUEEN_DEVBOX_SECONDARY_ORG`.
+
+### Editor
+
+Neovim with [lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager. Config lives in `cli/nvim/`
+and is scoped via `NVIM_APPNAME=devbox` (stored at `~/.config/devbox/nvim/`).
+
+Plugins: edge colorscheme, lualine, nvim-tree, telescope, treesitter, mason + lspconfig.
+
+### Scripts and Binaries
+
+#### Quick navigation
 
 ```bash
-. dev
+. dev              # navigate to devbox
+dev edit           # open dev script for edit
+dev edit myscript  # create a new script
 ```
 
-- open existing scripts for edit
+#### Available commands
 
 ```bash
-dev edit
-gitar edit
+dev -h             # housekeeping and generic scripts
+mvnup -h           # maven version upgrade
+jsonf              # json pretty format
+image -h           # docker things
+gitar -h           # git things
 ```
 
-- create a new script in devbox
+All scripts source `selfedit.sh` (edit mode via nvim) and `selfdoc.sh` (auto-generated help from `@COMMAND` annotations):
 
 ```bash
-dev edit mynewscript
-```
-
-> :information_source: all these scripts source `selfedit.sh`
-> which allows you to quickly step into edit mode (uses vim under the hood)
->
-> `selfedit.sh` also sources `selfdoc.sh` which allows you to add documentation hints
-> to your commands
-
-```bash
-#! /usr/bin/env
+#! /usr/bin/env bash
 source selfedit.sh
 
 # @COMMAND one              does this and that
 one() {
     echo "one"
-}
-
-# @COMMAND two              does these and those
-two() {
-    echo "two"
 }
 
 eval $@
@@ -91,31 +103,11 @@ if [[ -z $1 ]]; then
 fi
 ```
 
-> :x: but please note that not all scripts in devbox follow this pattern
-
-### housekeeping and generic scripts
-
-```bash
-dev -h          # mainframe
-mvnup -h        # maven version upgrade
-jsonf           # json pretty format
-image -h        # docker things
-gitar -h        # git things
-saymyname       # finds the longest java class name in a directory , I was bored once so I wrote this
-```
-
 ### Atlassian scripts
 
-- extracted to [atlassian-devbox](https://github.com/viqueen/atlassian-devbox)
-- install using homebrew
+Extracted to [atlassian-devbox](https://github.com/viqueen/atlassian-devbox):
 
 ```bash
 brew tap viqueen/atlassian-devbox
 brew install atlassian-devbox
-```
-
-- or install using npm
-
-```bash
-npm install -g atlassian-devbox
 ```

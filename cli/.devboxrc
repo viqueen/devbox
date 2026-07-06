@@ -1,9 +1,5 @@
 #! /usr/bin/env bash
 
-function cd_workspace() {
-  cd "$@" && source ~/.promptline.sh
-}
-
 alias ll='ls -la'
 alias please=sudo
 alias wl='wc -l'
@@ -11,16 +7,16 @@ alias move=mv
 alias maven=mvn
 alias awsl=awslocal
 alias cats='pygmentize -g'
-alias cd='cd_workspace'
+alias vim='NVIM_APPNAME=devbox nvim'
+alias nvim='NVIM_APPNAME=devbox nvim'
 
-# overridden when running ./setup.sh config_prompt , see .shell_prompt.sh
 export PS1='\u@\h\w'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew
-export HOMEBREW_EDITOR="vim"
+export HOMEBREW_EDITOR="nvim"
 
 # maven
 export MAVEN_OPTS="-Xms1680m -Xmx2048m -XX:MaxMetaspaceSize=384m"
