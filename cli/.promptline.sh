@@ -4,8 +4,8 @@
 #
 
 __devbox_detect_workspace() {
-  local primary_org="${VIQUEEN_DEVBOX_PRIMARY_ORG:-safetyculture}"
-  local secondary_org="${VIQUEEN_DEVBOX_SECONDARY_ORG:-labset}"
+  local primary_org="${VIQUEEN_DEVBOX_PRIMARY_ORG:-labset}"
+  local secondary_org="${VIQUEEN_DEVBOX_SECONDARY_ORG:-docker}"
 
   if [[ -n "$DEVBOX_WORKSPACES_ROOT" ]]; then
     case "$PWD" in
