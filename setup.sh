@@ -23,8 +23,8 @@ function config_box() {
 }
 
 function config_vim() {
-  mkdir -p "${HOME}/.config/devbox"
-  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/nvim "${HOME}/.config/devbox/nvim"
+  mkdir -p "${HOME}/.config"
+  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/nvim "${HOME}/.config/devbox"
   git config --global core.editor "nvim"
   NVIM_APPNAME=devbox nvim --headless "+Lazy! sync" +qa
 }
