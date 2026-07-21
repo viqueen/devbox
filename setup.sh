@@ -17,7 +17,7 @@ function config_box() {
     echo "export VIQUEEN_DEVBOX_HOME=${VIQUEEN_DEVBOX_HOME}" >> "${rc_file}"
     echo "export PATH=${PATH}:${VIQUEEN_DEVBOX_HOME}/modules/cli/bin:${VIQUEEN_DEVBOX_HOME}/cli/bin:~/bin" >> "${rc_file}"
     ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.devboxrc "${HOME}/.devboxrc"
-    echo "source ~/.devboxrc" >> "${rc_file}"
+    echo "source ${HOME}/.devboxrc" >> "${rc_file}"
     # symlink mise config so tools are available globally
     ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/.mise.toml "${HOME}/.mise.toml"
 }
