@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 #
-# workspace-aware prompt using starship
+# workspace-aware prompt (no external dependencies)
+#
+# colors match the original promptline / starship workspace palette:
+#   viqueen workspace   -> orange (fg:220 bg:166)
+#   primary org         -> purple (fg:135 bg:55)
+#   secondary org       -> blue   (fg:110 bg:20)
+#   home                -> green  (fg:231 bg:35)
+#   elsewhere (default) -> red    (fg:231 bg:124)
 #
 
 __devbox_detect_workspace() {
@@ -26,14 +33,121 @@ __devbox_detect_workspace() {
 # cache workspaces root
 export DEVBOX_WORKSPACES_ROOT="${DEVBOX_WORKSPACES_ROOT:-$(git config labset.workspaces.root 2>/dev/null)}"
 
-# starship config
-export STARSHIP_CONFIG="${VIQUEEN_DEVBOX_HOME}/cli/starship.toml"
+__devbox_prompt_dir() {
+  local dir_limit=3
+  local truncation="⋯"
+  local part_count=0
+  local formatted=""
+  local tilde="~"
+  local cwd="${PWD/#$HOME/$tilde}"
+  local first_char
 
-# init starship with workspace detection hook
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    first_char=${cwd[1,1]}
+  else
+    first_char=${cwd::1}
+  fi
+  cwd="${cwd#\~}"
+
+  while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
+    local part="${cwd##*/}"
+    cwd="${cwd%/*}"
+    formatted="/$part$formatted"
+    part_count=$((part_count + 1))
+    if [[ $part_count -eq $dir_limit ]]; then
+      first_char="$truncation"
+      break
+    fi
+  done
+
+  printf "%s" "$first_char$formatted"
+}
+
+__devbox_prompt_git_branch() {
+  hash git 2>/dev/null || return 1
+  local branch
+  branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || branch=$(git rev-parse --short HEAD 2>/dev/null) || return 1
+  printf "%s" "$branch"
+}
+
+__devbox_prompt_render() {
+  local exit_code=$?
+  __devbox_detect_workspace
+
+  local wrap end_wrap esc
+  esc=$'\033['
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    wrap='%{' end_wrap='%}'
+  else
+    wrap='\[' end_wrap='\]'
+  fi
+
+  # sgr fg [bg] -> non-printing-safe escape that resets, then sets fg (and bg if given)
+  __devbox_sgr() {
+    local fg="$1" bg="$2" code="0;38;5;${1}"
+    [[ -n "$bg" ]] && code="${code};48;5;${bg}"
+    printf '%s%s%sm%s' "$wrap" "$esc" "$code" "$end_wrap"
+  }
+
+  local reset
+  reset="${wrap}${esc}0m${end_wrap}"
+
+  local host_fg host_bg
+  case "$DEVBOX_WORKSPACE" in
+    viqueen)   host_fg=220 host_bg=166 ;;
+    primary)   host_fg=135 host_bg=55  ;;
+    secondary) host_fg=110 host_bg=20  ;;
+    home)      host_fg=231 host_bg=35  ;;
+    *)         host_fg=231 host_bg=124 ;;
+  esac
+
+  local host="${VIQUEEN_DEVBOX_MACHINE:-$(hostname -s)}"
+  local prompt=""
+
+  # workspace host segment -> username segment
+  prompt+="$(__devbox_sgr "$host_fg" "$host_bg") ${host} "
+  prompt+="$(__devbox_sgr "$host_bg" 31)"
+
+  # username segment -> directory segment
+  prompt+="$(__devbox_sgr 231 31) ${USER} "
+  prompt+="$(__devbox_sgr 31 240)"
+
+  # directory segment -> git branch segment
+  prompt+="$(__devbox_sgr 250 240) $(__devbox_prompt_dir) "
+  prompt+="$(__devbox_sgr 240 236)"
+
+  local branch git_symbol=$''
+  if branch=$(__devbox_prompt_git_branch); then
+    # git branch segment -> end of line
+    prompt+="$(__devbox_sgr 114 236) ${git_symbol} ${branch} "
+    prompt+="$(__devbox_sgr 236)"
+  else
+    prompt+="$(__devbox_sgr 240)"
+  fi
+
+  if [[ $exit_code -ne 0 ]]; then
+    prompt+="${reset}$(__devbox_sgr 196) ${exit_code}"
+  fi
+
+  prompt+="${reset}"$'\n'
+
+  if [[ $exit_code -eq 0 ]]; then
+    prompt+="$(__devbox_sgr 34)❯ ${reset}"
+  else
+    prompt+="$(__devbox_sgr 196)❯ ${reset}"
+  fi
+
+  printf "%s" "$prompt"
+}
+
 if [[ -n ${ZSH_VERSION-} ]]; then
-  precmd_functions+=(__devbox_detect_workspace)
-  eval "$(starship init zsh)"
+  __devbox_prompt_precmd() { PROMPT="$(__devbox_prompt_render)"; }
+  if [[ ! ${precmd_functions[(r)__devbox_prompt_precmd]} == __devbox_prompt_precmd ]]; then
+    precmd_functions+=(__devbox_prompt_precmd)
+  fi
 else
-  starship_precmd_user_func="__devbox_detect_workspace"
-  eval "$(starship init bash)"
+  __devbox_prompt_precmd() { PS1="$(__devbox_prompt_render)"; }
+  if [[ ! "$PROMPT_COMMAND" == *__devbox_prompt_precmd* ]]; then
+    PROMPT_COMMAND='__devbox_prompt_precmd;'$'\n'"$PROMPT_COMMAND"
+  fi
 fi

@@ -14,7 +14,7 @@ brew install mise
 git clone https://github.com/viqueen/devbox.git
 cd devbox
 
-# install tools (node, pnpm, neovim, starship)
+# install tools (node, pnpm, neovim)
 mise install
 
 # install dependencies
@@ -23,7 +23,7 @@ pnpm install
 # configure shell (exports, PATH, aliases, mise config symlink)
 ./setup.sh config_box
 
-# optional: workspace-aware prompt (starship)
+# optional: workspace-aware prompt
 ./setup.sh config_prompt
 
 # optional: neovim with lazy.nvim
@@ -36,17 +36,16 @@ pnpm install
 
 Defined in `.mise.toml` and symlinked to `~/.mise.toml` by `config_box`:
 
-| Tool     | Purpose         |
-| -------- | --------------- |
-| node     | Node.js runtime |
-| pnpm     | Package manager |
-| neovim   | Editor          |
-| starship | Shell prompt    |
+| Tool   | Purpose         |
+| ------ | --------------- |
+| node   | Node.js runtime |
+| pnpm   | Package manager |
+| neovim | Editor          |
 
 ### Prompt
 
-A workspace-aware [starship](https://starship.rs/) prompt that color-codes the hostname segment
-based on which workspace you're in:
+A dependency-free, workspace-aware prompt (`cli/.promptline.sh`) that color-codes the hostname
+segment based on which workspace you're in:
 
 | Workspace                      | Color  |
 | ------------------------------ | ------ |
