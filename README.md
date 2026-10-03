@@ -14,7 +14,7 @@ brew install mise
 git clone https://github.com/viqueen/devbox.git
 cd devbox
 
-# install tools (node, pnpm, neovim)
+# install tools (node, pnpm)
 mise install
 
 # install dependencies
@@ -26,7 +26,7 @@ pnpm install
 # optional: workspace-aware prompt
 ./setup.sh config_prompt
 
-# optional: neovim with lazy.nvim
+# optional: vim with an easy-on-the-eyes theme
 ./setup.sh config_vim
 ```
 
@@ -36,11 +36,10 @@ pnpm install
 
 Defined in `.mise.toml` and symlinked to `~/.mise.toml` by `config_box`:
 
-| Tool   | Purpose         |
-| ------ | --------------- |
-| node   | Node.js runtime |
-| pnpm   | Package manager |
-| neovim | Editor          |
+| Tool | Purpose         |
+| ---- | --------------- |
+| node | Node.js runtime |
+| pnpm | Package manager |
 
 ### Prompt
 
@@ -59,10 +58,10 @@ Configure orgs via env vars: `VIQUEEN_DEVBOX_PRIMARY_ORG`, `VIQUEEN_DEVBOX_SECON
 
 ### Editor
 
-Neovim with [lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager. Config lives in `cli/nvim/`
-and is scoped via `NVIM_APPNAME=devbox` (stored at `~/.config/devbox/nvim/`).
-
-Plugins: edge colorscheme, lualine, nvim-tree, telescope, treesitter, mason + lspconfig.
+Plain vim, no plugin manager, no alias. `config_vim` symlinks `cli/.vimrc` to `~/.vimrc`, so
+running `vim` anywhere (shell, scripts, `git commit`) picks up the config automatically. Uses
+vim's built-in `retrobox` colorscheme (gruvbox-style, muted and dark) — no vendored colors file
+to maintain, requires vim 9+.
 
 ### Scripts and Binaries
 
@@ -84,7 +83,7 @@ image -h           # docker things
 gitar -h           # git things
 ```
 
-All scripts source `selfedit.sh` (edit mode via nvim) and `selfdoc.sh` (auto-generated help from `@COMMAND` annotations):
+All scripts source `selfedit.sh` (edit mode via vim) and `selfdoc.sh` (auto-generated help from `@COMMAND` annotations):
 
 ```bash
 #! /usr/bin/env bash

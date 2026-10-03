@@ -21,13 +21,8 @@ function config_box() {
 }
 
 function config_vim() {
-  mkdir -p "${HOME}/.config"
-  # remove any prior target (dir or symlink) so ln replaces it rather than
-  # nesting the link inside an existing directory
-  rm -rf "${HOME}/.config/devbox"
-  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/nvim "${HOME}/.config/devbox"
-  git config --global core.editor "nvim"
-  NVIM_APPNAME=devbox nvim --headless "+Lazy! sync" +qa
+  ln -sfnv "${VIQUEEN_DEVBOX_HOME}"/cli/.vimrc "${HOME}/.vimrc"
+  git config --global core.editor "vim"
 }
 
 function config_prompt() {
