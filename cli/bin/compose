@@ -9,7 +9,7 @@ function up() {
     _with_arguments 1 "$@"
     profile=${1}; shift
     prefix=${1:-${directory_name}}; shift
-    docker-compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" up -d "$@"
+    docker compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" up -d "$@"
 }
 
 # @COMMAND down [profile]                 tear down profile
@@ -17,7 +17,7 @@ function down() {
     _with_arguments 1 "$@"
     profile=${1}; shift
     prefix=${1:-${directory_name}}; shift
-    docker-compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" down "$@"
+    docker compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" down "$@"
 }
 
 # @COMMAND stop [profile] <prefix>        stops profile
@@ -25,7 +25,7 @@ function stop() {
   _with_arguments 1 "$@"
   profile=${1}; shift
   prefix=${1:-${directory_name}}; shift
-  docker-compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" stop "$@"
+  docker compose -f "${VIQUEEN_DEVBOX_HOME}"/docker-compose/"${profile}".yml --project-name "${prefix}" stop "$@"
 }
 
 # @COMMAND profile [name]                 opens profile for edit
