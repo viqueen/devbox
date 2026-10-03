@@ -6,4 +6,3 @@
 node_modules/
 target/
 pnpm-lock.yaml
-cli/nvim/lazy-lock.json
