@@ -201,23 +201,6 @@ fetch() {
     git fetch && git pull origin ${upstream}
 }
 
-# @COMMAND recent                           recent git branches
-recent() {
-    git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)' \
-      | egrep -v "(^\*|master|release|future|main|demo|production|development|website)"
-}
-
-# @COMMAND old                              old git branches
-old() {
-  git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)' \
-    | egrep -v "(^\*|master|release|future|main|demo|production|development|website)"
-}
-
-# @COMMAND merged                           list merged branches
-merged() {
-  git branch --merged | egrep -v "(^\*|master|main|development|production|release|renovate|future|website)"
-}
-
 # @COMMAND branch                           displays current branch name
 branch() {
   git rev-parse --abbrev-ref HEAD
@@ -247,43 +230,6 @@ apply() {
       | awk '{print substr($1, 1, length($1)-1)}'
     )
   git stash apply ${reference}
-}
-
-# @COMMAND checkout [version]               checkout version
-checkout() {
-    _with_arguments 1 $@
-    version=$(_replace "${1}" "." "\.")
-    tag=$(git tag | grep "${version}$")
-    git checkout ${tag}~1
-}
-
-# @COMMAND milestone                        create a milestone branch from current issue branch
-milestone() {
-    branch_name=$(git rev-parse --abbrev-ref HEAD)
-    if [[ ${branch_name} =~ ^milestone-(.*)$ ]]; then
-        echo "already a milestone branch"
-    elif [[ ${branch_name} =~ ^(.*)/([A-Z]+-[0-9]+)-(.*)$ ]]; then
-        milestone_branch="milestone-${branch_name}"
-        exits=$(git rev-parse --verify ${milestone_branch})
-        if [[ -n ${exits} ]]; then
-            git checkout ${milestone_branch}
-        else
-            git checkout -b ${milestone_branch}
-        fi
-    else
-        echo "not an issue branch"
-    fi
-}
-
-# @COMMAND issue                            switch back to issue branch from current milestone branch
-issue() {
-    branch_name=$(git rev-parse --abbrev-ref HEAD)
-    if [[ ${branch_name} =~ ^milestone-(.*)$ ]]; then
-        issue_branch=${BASH_REMATCH[1]}
-        git checkout ${issue_branch}
-    else
-        echo "not a milestone branch"
-    fi
 }
 
 # @COMMAND start                            start a development branch
