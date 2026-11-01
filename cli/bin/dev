@@ -164,12 +164,22 @@ start() {
   git checkout -b "issue/${ticket}-${slug}"
 }
 
+# @COMMAND patch                            creates a patch branch
 patch() {
   today=$(date '+%Y%m%d')
   git fetch && git pull origin main
   git checkout -b "patch_${today}"
 }
 
+# @COMMAND work
+work() {
+  if [[ "$1" == "list" || "$1" == "remove" || "$1" == "rm" ]]; then
+    git work "$@"
+    return
+  fi
+  local dir
+  dir=$(git work "$@") && cd "${dir}"
+}
 
 eval $@
 
