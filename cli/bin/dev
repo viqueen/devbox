@@ -91,51 +91,6 @@ vimrc() {
 # GIT
 #####
 
-# @COMMAND merges_diff                       diff versions and extract merge commits only
-merges_diff() {
-  _with_arguments 2 $@
-  version_a=${1}
-  version_b=${2}
-  git log --merges "${version_a}".."${version_b}" --pretty=oneline
-}
-
-merges() {
-  count=${1:-10}
-  git log origin/production --merges --first-parent --pretty=format:'%ai %C(yellow)%h %Cgreen%an %Creset- %s' -n ${count}
-}
-
-
-# @COMMAND prod                         diff main with production, what is in the pipeline
-prod() {
-  git log --merges --first-parent origin/production..origin/main --pretty=format:'%C(yellow)%h %Cgreen%an %Creset- %s'
-}
-
-_filter_site_packages() {
-  while read -r line;
-  do
-    if [[ ${line} =~ ^([^[:space:]]+)([[:space:]])([^[:space:]]+)([[:space:]])(.*)$ ]]; then
-      parent_hash="${BASH_REMATCH[3]}"
-      folders=$(git diff-tree --name-only --pretty="" "${parent_hash}")
-      if [[ "${folders}" == *website* ]]; then
-        echo "${BASH_REMATCH[5]}"
-      fi
-    fi
-  done
-}
-
-# @COMMAND site                         diff main with website, what is in the pipeline
-site() {
-  git log --merges --first-parent origin/website..origin/main --pretty=format:'%p %h %an - %s' \
-    | _filter_site_packages
-}
-
-# @COOMAND release
-release() {
-  env=${1:-development}
-  target=${2:-HEAD}
-  git push origin ${target}:${env}
-}
-
 # @COMMAND gl                               pretty git log
 gl (){
     git log --graph \
