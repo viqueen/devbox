@@ -1,0 +1,70 @@
+# Dependabot configuration
+#
+# Strategy:
+#   - Security patches flow through promptly (via Dependabot security updates,
+#     enabled in repo Settings -> Code security). These are not gated by the
+#     weekly schedule below.
+#   - Version updates run weekly; patch + minor are grouped into one PR per
+#     ecosystem to keep the noise down.
+#   - Major updates are opened individually (not grouped) so each gets a
+#     deliberate review.
+#   - `cooldown` lets new releases soak before we adopt them, mitigating
+#     supply-chain attacks on fresh versions. We soak longer for majors, which
+#     also naturally spaces them out to roughly monthly.
+#
+# Note: Dependabot allows only one schedule per ecosystem+directory, so we can't
+# set a separate "monthly majors" cadence directly. The 30-day major cooldown
+# below achieves the same effect — majors only surface once they've aged a month.
+#
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+
+updates:
+  # JavaScript / TypeScript — pnpm workspace (single lockfile at root)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    cooldown:
+      semver-patch-days: 3
+      semver-minor-days: 5
+      semver-major-days: 30
+      default-days: 5
+    groups:
+      npm-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+
+  # GitHub Actions — workflows + composite actions under .github/
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    # GitHub Actions aren't versioned with semver, so Dependabot only honors
+    # `default-days` here (the `semver-*-days` keys are rejected for this ecosystem).
+    cooldown:
+      default-days: 5
+    groups:
+      actions-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
