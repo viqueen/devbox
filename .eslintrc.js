@@ -22,7 +22,7 @@ module.exports = {
             modules: true
         }
     },
-    plugins: ['import', '@labset-eslint'],
+    plugins: ['import'],
     extends: ['eslint:recommended', 'plugin:import/recommended'],
     env: {
         browser: true,
@@ -30,14 +30,6 @@ module.exports = {
         es6: true
     },
     rules: {
-        '@labset-eslint/license-notice': [
-            'error',
-            {
-                license: 'Apache-2.0',
-                copyRightYear: '2025',
-                copyRightName: 'Hasnae Rehioui'
-            }
-        ],
         'import/order': [
             'error',
             {
