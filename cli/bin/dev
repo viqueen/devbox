@@ -173,12 +173,8 @@ patch() {
 
 # @COMMAND work
 work() {
-  if [[ "$1" == "list" || "$1" == "remove" || "$1" == "rm" ]]; then
-    git work "$@"
-    return
-  fi
   local dir
-  dir=$(git work "$@") && cd "${dir}"
+  dir=$(git work list) && cd "${dir}"
 }
 
 eval $@

@@ -13,6 +13,15 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# dev work changes directory, so it must be sourced to affect the current shell
+dev() {
+  if [[ "$1" == "work" ]]; then
+    . dev "$@"
+  else
+    command dev "$@"
+  fi
+}
+
 # homebrew
 export HOMEBREW_EDITOR="vim"
 
