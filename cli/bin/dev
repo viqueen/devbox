@@ -301,30 +301,6 @@ patch() {
   git checkout -b "patch_${today}"
 }
 
-###############
-# NODE / NPM
-##############
-
-# @COMMAND npmg                             list global npm packages
-npmg() {
-  npm list -g --depth 0
-}
-
-# @COMMAND afix                          audit fix yarn dependencies
-afix() {
-  yarn_lock=$(pwd)/yarn.lock
-  pkg_lock=$(pwd)/package-lock.json
-
-  if [[ -f "${pkg_lock}" ]]; then
-    npm audit fix
-  else
-    npm install --package-lock-only
-    npm audit fix
-    rm yarn.lock
-    yarn import
-    rm package-lock.json
-  fi
-}
 
 eval $@
 
